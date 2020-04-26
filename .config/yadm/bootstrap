@@ -10,20 +10,23 @@ if [ "$choice" = "y" ]; then
     sudo pacman -S xf86-video-vmware virtualbox-guest-utils virtualbox-guest-modules-arch --noconfirm --needed
 fi
 
-sudo pacman -S feh rofi ranger sxhkd dunst neofetch noto-fonts noto-fonts-emoji ttf-font-awesome otf-font-awesome pulseaudio pulseaudio-alsa pamixer unzip picom evince --noconfirm --needed
+sudo pacman -S feh rofi ranger sxhkd dunst neofetch noto-fonts noto-fonts-emoji ttf-font-awesome otf-font-awesome pulseaudio pulseaudio-alsa pamixer unzip picom evince maim --noconfirm --needed
 
 
 if pacman -Qs yay > /dev/null ; then
     echo "Yay is already installed, moving on..."
 else
+    mkdir -p ~/sources
+    cd ~/sources
     rm -rf yay
     git clone https://aur.archlinux.org/yay.git
     cd yay
     makepkg -si --noconfirm
+    cd ~
 fi
 
 
-yay -S bspwm-rounded-corners rxvt-unicode-256xresources polybar spicetify-cli nerd-fonts-iosevka python-ueberzug spotify spicetify-git betterlockscreen gotop xcwd --needed --removemake --nocleanmenu --nodiffmenu --noeditmenu --noconfirm
+yay -S bspwm-rounded-corners rxvt-unicode-256xresources polybar spicetify-cli nerd-fonts-iosevka python-ueberzug spotify betterlockscreen gotop xcwd-git --needed --removemake --nocleanmenu --nodiffmenu --noeditmenu --noconfirm
 
 
 # ====================================
@@ -50,8 +53,8 @@ wget https://github.com/powerline/powerline/raw/develop/font/PowerlineSymbols.ot
 wget https://github.com/powerline/powerline/raw/develop/font/10-powerline-symbols.conf
 mv PowerlineSymbols.otf ~/.local/share/fonts/
 fc-cache -vf ~/.local/share/fonts/
-mkdir ~/.config/fontconfig
-mkdir ~/.config/fontconfig/conf.d
+mkdir -p ~/.config/fontconfig
+mkdir -p ~/.config/fontconfig/conf.d
 mv 10-powerline-symbols.conf ~/.config/fontconfig/conf.d/
 
 

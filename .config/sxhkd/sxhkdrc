@@ -20,18 +20,18 @@ super + Escape
 
 # Open sxhkdrc config file
 super F1
-	urxvt -e vim /home/alex/.config/sxhkd/sxhkdrc
+	urxvt -e vim ~/.config/sxhkd/sxhkdrc
 
 #
 # bspwm hotkeys
 #
 
 # restart bspwm
-super F2
+super + shift + c
 	bspc wm -r
 
-# quick bspwm
-super + shift + e
+# quit bspwm
+super + ctrl + shift + q
     bspc quit
 
 # close and kill
@@ -54,9 +54,7 @@ super + {t,shift + t,shift + space,f}
 # focus/swap
 #
 
-# focus the node in the given direction
-#super + {_,shift + }{h,j,k,l}
-#	bspc node -{f,s} {west,south,north,east}
+# focus or move the node in the given direction
 super + {_,shift + }{Left,Down,Up,Right}
 	bspc node -{f,s} {west,south,north,east}
 
@@ -116,7 +114,8 @@ super + shift + 0
 #
 
 # preselect the direction
-super + ctrl + {h,j,k,l}
+# super + ctrl + {h,j,k,l}
+super + ctrl + {Left,Down,Up,Right}
 	bspc node -p {west,south,north,east}
 
 # preselect the ratio
@@ -132,45 +131,44 @@ super + ctrl + space
 #
 
 # expand a window by moving one of its side outward
-super + alt + {h,j,k,l}
+# super + alt + {h,j,k,l}
+super + alt + {Left,Down,Up,Right}
 	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
 
 # contract a window by moving one of its side inward
-super + alt + shift + {h,j,k,l}
+# super + alt + shift + {h,j,k,l}
+super + alt + shift + {Left,Down,Up,Right}
 	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
 
 # ===================================
 # ========== User-specific ==========
 # ===================================
 
-super + w
-	chromium
+# super + w
+# 	chromium
 
-super + r
+super + e
 	urxvt -e ranger
 
-super + shift + r
+super + shift + e
 	urxvt -e sudo ranger
 
-super + x
+super + l
     sudo betterlockscreen -l
 
 super + s
     ~/Scripts/scratchy.sh
 
-super + shift + s
-    spotify
+# super + shift + s
+#     spotify
 
-super + k
-    KeeWeb
+# super + k
+#     KeeWeb
 
-super + c
-    code
+# super + shift + i
+#     imgur-screenshot
 
-super + shift + i
-    imgur-screenshot
-
-super + ctrl + i
+super F12
     maim -s | xclip -selection clipboard -t image/png 
 
 # Screen brightness control
@@ -178,6 +176,7 @@ XF86MonBrightnessDown
     sudo light -U 10
 XF86MonBrightnessUp
     sudo light -A 10
+
 # Volume control
 XF86AudioRaiseVolume
     /usr/bin/pulseaudio-ctl up 10
@@ -185,9 +184,11 @@ XF86AudioLowerVolume
     /usr/bin/pulseaudio-ctl down 10
 XF86AudioMute
     pactl set-sink-mute 0 toggle
+
 # Play/pause
 XF86AudioPlay
     dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause 
+
 # Next/prev
 XF86AudioNext
     dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next

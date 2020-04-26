@@ -43,6 +43,7 @@ Dot files for my Arch Linux (5.5.2) + bspwm.
 
 ### Secondary
 
+- `maim`: Screenclip to clipboard
 - `w3m`: Used to display images in ranger
 - `picom`: Compositor
 - `pulseaudio / -alsa`: Audio driver
@@ -60,7 +61,6 @@ Dot files for my Arch Linux (5.5.2) + bspwm.
 
 ### Secondary (unused)
 
-- `maim`: Screenclip to clipboard
 - `KeeWeb`: Password manager
 - `redshift`: F.lux alternative (tints your screen to make it easier on your eyes)
 
@@ -97,7 +97,7 @@ Simply open vim and it should automatically install everything the first time. I
 
 ### Rounded corners (bspwm fork)
 
-To get the rounded corners in bspwm, I currently use a fork of bspwm by [dylanaraps](https://github.com/dylanaraps), found [here](https://github.com/dylanaraps/bspwm).
+To get the rounded corners in bspwm, I currently use a fork of bspwm by [dylanaraps](https://github.com/dylanaraps/bspwm).
 
 In Ach it's easy to install, just take `bspwm-rounded-corners` from AUR.
 
