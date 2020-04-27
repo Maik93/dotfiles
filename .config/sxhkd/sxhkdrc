@@ -167,8 +167,12 @@ super + s
 # super + shift + i
 #     imgur-screenshot
 
+# Screenshots: from selection or entire screen
 super F12
     maim -s | xclip -selection clipboard -t image/png 
+
+super + shift F12
+    maim | xclip -selection clipboard -t image/png
 
 # Screen brightness control
 XF86MonBrightnessDown

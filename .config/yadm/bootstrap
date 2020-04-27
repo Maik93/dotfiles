@@ -10,7 +10,7 @@ if [ "$choice" = "y" ]; then
     sudo pacman -S xf86-video-vmware virtualbox-guest-utils virtualbox-guest-modules-arch --noconfirm --needed
 fi
 
-sudo pacman -S feh rofi ranger sxhkd dunst neofetch noto-fonts noto-fonts-emoji ttf-font-awesome otf-font-awesome pulseaudio pulseaudio-alsa pamixer unzip picom evince light maim w3m numlockx openssh papirus-icon-theme telegram-desktop --noconfirm --needed
+sudo pacman -S feh rofi ranger sxhkd dunst neofetch noto-fonts noto-fonts-emoji ttf-font-awesome otf-font-awesome pulseaudio pulseaudio-alsa pamixer unzip picom evince light maim w3m numlockx openssh papirus-icon-theme telegram-desktop xclip --noconfirm --needed
 
 
 if pacman -Qs yay > /dev/null ; then
