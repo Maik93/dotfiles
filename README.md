@@ -107,32 +107,6 @@ Now, unfortunately, as you will quickly notice with this fork, these corners are
 
 These are some of the tweaks I've made for my specific setup, most of them are to optimize battery lifetime.
 
-### Disabled modules
-
-In `/etc/modprobe.d/blacklist.conf`:
-```
-blacklist nouveau
-blacklist nvidia
-blacklist psmouse
-blacklist btusb
-blacklist bluetooth
-```
-
-### Disabling turbo boost
-
-In `/etc/systemd/system/disable-turbo-boost.service`:
-```
-[Unit]
-Description=Disable Turbo Bost on Intel CPU
-
-[Service]
-ExecStart=/bin/sh -c "/usr/bin/echo 1 > /sys/devices/system/cpu/intel_pstate/no_turbo"      
-ExecStop=/bin/sh -c "/usr/bin/echo 1 > /sys/devices/system/cpu/intel_pstate/no_turbo"      
-
-[Install]
-WantedBy=sysinit.target
-```
-
 ### Enable powertop auto tune
 
 *TLP can be used instead of this if you want a less aggressive power tuning.*
@@ -155,9 +129,6 @@ WantedBy=multi-user.target
 Below are the kernel parameters I would pass to all linux installations, but I think they depends on the hardware (mine is an MSI GS63 8RE).
 
 ```
-i915.modeset=1 nouveau.modeset=0 acpi_rev_override=1
+acpi_osi=Linux
 ```
 
-- `i915.modeset=1`: Ensure iGPU is loaded early by using KMS. (Might fix boot loader/display manager not being shown)
-- `nouveau.modeset=0`: Block nouveau from managing the GPU. (This bundled together with the previous parameter allows X to run entirely on my iGPU, as there are no drivers loaded for the GPU; this drastically improves battery life for obvious reasons)
-- `acpi_rev_override=1`: This is the most important setting, as this prevents some freezing issues I had due to the nvidia card not working well with ACPI.
