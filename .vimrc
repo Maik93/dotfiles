@@ -47,35 +47,39 @@ set tabstop=4                   " 4 spaces will do
 set shiftwidth=4                " control indentation for >> bind
 set expandtab                   " spaces instead of tabs
 set autoindent                  " always set autoindenting on
-set relativenumber              " relative line numbers
+"set relativenumber              " relative line numbers
 set number                      " hybrid numbering with both rnu and number
 set hidden                      " hide buffers instead of closing them
 set ignorecase                  " ignore case when searching
 set smartcase                   " ignore case if all lowercase
 set nobackup                    " don't need swp files
 set noswapfile                  " don't need swp files
-"set showmatch                   " Show matching braces when over one
+set showmatch                   " Show matching braces when over one
 set backspace=indent,eol,start  " allow backspacing everything in insert
 set hlsearch                    " highlight searches
 set incsearch                   " search as typing
 set laststatus=2		        " for lightline.vim plugin
+set ttymouse=xterm2             " scroll with mouse
 
 
 " Use comma as leader
 let g:mapleader = ','
-" make it possible to write danish letters
-let g:AutoPairsShortcutFastWrap=''
 
 " ---Re-mappings---
 " 
 " Ctrl-C for yanking to register, Ctrl+P to paste from clipboard
 vnoremap <C-c> "*y :let @+=@*<CR>
 map <C-p> "+P
+
+" show differencies from the last save
+command Diff w !diff % -
+
 " since I constantly write accidentally mess these up when going fast
 command WQ wq
 command Wq wq
 command W w
 command Q q
+command Qw wq
 " w!! to write with sudo even if not opened with sudo
 cmap w!! w !sudo tee >/dev/null %
 "split navigations
@@ -161,6 +165,4 @@ function! SaveAndExecutePython()
     setlocal readonly
     setlocal nomodifiable
 endfunction
-
-
 

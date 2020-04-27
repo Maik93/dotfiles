@@ -10,7 +10,6 @@ export ZSH="/home/flynn/.oh-my-zsh"
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 # ZSH_THEME="robbyrussell"
-# ZSH_THEME="mine_oneline"
 # ZSH_THEME="powerlevel9k/powerlevel9k"
 ZSH_THEME="agnoster"
 
@@ -95,6 +94,9 @@ unsetopt share_history # disable history shared between open terminals
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
+bindkey '[3^' kill-word
+bindkey '[33~' backward-kill-word
+
 # # >>> conda initialize >>>
 # # !! Contents within this block are managed by 'conda init' !!
 # __conda_setup="$('/home/flynn/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
@@ -155,7 +157,9 @@ export LC_NUMERIC="en_GB.UTF-8"
 
 # general purpose aliases
 alias install='sudo pacman -S'
-alias search='sudo pacman -Ss'
+#alias search='sudo pacman -Ss'
+alias yinstall='yay -S'
+alias search='yay -Ss'
 alias remove='sudo pacman -R'
 alias clean='sudo pacman -Scc'
 alias d2u='dos2unix'
@@ -178,20 +182,9 @@ alias gpull='git pull'
 alias gstat='git status'
 alias gfetch='git fetch --all -p -P'
 
-# # John the Ripper
-# export JOHN_DIR=/home/flynn/sources/john_src/run
-# alias john='optirun /home/flynn/sources/john_src/run/john --devices=1'
-# alias unshadow='/home/flynn/sources/john_src/run/unshadow'
-# alias john-edit-my-rules='subl /home/flynn/sources/john_src/run/rules/mine.rule'
-# alias mentalist='cd /home/flynn/sources/john_src/run/dict_attacks/ && ./Mentalist'
-
-# # Hashcat
-# export HASHCAT_DIR=/home/flynn/sources/hashcat-5.1.0
-
 # GPU integration
 alias nv-processes='optirun nvidia-smi'
 alias gpu='optirun' # to use Nvidia for the subsequent task (e.g. "gpu glxgears")
-# alias gpu='primusrun' # optirun uses primus as default, so it's the same as above
 alias gpu-hidden='optirun -b none env DISPLAY=:8' # to run something headless with Nvidia (no screen output, faster than anything)
 # alias check-gpu='cat /proc/acpi/bbswitch'
 alias check-gpu='optirun --status'

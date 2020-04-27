@@ -27,7 +27,7 @@ Dot files for my Arch Linux (5.5.2) + bspwm.
 - `rofi`: Application launcher
 - `zsh`: Shell
 - `urxvt`: Terminal emulator
-- `bspwm`: Window manager (rounded corners fork)
+- `bspwm`: Window manager (rounded corners fork, see below)
 - `sxhkd`: Hotkey daemon
 - `dunst`: Notification daemon
 - `vim`: Editor

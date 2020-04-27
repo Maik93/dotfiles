@@ -10,7 +10,7 @@ if [ "$choice" = "y" ]; then
     sudo pacman -S xf86-video-vmware virtualbox-guest-utils virtualbox-guest-modules-arch --noconfirm --needed
 fi
 
-sudo pacman -S feh rofi ranger sxhkd dunst neofetch noto-fonts noto-fonts-emoji ttf-font-awesome otf-font-awesome pulseaudio pulseaudio-alsa pamixer unzip picom evince maim --noconfirm --needed
+sudo pacman -S feh rofi ranger sxhkd dunst neofetch noto-fonts noto-fonts-emoji ttf-font-awesome otf-font-awesome pulseaudio pulseaudio-alsa pamixer unzip picom evince light maim w3m numlockx openssh papirus-icon-theme telegram-desktop --noconfirm --needed
 
 
 if pacman -Qs yay > /dev/null ; then
@@ -26,8 +26,10 @@ else
 fi
 
 
-yay -S bspwm-rounded-corners rxvt-unicode-256xresources polybar spicetify-cli nerd-fonts-iosevka python-ueberzug spotify betterlockscreen gotop xcwd-git --needed --removemake --nocleanmenu --nodiffmenu --noeditmenu --noconfirm
+yay -S bspwm-rounded-corners rxvt-unicode-256xresources polybar spicetify-cli nerd-fonts-iosevka python-ueberzug spotify betterlockscreen gotop xcwd-git pulseaudio-ctl hardcode-tray --needed --removemake --nocleanmenu --nodiffmenu --noeditmenu --noconfirm
 
+sudo pacman -S debtap
+sudo debtap -u
 
 # ====================================
 # Download and set background
@@ -57,6 +59,8 @@ mkdir -p ~/.config/fontconfig
 mkdir -p ~/.config/fontconfig/conf.d
 mv 10-powerline-symbols.conf ~/.config/fontconfig/conf.d/
 
+# override applications icons and trays
+sudo hardcode-tray --size 24 --theme Papirus
 
 echo "=============="
 echo "==== DONE ===="

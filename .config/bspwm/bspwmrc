@@ -4,10 +4,15 @@ sxhkd &
 
 bspc monitor -d 1 2 3 4 5 6 7 8 9 10
 
-bspc rule -a URxvt:scratchy sticky=on state=floating rectangle=widthxheight+Xoffset+Yoffset
+bspc rule -a URxvt:scratchy state=floating rectangle=widthxheight+Xoffset+Yoffset
+bspc rule -a Chromium desktop='^1' follow=true border=false
+bspc rule -a jetbrains-pycharm desktop='^5' follow=true # floating windows by default in WS-5
+bspc rule -a TelegramDesktop desktop='^7' state=floating center=true follow=true border=false
 
-bspc config border_width          4
-bspc config border_radius        12
+~/.local/bin/floating_ws_5.sh & # any windows in WS 5 will be floating
+
+bspc config border_width          2
+bspc config border_radius         6
 bspc config window_gap           12
 
 bspc config split_ratio          0.52
@@ -18,7 +23,7 @@ bspc config gapless_monocle      true
 # ------- Non-BSPWM related ------
 # --------------------------------
 # Set wallpaper
-feh --bg-fill ~/Documents/Wallpapers/gruvbox.png
+feh --bg-fill ~/Documents/Wallpapers/dawn.jpg
 # Reload .Xresources
 xrdb -load ~/.Xresources
 # Launch polybar
@@ -26,7 +31,7 @@ xrdb -load ~/.Xresources
 # Change from ugly 'X' cursor when hovering over background
 xsetroot -cursor_name left_ptr
 # Make betterlockscreen generate and cache a background image for locking
-sudo betterlockscreen -u ~/Documents/Wallpapers/gruvbox.png
+betterlockscreen -u ~/Documents/Wallpapers/wolf_moon.jpg
 # ------- Autostart apps ------
 # Picom
 picom --xrender-sync-fence &
@@ -39,10 +44,12 @@ nm-applet &
 # Start libinput gestures
 libinput-gestures-setup start
 # Xinput configs (touchpad)
-# xinput set-prop "DLL07BE:01 06CB:7A13 Touchpad" "libinput Natural Scrolling Enabled" 1
-# xinput set-prop "DLL07BE:01 06CB:7A13 Touchpad" "libinput Click Method Enabled" 0 1
-# xinput set-prop "DLL07BE:01 06CB:7A13 Touchpad" "libinput Disable While Typing Enabled" 0
+xinput set-prop "ETPS/2 Elantech Touchpad" "libinput Tapping Enabled" 1
+xinput set-prop "ETPS/2 Elantech Touchpad" "libinput Natural Scrolling Enabled" 1
+#xinput set-prop "ETPS/2 Elantech Touchpad" "libinput Click Method Enabled" 0 1
+#xinput set-prop "ETPS/2 Elantech Touchpad" "libinput Disable While Typing Enabled" 0
 
 # ------- Keyboard fixes ------
 # Remap Caps-lock key to Escape, for using VIM
 # setxkbmap -option caps:escape
+setxkbmap -layout it

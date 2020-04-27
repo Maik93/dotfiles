@@ -1,8 +1,17 @@
-URxvt.perl-ext-common: default,xresources-256
+URxvt.perl-ext-common: default,xresources-256,vtwheel
 URxvt*scrollBar: 	false
 URxvt*font:		    xft:Iosevka:style=regular:size=12
 URxvt*iso14755:		false
 URxvt*iso14755_52:	false
+
+!!! Keymaps (ctrl+stuff to do cool things)
+URxvt.keysym.Control-Up:    \033[1;5A
+URxvt.keysym.Control-Down:  \033[1;5B
+URxvt.keysym.Control-Left:  \033[1;5D
+URxvt.keysym.Control-Right: \033[1;5C
+URxvt.keysym.C-BackSpace: \033[33~
+
+!URxvt.perl-ext-common:vtwheel
 
 !!! Gruvbox theme
 ! hard contrast: *background: #1d2021

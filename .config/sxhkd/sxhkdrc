@@ -1,6 +1,4 @@
-#
-# wm independent hotkeys
-#
+## BSPWM keymaps <3 ##
 
 # terminal emulator
 super + Return
@@ -14,21 +12,21 @@ super + shift + Return
 super + d
 	rofi -modi run,drun -show drun -columns 1 -width 24 -lines 8 -padding 45 -hide-scrollbar -show-icons -drun-icon-theme "Papirus"
 
-# make sxhkd reload its configuration files:
-super + Escape
+# reload sxhkd config
+super + shift F2
 	pkill -USR1 -x sxhkd
 
-# Open sxhkdrc config file
-super F1
+# open sxhkdrc config file
+super F2
 	urxvt -e vim ~/.config/sxhkd/sxhkdrc
 
-#
-# bspwm hotkeys
-#
-
-# restart bspwm
-super + shift + c
+# reload bspwm config
+super + shift F1
 	bspc wm -r
+
+# open bspwm config file
+super F1
+    urxvt -e vim ~/.config/bspwm/bspwmrc
 
 # quit bspwm
 super + ctrl + shift + q
@@ -58,9 +56,10 @@ super + {t,shift + t,shift + space,f}
 super + {_,shift + }{Left,Down,Up,Right}
 	bspc node -{f,s} {west,south,north,east}
 
-# focus the next/previous node in the current desktop
+# focus the next/previous node (in any workspace)
 super + {_,shift + }Tab
-	bspc node -f {next,prev}.local
+	bspc node -f {next,prev}
+	#bspc node -f {next,prev}.local
 
 super + 1
     bspc desktop -f 1
@@ -144,8 +143,8 @@ super + alt + shift + {Left,Down,Up,Right}
 # ========== User-specific ==========
 # ===================================
 
-# super + w
-# 	chromium
+super + w
+	chromium
 
 super + e
 	urxvt -e ranger
@@ -154,10 +153,10 @@ super + shift + e
 	urxvt -e sudo ranger
 
 super + l
-    sudo betterlockscreen -l
+    betterlockscreen -l
 
 super + s
-    ~/Scripts/scratchy.sh
+    ~/.local/bin/scratchy.sh
 
 # super + shift + s
 #     spotify
