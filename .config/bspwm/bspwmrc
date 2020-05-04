@@ -6,10 +6,10 @@ bspc monitor -d 1 2 3 4 5 6 7 8 9 10
 
 bspc rule -a URxvt:scratchy state=floating rectangle=widthxheight+Xoffset+Yoffset
 bspc rule -a Chromium desktop='^1' follow=true border=false
-bspc rule -a jetbrains-pycharm desktop='^5' follow=true # floating windows by default in WS-5
+bspc rule -a jetbrains-pycharm desktop='^5' follow=true border=false # floating windows by default in WS-5
 bspc rule -a TelegramDesktop desktop='^7' state=floating center=true follow=true border=false
 
-~/.local/bin/floating_ws_5.sh & # any windows in WS 5 will be floating
+#~/.local/bin/floating_ws_5.sh & # any windows in WS 5 will be floating
 
 bspc config border_width          2
 bspc config border_radius         6
@@ -33,12 +33,14 @@ xsetroot -cursor_name left_ptr
 # Make betterlockscreen generate and cache a background image for locking
 betterlockscreen -u ~/Documents/Wallpapers/wolf_moon.jpg
 # ------- Autostart apps ------
-# Picom
+# Picom (compositor)
 picom --xrender-sync-fence &
-# Dunst
+# Dunst (notifications)
 dunst &
 # Nm-applet
 nm-applet &
+# Blue-light dimmer
+redshift &
 
 # ------- Mouse/Touchpad fixes ------
 # Start libinput gestures
