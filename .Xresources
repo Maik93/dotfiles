@@ -1,8 +1,17 @@
-URxvt.perl-ext-common: default,xresources-256,vtwheel
+URxvt.perl-ext-common: default,xresources-256,vtwheel,tabbedex
 URxvt*scrollBar: 	false
 URxvt*font:		    xft:Iosevka:style=regular:size=12
 URxvt*iso14755:		false
 URxvt*iso14755_52:	false
+URxvt.geometry: 80x15
+
+!!! Tab colours
+URxvt.tabbedex.tabbar-fg: 7
+URxvt.tabbedex.tabbar-bg: 0
+URxvt.tabbedex.tab-fg: 4
+URxvt.tabbedex.tab-bg: 0
+URxvt.tabbedex.autohide: yes
+URxvt.tabbedex.new-button: no
 
 !!! Keymaps (ctrl+stuff to do cool things)
 URxvt.keysym.Control-Up:    \033[1;5A
