@@ -72,7 +72,7 @@ ZSH_THEME="agnoster"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions)
+plugins=(git zsh-autosuggestions docker)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -161,7 +161,7 @@ alias install='sudo pacman -S'
 #alias search='sudo pacman -Ss'
 alias yinstall='yay -S'
 alias search='yay -Ss'
-alias remove='sudo pacman -R'
+alias remove='sudo pacman -Rs'
 alias clean='sudo pacman -Scc'
 alias d2u='dos2unix'
 alias cat='pygmentize -g'
@@ -195,12 +195,13 @@ alias check-gpu='optirun --status'
 # export GEM_HOME=$HOME/gems
 # export PATH=$HOME/gems/bin:$PATH
 
-# # Docker
-# # alias docker-remove-all-containers='docker container rm $(docker container ls -a -q)'
-# alias docker-remove-containers-except-realsense='docker rm $(docker container ls -a | grep -v "ros-realsense" | awk "NR>1 {print $1}")'
-# alias docker-remove-none-images='docker rmi $(docker images -qa -f 'dangling=true')'
+# Docker
+# alias docker-remove-all-containers='docker container rm $(docker container ls -a -q)'
+alias docker-remove-all-containers='docker rm $(docker container ls -a | grep -v "ros-melodic" | awk "NR>1 {print $1}")'
+alias docker-remove-none-images='docker rmi $(docker images -qa -f 'dangling=true')'
 # alias go-realsense="cd ~/docks/ros_kinetic_realsense/ros_ws_src/realsense/realsense_camera && rm launch/r200_handler.launch && ln ~/aragog_ws/src/hexapod_ros_project/launch/r200_handler.launch ./launch/r200_handler.launch && optirun ~/docks/ros_kinetic_realsense/go.sh"
 # alias kali-dock="cd docks/kali/ && ./go.sh"
+alias ros-docker='~/docks/ros_melodic/go.sh'
 
 # # CUDA (currently 10.2, you can check with 'cat /usr/lib/cuda/version.txt')
 # export PATH="/usr/local/cuda/bin:$PATH"

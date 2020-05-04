@@ -53,3 +53,10 @@ xinput set-prop "ETPS/2 Elantech Touchpad" "libinput Natural Scrolling Enabled" 
 # Remap Caps-lock key to Escape, for using VIM
 # setxkbmap -option caps:escape
 setxkbmap -layout it
+
+# Fix for Jetbrains IDEs
+wmname LG3D
+
+# allow Docker to open X11 windows
+xhost +local:docker
+
