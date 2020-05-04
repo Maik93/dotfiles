@@ -28,6 +28,10 @@ super + shift F1
 super F1
     urxvt -e vim ~/.config/bspwm/bspwmrc
 
+# zshrc
+super F3
+    urxvt -e vim ~/.zshrc
+
 # quit bspwm
 super + ctrl + shift + q
     bspc quit
@@ -47,6 +51,9 @@ super + {t,shift + t,shift + space,f}
 # set the node flags
 #super + ctrl + {m,x,y,z}
 #	bspc node -g {marked,locked,sticky,private}
+super + ctrl + s
+    bspc node -g sticky
+
 
 #
 # focus/swap
@@ -56,57 +63,32 @@ super + {t,shift + t,shift + space,f}
 super + {_,shift + }{Left,Down,Up,Right}
 	bspc node -{f,s} {west,south,north,east}
 
-# focus the next/previous node (in any workspace)
+# focus to next/previous window
 super + {_,shift + }Tab
-	bspc node -f {next,prev}
-	#bspc node -f {next,prev}.local
+    bspc node -f {next,prev}
 
-super + 1
-    bspc desktop -f 1
-super + 2
-    bspc desktop -f 2
-super + 3
-    bspc desktop -f 3
-super + 4
-    bspc desktop -f 4
-super + 5
-    bspc desktop -f 5
-super + 6
-    bspc desktop -f 6
-super + 7
-    bspc desktop -f 7
-super + 8
-    bspc desktop -f 8
-super + 9
-    bspc desktop -f 9
-super + 0
-    bspc desktop -f 10
+# focus the next/previous occupied desktop
+ctrl + alt + {Right,Left}
+    bspc desktop -f {next,prev}.occupied
 
-# Temporary very ugly fix (Weird bug when other more simple binding was used.)
-super + shift + 1
-    bspc node -d 1
-super + shift + 2
-    bspc node -d 2
-super + shift + 3
-    bspc node -d 3
-super + shift + 4
-    bspc node -d 4
-super + shift + 5
-    bspc node -d 5
-super + shift + 6
-    bspc node -d 6
-super + shift + 7
-    bspc node -d 7
-super + shift + 8
-    bspc node -d 8
-super + shift + 9
-    bspc node -d 9
-super + shift + 0
-    bspc node -d 10
 # focus or send to the given desktop
-#super + {_,shift + }{1-9,0}
-#	bspc {desktop -f,node -d} '^{1-9,10}'
+# super + {_,shift + }{1-9}
+# 	bspc {desktop -f,node -d} '^{1-9}'
 
+# focus to the given desktop
+super + {1-9}
+	bspc desktop -f '^{1-9}'
+
+# send to the given desktop and follow
+super + shift + {1-9}
+	id=$(bspc query -N -n); \
+	bspc node -d ^{1-9}; \
+	bspc node -f ${id}
+
+ctrl + alt + shift + {Right,Left}
+    DIR={next,prev}; \
+    bspc node -d "$DIR"; \
+    bspc desktop -f "$DIR"
 
 #
 # preselect
@@ -176,25 +158,28 @@ super + shift F12
 
 # Screen brightness control
 XF86MonBrightnessDown
-    sudo light -U 10
+    sudo light -U 5
 XF86MonBrightnessUp
-    sudo light -A 10
+    sudo light -A 5
 
 # Volume control
 XF86AudioRaiseVolume
-    /usr/bin/pulseaudio-ctl up 10
+    /usr/bin/pulseaudio-ctl up 5
 XF86AudioLowerVolume
-    /usr/bin/pulseaudio-ctl down 10
+    /usr/bin/pulseaudio-ctl down 5
 XF86AudioMute
     pactl set-sink-mute 0 toggle
 
 # Play/pause
-XF86AudioPlay
+#XF86AudioPlay
+ctrl + 9
     dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause 
 
 # Next/prev
-XF86AudioNext
+#XF86AudioNext
+ctrl + 0
     dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
-XF86AudioPrev
+#XF86AudioPrev
+ctrl + 8
     dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous
 
