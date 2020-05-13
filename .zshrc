@@ -98,20 +98,20 @@ unsetopt share_history # disable history shared between open terminals
 bindkey '[3^' kill-word
 bindkey '[33~' backward-kill-word
 
-# # >>> conda initialize >>>
-# # !! Contents within this block are managed by 'conda init' !!
-# __conda_setup="$('/home/flynn/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-# if [ $? -eq 0 ]; then
-#     eval "$__conda_setup"
-# else
-#     if [ -f "/home/flynn/miniconda3/etc/profile.d/conda.sh" ]; then
-#         . "/home/flynn/miniconda3/etc/profile.d/conda.sh"
-#     else
-#         export PATH="/home/flynn/miniconda3/bin:$PATH"
-#     fi
-# fi
-# unset __conda_setup
-# # <<< conda initialize <<<
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/opt/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/opt/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/opt/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/opt/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -172,6 +172,7 @@ alias suggest-pass='apg -s -a 1 -m 15 -M SNCL'
 alias du='du -hs'
 alias df='df -h | grep -v snap'
 alias lsblk='lsblk | grep -v snap'
+alias update-grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
 
 # git aliases
 alias gadd='git add'

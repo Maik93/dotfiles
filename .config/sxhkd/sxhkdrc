@@ -18,7 +18,7 @@ super + shift F2
 
 # open sxhkdrc config file
 super F2
-	urxvt -e vim ~/.config/sxhkd/sxhkdrc
+    urxvt -e /bin/zsh -c "sleep 0.2; vim ~/.config/sxhkd/sxhkdrc"
 
 # reload bspwm config
 super + shift F1
@@ -26,11 +26,11 @@ super + shift F1
 
 # open bspwm config file
 super F1
-    urxvt -e vim ~/.config/bspwm/bspwmrc
+    urxvt -e /bin/zsh -c "sleep 0.2; vim ~/.config/bspwm/bspwmrc"
 
 # zshrc
 super F3
-    urxvt -e vim ~/.zshrc
+    urxvt -e /bin/zsh -c "sleep 0.2; vim ~/.zshrc"
 
 # quit bspwm
 super + ctrl + shift + q
@@ -52,7 +52,8 @@ super + {t,shift + t,shift + space,f}
 #super + ctrl + {m,x,y,z}
 #	bspc node -g {marked,locked,sticky,private}
 super + ctrl + s
-    bspc node -g sticky
+    bspc node -g sticky; \
+    notify-send "Current window made sticky"
 
 
 #
@@ -151,10 +152,12 @@ super + s
 
 # Screenshots: from selection or entire screen
 super F12
-    maim -s | xclip -selection clipboard -t image/png 
+    maim -s | xclip -selection clipboard -t image/png; \
+    notify-send "Screen acquired"
 
 super + shift F12
-    maim | xclip -selection clipboard -t image/png
+    maim | xclip -selection clipboard -t image/png; \
+    notify-send "Screen acquired"
 
 # Screen brightness control
 XF86MonBrightnessDown
@@ -168,7 +171,8 @@ XF86AudioRaiseVolume
 XF86AudioLowerVolume
     /usr/bin/pulseaudio-ctl down 5
 XF86AudioMute
-    pactl set-sink-mute 0 toggle
+    pactl set-sink-mute 0 toggle; \
+    notify-send "Mute toggled"
 
 # Play/pause
 #XF86AudioPlay

@@ -1,15 +1,29 @@
 #! /bin/sh
 
-sxhkd &
+is_external_monitor_present=$(xrandr --query | grep '^DP1 connected')
+if [[ $is_external_monitor_present ]]; then
+    xrandr --output eDP1 --primary --mode 1920x1080 --rotate normal --output DP1 --mode 1920x1080 --rotate normal --left-of eDP1
+    bspc monitor eDP1 -d 1 2 3 4 5
+    bspc monitor DP1 -d 6 7 8 9 10
+    bspc wm -O eDP1 DP1
+else
+    bspc monitor -d 1 2 3 4 5 6 7 8 9 10
+    ~/.local/bin/floating_ws_5.sh & # any windows in WS 5 will be floating
+fi
 
-bspc monitor -d 1 2 3 4 5 6 7 8 9 10
+sxhkd &
 
 bspc rule -a URxvt:scratchy state=floating rectangle=widthxheight+Xoffset+Yoffset
 bspc rule -a Chromium desktop='^1' follow=true border=false
-bspc rule -a jetbrains-pycharm desktop='^5' follow=true border=false # floating windows by default in WS-5
-bspc rule -a TelegramDesktop desktop='^7' state=floating center=true follow=true border=false
 
-#~/.local/bin/floating_ws_5.sh & # any windows in WS 5 will be floating
+bspc rule -a jetbrains-pycharm follow=true border=false state=floating
+bspc rule -a jetbrains-webstorm follow=true border=false
+bspc rule -a "MATLAB R2019b - academic use" desktop='^5' follow=true border=false
+bspc rule -a MATLABWindow desktop='^5' follow=true border=false center=true
+
+bspc rule -a TelegramDesktop desktop='^7' state=floating center=true follow=true border=false
+bspc rule -a discord desktop='^8' state=floating center=true follow=true border=false
+
 
 bspc config border_width          2
 bspc config border_radius         6
@@ -32,15 +46,26 @@ xrdb -load ~/.Xresources
 xsetroot -cursor_name left_ptr
 # Make betterlockscreen generate and cache a background image for locking
 betterlockscreen -u ~/Documents/Wallpapers/wolf_moon.jpg
+
 # ------- Autostart apps ------
 # Picom (compositor)
 picom --xrender-sync-fence &
+
 # Dunst (notifications)
+killall -q dunst
 dunst &
+
 # Nm-applet
-nm-applet &
+#nm-applet &
+
 # Blue-light dimmer
+killall -q redshift
+#while pgrep -u $UID -x redshift > /dev/null; do sleep 1; done
 redshift &
+
+# Battery status notifications
+killall -q batsignal
+batsignal -n BAT1 -w 20 -c 10 -b
 
 # ------- Mouse/Touchpad fixes ------
 # Start libinput gestures
