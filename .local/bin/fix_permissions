@@ -1,0 +1,32 @@
+#!/bin/bash -e
+
+# list of directory to fix
+#dirToFix[0]="/home/me/Videos"
+#dirToFix[1]="/home/me/Music"
+dirToFix[0]="$(pwd)"
+
+# Setup find correctly
+export IFS=$'\n'
+
+# Loop through our array
+for x in ${dirToFix[@]}
+    do 
+        # Find all directories & subdirectories
+        for i in $(find $x -type d) 
+            do 
+                # Fix Permissions
+                chmod -c 775 $i
+                #chown -c me:user $i
+            done
+
+        # Find all Files
+        for i in $(find $x -type f) 
+            do 
+                # Fix Permissions
+                chmod -c 664 $i
+                # chown -c me:user $i
+            done
+    done
+
+echo "File and directory permissions under $dirToFix recursively fixed succesfully."
+echo "They are now set to 644 and 755, respectively."

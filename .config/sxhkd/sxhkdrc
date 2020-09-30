@@ -130,13 +130,15 @@ super + w
 	chromium
 
 super + e
-	urxvt -e ranger
+	nautilus
+	#urxvt -e ranger
 
 super + shift + e
-	urxvt -e sudo ranger
+	sudo nautilus
+	#urxvt -e sudo ranger
 
 super + l
-    betterlockscreen -l
+    betterlockscreen --off 5 -l
 
 super + s
     ~/.local/bin/scratchy.sh

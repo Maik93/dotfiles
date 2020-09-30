@@ -122,7 +122,7 @@ unset __conda_setup
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-export PATH="$PATH:/home/$USER/.local/bin"
+export PATH="$PATH:/home/$USER/.local/bin:/home/flynn/.gem/ruby/2.7.0/bin"
 
 # R.O.S.
 export LC_NUMERIC="en_GB.UTF-8"
@@ -155,6 +155,10 @@ export LC_NUMERIC="en_GB.UTF-8"
 # alias urdf2pdf='urdf_to_graphiz'
 # alias ros-connect-to-vm='export ROS_HOSTNAME=192.168.56.1 && export ROS_MASTER_URI=http://192.168.56.101:11311'
 
+# systemctl autocompletition patch
+_systemctl_unit_state() {
+  typeset -gA _sys_unit_state
+  _sys_unit_state=( $(__systemctl list-unit-files "$PREFIX*" | awk '{print $1, $2}') ) }
 
 # general purpose aliases
 alias install='sudo pacman -S'
@@ -162,10 +166,11 @@ alias install='sudo pacman -S'
 alias yinstall='yay -S'
 alias search='yay -Ss'
 alias remove='sudo pacman -Rs'
-alias clean='sudo pacman -Scc'
+alias clean='conda clean -a && sudo pacman -Scc && yay -Sc --aur'
 alias d2u='dos2unix'
 alias cat='pygmentize -g'
-alias up='sudo pacman -Syu'
+alias svim='sudoedit'
+alias up='sudo pacman -Syu && yay -Syu'
 alias off='poweroff'
 # alias sens='s-tui'
 alias suggest-pass='apg -s -a 1 -m 15 -M SNCL'
@@ -214,6 +219,13 @@ alias ros-docker='~/docks/ros_melodic/go.sh'
 # alias perkey-magic="msi-perkeyrgb --model GS63 -p default"
 # alias perkey-aqua="msi-perkeyrgb --model GS63 -p aqua"
 
-# # other useful aliases
-# alias jup-casadi='conda activate jup_casadi && jupyter lab && conda deactivate'
+# other useful aliases
+alias jup-casadi='conda activate casadi && cd ~/sources/jupyter_projects && jupyter lab && cd - > /dev/null && conda deactivate'
 # alias apktool="docker run --rm -v `pwd`:/app theanam/apktool"
+alias transen='trans -brief -shell en:it'
+alias transit='trans -brief -shell it:en'
+
+alias screeps='optirun /home/flynn/.local/share/Steam/steamapps/common/Screeps/nw &'
+
+alias eteam-server='ssh -p 430 mmugnai@131.114.72.123'
+alias lab-server='ssh michael.mugnai@10.30.5.226'
