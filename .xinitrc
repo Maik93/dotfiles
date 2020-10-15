@@ -32,4 +32,11 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
 fi
 
 numlockx &
+
+# optimus-manager GPUs handler
+/usr/bin/prime-offload
+
 bspwm
+
+# when the session ends...
+sudo /usr/bin/prime-switch

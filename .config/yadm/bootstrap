@@ -34,6 +34,17 @@ sudo debtap -u
 # tabbed extension for urxvt
 curl https://raw.githubusercontent.com/mina86/urxvt-tabbedex/master/install | sh
 
+
+# ====================================
+# Nvidia discrete card  (Xserver setup for multi-monitor)
+# source: https://us.download.nvidia.com/XFree86/Linux-x86_64/450.57/README/randr14.html
+# ====================================
+
+sudo pacman -S nvidia nvidia-prime bbswitch
+# sudo cp ~/.config/yadm/xorg.conf.d/10-external_hdmi.conf /etc/X11/xorg.conf.d/10-gpu.conf
+yay -S optimus-manager # if problem occurs, delete /etc/X11/xorg.conf and /etc/X11/xorg.conf.d/*
+sudo cp ~/.config/yadm/optimus-manager.conf /etc/optimus-manager/optimus-manager.conf
+
 # ====================================
 # Download and set background
 # ====================================

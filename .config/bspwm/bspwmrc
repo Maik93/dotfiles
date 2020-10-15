@@ -1,20 +1,28 @@
 #! /bin/sh
 
-is_external_monitor_present=$(xrandr --query | grep '^DP1 connected')
+is_external_monitor_present=$(xrandr --query | grep '^DP-1-8 connected')
 if [[ $is_external_monitor_present ]]; then
-    xrandr --output eDP1 --primary --mode 1920x1080 --rotate normal --output DP1 --mode 1920x1080 --rotate normal --left-of eDP1
-    bspc monitor eDP1 -d 1 2 3 4 5
-    bspc monitor DP1 -d 6 7 8 9 10
-    bspc wm -O eDP1 DP1
+    export XCURSOR_SIZE=16
+    #~/.screenlayout/2_DisplayPort_above.sh
+    ~/.screenlayout/3_DisplayPort_daisy_USB_C.sh
+    bspc monitor eDP-1 -d 1 2 3
+    bspc monitor %DP-1-8 -d 4 5 6 7
+    bspc monitor %DP-1-1-8 -d 8 9 10
+    bspc wm -O eDP-1 DP-1-8 DP-1-1-8
 else
+    xrandr --auto
     bspc monitor -d 1 2 3 4 5 6 7 8 9 10
     # ~/.local/bin/floating_ws_5.sh & # any windows in WS 5 will be floating
+
+    # Picom (compositor)
+    picom --xrender-sync-fence &
 fi
 
 sxhkd &
 
 bspc rule -a URxvt:scratchy state=floating rectangle=widthxheight+Xoffset+Yoffset
 bspc rule -a Chromium desktop='^1' follow=true
+bspc rule -a Brave-browser desktop='^1' follow=true
 bspc rule -a Thunar follow=true border=false state=pseudo_tiled
 bspc rule -a Org.gnome.Nautilus follow=true border=false state=pseudo_tiled
 bspc rule -a File-roller follow=true border=false state=pseudo_tiled
@@ -26,15 +34,19 @@ bspc rule -a SimpleScreenRecorder follow=true border=false state=pseudo_tiled
 bspc rule -a QjackCtl follow=true border=false state=pseudo_tiled
 
 bspc rule -a jetbrains-pycharm follow=true border=false state=floating
+bspc rule -a jetbrains-clion follow=true border=false state=floating
 bspc rule -a matplotlib follow=true border=false state=floating
 bspc rule -a jetbrains-webstorm follow=true border=false
 bspc rule -a "MATLAB R2019b - academic use" follow=true border=false state=pseudo_tiled
 bspc rule -a MATLABWindow follow=true border=false center=true state=floating
 
 bspc rule -a Blueberry.py state=floating center=true follow=true border=false
-bspc rule -a TelegramDesktop desktop='^7' state=floating center=true follow=true border=false
+bspc rule -a TelegramDesktop state=floating center=true follow=true border=false
 bspc rule -a discord desktop='^8' state=pseudo_tiled center=true follow=true border=false
+bspc rule -a Slack desktop='^8' state=pseudo_tiled center=true follow=true border=false
 bspc rule -a Spotify desktop='^9' follow=true
+
+bspc rule -a Qemu-system-x86_64 follow=true state=floating
 
 
 bspc config border_width          2
@@ -60,9 +72,6 @@ xsetroot -cursor_name left_ptr
 betterlockscreen -u ~/Documents/Wallpapers/wolf_moon.jpg
 
 # ------- Autostart apps ------
-# Picom (compositor)
-picom --xrender-sync-fence &
-
 # Dunst (notifications)
 killall -q dunst
 dunst &
