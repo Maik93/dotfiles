@@ -10,7 +10,8 @@ super + shift + Return
 
 # program launcher
 super + d
-	rofi -modi run,drun -show drun -columns 1 -width 24 -lines 8 -padding 45 -hide-scrollbar -show-icons -drun-icon-theme "Papirus"
+	rofi -modi drun,ssh -show drun -show-icons "Papirus" -m primary
+	#rofi -modi drun,ssh -show drun -columns 1 -width 24 -lines 8 -padding 45 -hide-scrollbar -show-icons -drun-icon-theme "Papirus"
 
 # reload sxhkd config
 super + shift F2
