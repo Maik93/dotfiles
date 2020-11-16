@@ -128,7 +128,7 @@ super + alt + shift + {Left,Down,Up,Right}
 # ===================================
 
 super + w
-	chromium
+	brave
 
 super + e
 	nautilus

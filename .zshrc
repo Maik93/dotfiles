@@ -124,35 +124,38 @@ unset __conda_setup
 
 export PATH="$PATH:/home/$USER/.local/bin:/home/flynn/.gem/ruby/2.7.0/bin"
 
+# Rust
+export PATH="$HOME/.cargo/bin:$PATH"
+
 # R.O.S.
 export LC_NUMERIC="en_GB.UTF-8"
 
-# source /opt/ros/melodic/setup.zsh
+source /opt/ros/noetic/setup.zsh
 
-# # current_ros_ws="/home/flynn/sources/ros_workspaces/aragog_ws"
-# current_ros_ws="/home/flynn/sources/ros_workspaces/ur5_ws"
-# # current_ros_ws="/home/flynn/sources/ros_workspaces/driverless_ws"
-# # current_ros_ws="/home/flynn/sources/ros_workspaces/experis_ws"
+#current_ros_ws="/home/flynn/sources/ros_workspaces/aragog_ws"
+current_ros_ws="/home/flynn/sources/ros_workspaces/driverless_ws"
+#current_ros_ws="/home/flynn/sources/ros_workspaces/ale_ws"
+#current_ros_ws="/home/flynn/sources/ros_workspaces/percro_drone_contest"
 
-# source ${current_ros_ws}/devel/setup.zsh
-# alias cat-make="cd ${current_ros_ws} && catkin build && cd - > /dev/null"
-# alias ros-cd="cd ${current_ros_ws}/src"
+source ${current_ros_ws}/devel/setup.zsh
+alias cat-make="cd ${current_ros_ws} && catkin build && cd - > /dev/null"
+alias ros-cd="cd ${current_ros_ws}/src"
 
-# alias rqt-gui='rosrun rqt_gui rqt_gui'
-# alias rqt-graph='rosrun rqt_graph rqt_graph &' # show links between published and subscribed topics
-# alias rqt-plot='rosrun rqt_plot rqt_plot &' # plot published topics
-# alias rqt-console='rosrun rqt_console rqt_console &' # debug GUI
-# # alias ros-logger-level='rosrun rqt_logger_level rqt_logger_level &' # let change log level shown in ros-console
-# alias ros-topic-list='rostopic list -v'
-# # alias ros-topic-echo='rostopic echo'
-# alias ros-call='rosservice call'
-# alias ros-bag-all='cd ~/bags_ros && rosbag record -a'
-# ros-service-type() { rosservice type $1 | rossrv show; }
-# ros-topic-type() { rostopic type $1 | rosmsg show; }
-# alias ros-tf-tree='rosrun rqt_tf_tree rqt_tf_tree' # GUI tree of transformations
-# alias ros-tf-echo='rosrun tf tf_echo' # echo transform between arg_1 and arg_2
-# alias xacro2urdf='rosrun xacro xacro'
-# alias urdf2pdf='urdf_to_graphiz'
+# alias rqt-gui='rosrun rqt_gui rqt_gui' # useless, just run `rqt`
+alias rqt-graph='rosrun rqt_graph rqt_graph &' # show links between published and subscribed topics
+alias rqt-plot='rosrun rqt_plot rqt_plot &' # plot published topics
+alias rqt-console='rosrun rqt_console rqt_console &' # debug GUI
+# alias ros-logger-level='rosrun rqt_logger_level rqt_logger_level &' # let change log level shown in ros-console
+alias ros-topic-list='rostopic list -v'
+# alias ros-topic-echo='rostopic echo'
+alias ros-call='rosservice call'
+alias ros-bag-all='cd ~/bags_ros && rosbag record -a'
+ros-service-type() { rosservice type $1 | rossrv show; }
+ros-topic-type() { rostopic type $1 | rosmsg show; }
+alias ros-tf-tree='rosrun rqt_tf_tree rqt_tf_tree' # GUI tree of transformations
+alias ros-tf-echo='rosrun tf tf_echo' # echo transform between arg_1 and arg_2
+alias xacro2urdf='rosrun xacro xacro'
+alias urdf2pdf='urdf_to_graphiz'
 # alias ros-connect-to-vm='export ROS_HOSTNAME=192.168.56.1 && export ROS_MASTER_URI=http://192.168.56.101:11311'
 
 # systemctl autocompletition patch
@@ -225,7 +228,8 @@ alias jup-casadi='conda activate casadi && cd ~/sources/jupyter_projects && jupy
 alias transen='trans -brief -shell en:it'
 alias transit='trans -brief -shell it:en'
 
-alias screeps='optirun /home/flynn/.local/share/Steam/steamapps/common/Screeps/nw &'
+alias screeps='prime-run /home/flynn/.local/share/Steam/steamapps/common/Screeps/nw &'
 
-alias eteam-server='ssh -p 430 mmugnai@131.114.72.123'
-alias lab-server='ssh michael.mugnai@10.30.5.226'
+alias eteam-server='TERM=linux ssh -p 430 mmugnai@131.114.72.123'
+alias lab-server='TERM=linux ssh michael.mugnai@10.30.5.226'
+alias gcloud-ovpn='TERM=linux ssh 35.209.208.20'

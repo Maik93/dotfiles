@@ -55,7 +55,7 @@ URxvt.keysym.C-BackSpace: \033[33~
 ! Extended 256 color palette: requires 'rxvt-unicode-256xresources' package
 URxvt.color24:  #076678
 URxvt.color66:  #427b58
-URxvt.color88:  #9d0006
+URxvt.color88:  #cc241d
 URxvt.color96:  #8f3f71
 URxvt.color100: #79740e
 URxvt.color108: #8ec07c

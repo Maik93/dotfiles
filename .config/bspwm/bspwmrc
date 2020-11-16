@@ -15,7 +15,7 @@ else
     # ~/.local/bin/floating_ws_5.sh & # any windows in WS 5 will be floating
 
     # Picom (compositor)
-    picom --xrender-sync-fence &
+    #picom --xrender-sync-fence &
 fi
 
 sxhkd &
@@ -35,13 +35,14 @@ bspc rule -a QjackCtl follow=true border=false state=pseudo_tiled
 
 bspc rule -a jetbrains-pycharm follow=true border=false state=floating
 bspc rule -a jetbrains-clion follow=true border=false state=floating
+bspc rule -a jetbrains-webstorm follow=true border=false state=floating
 bspc rule -a matplotlib follow=true border=false state=floating
-bspc rule -a jetbrains-webstorm follow=true border=false
 bspc rule -a "MATLAB R2019b - academic use" follow=true border=false state=pseudo_tiled
 bspc rule -a MATLABWindow follow=true border=false center=true state=floating
 
 bspc rule -a Blueberry.py state=floating center=true follow=true border=false
 bspc rule -a TelegramDesktop state=floating center=true follow=true border=false
+bspc rule -a Signal state=floating center=true follow=true border=false
 bspc rule -a discord desktop='^8' state=pseudo_tiled center=true follow=true border=false
 bspc rule -a Slack desktop='^8' state=pseudo_tiled center=true follow=true border=false
 bspc rule -a Spotify desktop='^9' follow=true
