@@ -26,7 +26,7 @@ else
 fi
 
 
-yay -S bspwm-rounded-corners rxvt-unicode-256xresources polybar spicetify-cli nerd-fonts-iosevka python-ueberzug spotify betterlockscreen-git gotop xcwd-git pulseaudio-ctl hardcode-tray batsignal --needed --removemake --nocleanmenu --nodiffmenu --noeditmenu --noconfirm
+yay -S bspwm-rounded-corners rxvt-unicode-256xresources polybar spicetify-cli nerd-fonts-iosevka python-ueberzug spotify betterlockscreen-git gotop xcwd-git pulseaudio-ctl hardcode-tray batsignal urxvt-tabbedex urxvt-vtwheel --needed --removemake --nocleanmenu --nodiffmenu --noeditmenu --noconfirm
 
 sudo pacman -S debtap
 sudo debtap -u
