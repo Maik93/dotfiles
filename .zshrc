@@ -74,6 +74,19 @@ ZSH_THEME="agnoster"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git zsh-autosuggestions docker)
 
+# regenerate .zcompdump only if older than a day
+autoload -Uz compinit
+if [[ -n ~/.zcompdump(#qN.mh+24) ]]; then
+	compinit;
+else
+	compinit -C;
+fi;
+
+# lazy loading ~/.local/autoloaded/* executables
+fpath=($fpath ~/.local/autoloaded)
+autoload conda
+autoload nvm
+
 source $ZSH/oh-my-zsh.sh
 
 unsetopt share_history # disable history shared between open terminals
@@ -98,30 +111,17 @@ unsetopt share_history # disable history shared between open terminals
 bindkey '[3^' kill-word
 bindkey '[33~' backward-kill-word
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/opt/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/opt/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/opt/miniconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/opt/miniconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
+# systemctl autocompletition patch
+_systemctl_unit_state() {
+  typeset -gA _sys_unit_state
+  _sys_unit_state=( $(__systemctl list-unit-files "$PREFIX*" | awk '{print $1, $2}') ) }
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
 
+# local (user) bin folder and Ruby
 export PATH="$PATH:/home/$USER/.local/bin:/home/flynn/.gem/ruby/2.7.0/bin"
 
 # Rust
@@ -157,11 +157,6 @@ alias ros-tf-echo='rosrun tf tf_echo' # echo transform between arg_1 and arg_2
 alias xacro2urdf='rosrun xacro xacro'
 alias urdf2pdf='urdf_to_graphiz'
 # alias ros-connect-to-vm='export ROS_HOSTNAME=192.168.56.1 && export ROS_MASTER_URI=http://192.168.56.101:11311'
-
-# systemctl autocompletition patch
-_systemctl_unit_state() {
-  typeset -gA _sys_unit_state
-  _sys_unit_state=( $(__systemctl list-unit-files "$PREFIX*" | awk '{print $1, $2}') ) }
 
 # general purpose aliases
 alias install='sudo pacman -S'
