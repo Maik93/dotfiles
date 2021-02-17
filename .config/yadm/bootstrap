@@ -10,8 +10,9 @@ if [ "$choice" = "y" ]; then
     sudo pacman -S xf86-video-vmware virtualbox-guest-utils virtualbox-guest-modules-arch --noconfirm --needed
 fi
 
-sudo pacman -S feh rofi ranger sxhkd dunst neofetch noto-fonts noto-fonts-emoji ttf-font-awesome otf-font-awesome pulseaudio pulseaudio-alsa pamixer unzip picom evince light maim w3m numlockx openssh telegram-desktop xclip wmname blueberry --noconfirm --needed
+sudo pacman -S feh rofi ranger sxhkd dunst neofetch noto-fonts noto-fonts-emoji ttf-font-awesome otf-font-awesome pulseaudio pulseaudio-alsa pamixer unzip picom evince light maim w3m numlockx openssh telegram-desktop xclip wmname blueberry pacman-contrib --noconfirm --needed
 
+sudo cp /home/flynn/.config/yadm/clean_package_cache.hook /etc/pacman.d/hooks/clean_package_cache.hook
 
 if pacman -Qs yay > /dev/null ; then
     echo "Yay is already installed, moving on..."
