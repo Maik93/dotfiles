@@ -10,7 +10,7 @@ if [ "$choice" = "y" ]; then
     sudo pacman -S xf86-video-vmware virtualbox-guest-utils virtualbox-guest-modules-arch --noconfirm --needed
 fi
 
-sudo pacman -S feh rofi ranger sxhkd dunst neofetch noto-fonts noto-fonts-emoji ttf-font-awesome otf-font-awesome pulseaudio pulseaudio-alsa pamixer unzip picom evince light maim w3m numlockx openssh telegram-desktop xclip wmname blueberry pacman-contrib --noconfirm --needed
+sudo pacman -S zsh feh rofi ranger sxhkd dunst neofetch noto-fonts noto-fonts-emoji ttf-font-awesome otf-font-awesome pulseaudio pulseaudio-alsa pamixer unzip picom evince light maim w3m numlockx openssh telegram-desktop xclip wmname blueberry pacman-contrib --noconfirm --needed
 
 sudo cp /home/flynn/.config/yadm/clean_package_cache.hook /etc/pacman.d/hooks/clean_package_cache.hook
 
@@ -73,6 +73,13 @@ fc-cache -vf ~/.local/share/fonts/
 mkdir -p ~/.config/fontconfig
 mkdir -p ~/.config/fontconfig/conf.d
 mv 10-powerline-symbols.conf ~/.config/fontconfig/conf.d/
+
+# ====================================
+# oh-my-zsh
+# ====================================
+yes | sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+install -Dm 644 agnoster.zsh-theme ~/.oh-my-zsh/custom/themes/agnoster.zsh-theme
+install -Dm 644 af-magic.zsh-theme ~/.oh-my-zsh/custom/themes/af-magic.zsh-theme
 
 # ====================================
 # Icon theme
