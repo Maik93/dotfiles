@@ -12,8 +12,6 @@ fi
 
 sudo pacman -S zsh feh rofi ranger sxhkd dunst neofetch noto-fonts noto-fonts-emoji ttf-font-awesome otf-font-awesome pulseaudio pulseaudio-alsa pamixer unzip picom evince light maim w3m numlockx openssh telegram-desktop xclip wmname blueberry pacman-contrib --noconfirm --needed
 
-sudo cp /home/flynn/.config/yadm/clean_package_cache.hook /etc/pacman.d/hooks/clean_package_cache.hook
-
 if pacman -Qs yay > /dev/null ; then
     echo "Yay is already installed, moving on..."
 else
@@ -35,6 +33,10 @@ sudo debtap -u
 # tabbed extension for urxvt
 curl https://raw.githubusercontent.com/mina86/urxvt-tabbedex/master/install | sh
 
+cd ~/.config/yadm
+
+# pacman hook to keep only two installed package versions and zero uninstalled packages
+sudo install -Dm 644 clean_package_cache.hook /etc/pacman.d/hooks/clean_package_cache.hook
 
 # ====================================
 # Nvidia discrete card  (Xserver setup for multi-monitor)
@@ -42,37 +44,35 @@ curl https://raw.githubusercontent.com/mina86/urxvt-tabbedex/master/install | sh
 # ====================================
 
 sudo pacman -S nvidia nvidia-prime bbswitch
-# sudo cp ~/.config/yadm/xorg.conf.d/10-external_hdmi.conf /etc/X11/xorg.conf.d/10-gpu.conf
 yay -S optimus-manager # if problem occurs, delete /etc/X11/xorg.conf and /etc/X11/xorg.conf.d/*
-sudo cp ~/.config/yadm/optimus-manager.conf /etc/optimus-manager/optimus-manager.conf
+sudo install -Dm 644 optimus-manager.conf /etc/optimus-manager/optimus-manager.conf
 
 # ====================================
 # Download and set background
 # ====================================
 
-mkdir -p ~/Documents/Wallpapers &> /dev/null
+mkdir -p ~/Documents/Wallpapers
 curl https://i.imgur.com/XCaXGFB.png > ~/Documents/Wallpapers/gruvbox.png
 
 # ====================================
 # Polybar font
 # ====================================
 
-mkdir -p ~/.local/share/fonts &> /dev/null
 curl https://raw.githubusercontent.com/adi1090x/polybar-themes/master/polybar-8/fonts/icomoon-feather.ttf > icomoon-feather.ttf
-mv icomoon-feather.ttf ~/.local/share/fonts/
+install -Dm 644 icomoon-feather.ttf ~/.local/share/fonts/icomoon-feather.ttf
+rm icomoon-feather.ttf
 fc-cache -vf ~/.local/share/fonts/
 
 # ====================================
-# Powerline arrow fix
+# Powerline symbols fix
 # ====================================
 
 wget https://github.com/powerline/powerline/raw/develop/font/PowerlineSymbols.otf
 wget https://github.com/powerline/powerline/raw/develop/font/10-powerline-symbols.conf
-mv PowerlineSymbols.otf ~/.local/share/fonts/
+install -Dm 644 PowerlineSymbols.otf ~/.local/share/fonts/PowerlineSymbols.otf
+install -Dm 644 10-powerline-symbols.conf ~/.config/fontconfig/conf.d/10-powerline-symbols.conf
+rm PowerlineSymbols.otf 10-powerline-symbols.conf
 fc-cache -vf ~/.local/share/fonts/
-mkdir -p ~/.config/fontconfig
-mkdir -p ~/.config/fontconfig/conf.d
-mv 10-powerline-symbols.conf ~/.config/fontconfig/conf.d/
 
 # ====================================
 # oh-my-zsh
