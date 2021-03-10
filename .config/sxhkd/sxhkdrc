@@ -54,7 +54,7 @@ super + {t,shift + t,shift + space,f}
 #	bspc node -g {marked,locked,sticky,private}
 super + ctrl + s
     bspc node -g sticky; \
-    notify-send "Current window made sticky"
+    notify-send "Current window stickness toggled"
 
 
 #
@@ -144,8 +144,8 @@ super + l
 super + s
     ~/.local/bin/scratchy.sh
 
-# super + shift + s
-#     spotify
+super + shift + s
+    ~/.local/bin/scratchy.sh 120x40
 
 # super + k
 #     KeeWeb
