@@ -125,6 +125,9 @@ export PATH="$PATH:/home/$USER/.local/bin:/home/flynn/.gem/ruby/2.7.0/bin"
 # Rust
 export PATH="$HOME/.cargo/bin:$PATH"
 
+# AWS
+source aws_zsh_completer.sh
+
 # R.O.S.
 export LC_NUMERIC="en_GB.UTF-8"
 
