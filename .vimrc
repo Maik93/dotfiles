@@ -82,7 +82,9 @@ command Q q
 command Qw wq
 " w!! to write with sudo even if not opened with sudo
 cmap w!! w !sudo tee >/dev/null %
-"split navigations
+" wd to show differences between last saved file
+cmap wd w !diff % -
+" split navigations
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
