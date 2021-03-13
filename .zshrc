@@ -160,14 +160,16 @@ alias urdf2pdf='urdf_to_graphiz'
 # alias ros-connect-to-vm='export ROS_HOSTNAME=192.168.56.1 && export ROS_MASTER_URI=http://192.168.56.101:11311'
 
 # general purpose aliases
+mkcd() { mkdir -p $1 && cd $1; }
 alias install='sudo pacman -S'
 #alias search='sudo pacman -Ss'
+alias orphans='pacman -Qtd'
 alias yinstall='yay -S'
 alias search='yay -Ss'
 alias remove='sudo pacman -Rs'
 alias clean='conda clean -a && sudo pacman -Scc && yay -Sc --aur'
 alias d2u='dos2unix'
-alias cat='pygmentize -g'
+alias cat='pygmentize -g -O style=monokai'
 alias svim='sudoedit'
 alias up='sudo pacman -Syu && yay -Syu'
 alias off='poweroff'
@@ -177,13 +179,14 @@ alias du='du -hs'
 alias df='df -h | grep -v snap'
 alias lsblk='lsblk | grep -v snap'
 alias update-grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
+# awk '$1=="2020-12-20" && $3=="upgrade"' /var/log/pacman.log
 
 # git aliases
 alias gadd='git add'
 alias gcom='git commit'
 alias gcomall='git commit -a'
 alias glog='git log --oneline --graph --decorate --all'
-alias gpush='git push'
+alias gpush='git push --all && git push --tags'
 alias gpull='git pull'
 alias gstat='git status'
 alias gfetch='git fetch --all -p -P'
@@ -202,14 +205,14 @@ alias check-gpu='optirun --status'
 
 # Docker
 # alias docker-remove-all-containers='docker container rm $(docker container ls -a -q)'
-alias docker-remove-all-containers='docker rm $(docker container ls -a | grep -v "ros-melodic" | awk "NR>1 {print $1}")'
+alias docker-remove-all-containers='docker rm $(docker container ls -a | grep -v "ros-" | awk "NR>1 {print $ 1}")'
 alias docker-remove-none-images='docker rmi $(docker images -qa -f 'dangling=true')'
 # alias go-realsense="cd ~/docks/ros_kinetic_realsense/ros_ws_src/realsense/realsense_camera && rm launch/r200_handler.launch && ln ~/aragog_ws/src/hexapod_ros_project/launch/r200_handler.launch ./launch/r200_handler.launch && optirun ~/docks/ros_kinetic_realsense/go.sh"
 # alias kali-dock="cd docks/kali/ && ./go.sh"
 alias ros-docker='~/docks/ros_melodic/go.sh'
 
-# # CUDA (currently 10.2, you can check with 'cat /usr/lib/cuda/version.txt')
-# export PATH="/usr/local/cuda/bin:$PATH"
+# CUDA
+export PATH="$PATH:/usr/local/cuda/bin" # if the path does not exist do 'sudo ln -s /opt/cuda /usr/local/cuda'
 # export LD_LIBRARY_PATH="/usr/local/cuda/lib64:$LD_LIBRARY_PATH"
 
 # # MSI perkey-RGB
@@ -219,6 +222,7 @@ alias ros-docker='~/docks/ros_melodic/go.sh'
 # alias perkey-aqua="msi-perkeyrgb --model GS63 -p aqua"
 
 # other useful aliases
+alias wifi-menu='sudo wifi-menu -o' # automatically obfuscate passwords
 alias jup-casadi='conda activate casadi && cd ~/sources/jupyter_projects && jupyter lab && cd - > /dev/null && conda deactivate'
 # alias apktool="docker run --rm -v `pwd`:/app theanam/apktool"
 alias transen='trans -brief -shell en:it'
@@ -228,4 +232,14 @@ alias screeps='prime-run /home/flynn/.local/share/Steam/steamapps/common/Screeps
 
 alias eteam-server='TERM=linux ssh -p 430 mmugnai@131.114.72.123'
 alias lab-server='TERM=linux ssh michael.mugnai@10.30.5.226'
+alias lab-xavier='ssh etdv@10.30.5.9'
 alias gcloud-ovpn='TERM=linux ssh 35.209.208.20'
+
+alias aureport-k='sudo aureport -k | grep -v /usr/bin/auditctl'
+alias aureport-n='sudo aureport -n | grep -v /usr/bin/urxvt'
+
+alias poky-env='unset LD_LIBRARY_PATH && source /opt/poky-iot2000/2.6.2/environment-setup-i586-nlp-32-poky-linux'
+
+# How to transfer docker images while compressing them on the fly:
+# docker save <image> | bzip2 | ssh user@host 'bunzip2 | docker load'
+
