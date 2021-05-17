@@ -291,7 +291,7 @@ handle_mime() {
             exit 1;;
 
         ## Text
-        text/* | */xml)
+        text/* | */xml | application/x-wine-extension-ini)
             ## Syntax highlight
             if [[ "$( stat --printf='%s' -- "${FILE_PATH}" )" -gt "${HIGHLIGHT_SIZE_MAX}" ]]; then
                 exit 2
@@ -335,7 +335,9 @@ handle_mime() {
 }
 
 handle_fallback() {
-    echo '----- File Type Classification -----' && file --dereference --brief -- "${FILE_PATH}" && exit 5
+    local mimetype="${1}"
+    #echo '----- File Type Classification -----' && file --dereference --brief -- "${FILE_PATH}" && exit 5
+    echo "----- $mimetype -----" && exit 5
     exit 1
 }
 
@@ -346,6 +348,6 @@ if [[ "${PV_IMAGE_ENABLED}" == 'True' ]]; then
 fi
 handle_extension
 handle_mime "${MIMETYPE}"
-handle_fallback
+handle_fallback "${MIMETYPE}"
 
 exit 1
