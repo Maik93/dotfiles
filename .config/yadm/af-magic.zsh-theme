@@ -18,12 +18,13 @@ typeset +H my_violet="$FG[105]"
 # separator dashes size
 function afmagic_dashes {
 	local PYTHON_ENV="$VIRTUAL_ENV"
+	local RET_CODE="$?"
 	[[ -z "$PYTHON_ENV" ]] && PYTHON_ENV="$CONDA_DEFAULT_ENV"
 
 	if [[ -n "$PYTHON_ENV" && "$PS1" = \(* ]]; then
-		echo $(( COLUMNS - ${#PYTHON_ENV} - 3 ))
+		DASH_NUMS=$(( COLUMNS - ${#PYTHON_ENV} - 3 ))
 	else
-		echo $COLUMNS
+		DASH_NUMS=$COLUMNS
 	fi
 
 	if [[ $RET_CODE -ne 0 ]]; then
@@ -47,7 +48,7 @@ prompt_context() {
 	fi
 
   if [[ "$USER" != "$DEFAULT_USER" ]]; then
-    actual_context+='%n'
+    actual_context+='%n@'
   fi
 
 	actual_context+='%m%{$reset_color%}%'
