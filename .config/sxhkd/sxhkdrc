@@ -33,6 +33,10 @@ super F1
 super F3
     urxvt -e /bin/zsh -c "sleep 0.2; vim ~/.zshrc"
 
+# zshrc
+super F4
+    urxvt -e /bin/zsh -c "sleep 0.2; vim ~/.rosrc"
+
 # quit bspwm
 super + ctrl + shift + q
     bspc quit

@@ -2,9 +2,9 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 ZSH_DISABLE_COMPFIX=true
 
-# Path to your oh-my-zsh installation.
 export ZSH="/home/flynn/.oh-my-zsh"
 export EDITOR=vim
+export LC_NUMERIC="en_GB.UTF-8"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -129,35 +129,25 @@ export PATH="$HOME/.cargo/bin:$PATH"
 source aws_zsh_completer.sh
 
 # R.O.S.
-export LC_NUMERIC="en_GB.UTF-8"
-
-source /opt/ros/noetic/setup.zsh
-
-#current_ros_ws="/home/flynn/sources/ros_workspaces/aragog_ws"
-current_ros_ws="/home/flynn/sources/ros_workspaces/driverless_ws"
-#current_ros_ws="/home/flynn/sources/ros_workspaces/ale_ws"
-#current_ros_ws="/home/flynn/sources/ros_workspaces/percro_drone_contest"
-
-source ${current_ros_ws}/devel/setup.zsh
-alias cat-make="cd ${current_ros_ws} && catkin build && cd - > /dev/null"
+source ~/.rosrc
+alias catbuild="cd ${current_ros_ws} && catkin build && cd - > /dev/null"
+alias catmake="cd ${current_ros_ws} && catkin_make && cd - > /dev/null"
 alias ros-cd="cd ${current_ros_ws}/src"
 
-# alias rqt-gui='rosrun rqt_gui rqt_gui' # useless, just run `rqt`
 alias rqt-graph='rosrun rqt_graph rqt_graph &' # show links between published and subscribed topics
 alias rqt-plot='rosrun rqt_plot rqt_plot &' # plot published topics
 alias rqt-console='rosrun rqt_console rqt_console &' # debug GUI
 # alias ros-logger-level='rosrun rqt_logger_level rqt_logger_level &' # let change log level shown in ros-console
-alias ros-topic-list='rostopic list -v'
-# alias ros-topic-echo='rostopic echo'
-alias ros-call='rosservice call'
-alias ros-bag-all='cd ~/bags_ros && rosbag record -a'
-ros-service-type() { rosservice type $1 | rossrv show; }
-ros-topic-type() { rostopic type $1 | rosmsg show; }
-alias ros-tf-tree='rosrun rqt_tf_tree rqt_tf_tree' # GUI tree of transformations
-alias ros-tf-echo='rosrun tf tf_echo' # echo transform between arg_1 and arg_2
-alias xacro2urdf='rosrun xacro xacro'
+#alias ros-call='rosservice call'
+alias rosbag-all='mkdir /ext_part/rosbags && cd /ext_part/rosbags && rosbag record -a'
+rosservice-type() { rosservice type $1 | rossrv show; }
+rostopic-type() { rostopic type $1 | rosmsg show; }
+alias rqt-tf-tree='rosrun rqt_tf_tree rqt_tf_tree' # GUI tree of transformations
+alias tf-echo='rosrun tf tf_echo' # echo transform between arg_1 and arg_2
+#alias xacro2urdf='rosrun xacro xacro'
 alias urdf2pdf='urdf_to_graphiz'
-# alias ros-connect-to-vm='export ROS_HOSTNAME=192.168.56.1 && export ROS_MASTER_URI=http://192.168.56.101:11311'
+ros-connect() { export ROS_IP= }
+#alias ros-connect-to-vm='export ROS_HOSTNAME=192.168.56.1 && export ROS_MASTER_URI=http://192.168.56.101:11311'
 
 # general purpose aliases
 mkcd() { mkdir -p $1 && cd $1; }
@@ -242,4 +232,3 @@ alias poky-env='unset LD_LIBRARY_PATH && source /opt/poky-iot2000/2.6.2/environm
 
 # How to transfer docker images while compressing them on the fly:
 # docker save <image> | bzip2 | ssh user@host 'bunzip2 | docker load'
-
