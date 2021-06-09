@@ -78,10 +78,10 @@ plugins=(git zsh-autosuggestions docker colored-man-pages)
 # regenerate .zcompdump only if older than a day
 autoload -Uz compinit
 if [[ -n ~/.zcompdump(#qN.mh+24) ]]; then
-	compinit;
+	compinit
 else
-	compinit -C;
-fi;
+	compinit -C
+fi
 
 # lazy loading ~/.local/autoloaded/* executables
 fpath=($fpath ~/.local/autoloaded)
@@ -122,9 +122,6 @@ _systemctl_unit_state() {
 # local (user) bin folder and Ruby
 export PATH="$PATH:/home/$USER/.local/bin:/home/flynn/.gem/ruby/2.7.0/bin"
 
-# Rust
-export PATH="$HOME/.cargo/bin:$PATH"
-
 # AWS
 source aws_zsh_completer.sh
 
@@ -154,14 +151,15 @@ mkcd() { mkdir -p $1 && cd $1; }
 alias install='sudo pacman -S'
 #alias search='sudo pacman -Ss'
 alias orphans='pacman -Qtd'
-alias yinstall='yay -S'
-alias search='yay -Ss'
+alias yinstall='paru -S'
+alias search='paru -Ss'
 alias remove='sudo pacman -Rs'
-alias clean='conda clean -a && sudo pacman -Scc && yay -Sc --aur'
+alias clean='conda clean -a && sudo pacman -Scc && paru -Sc --aur'
 alias d2u='dos2unix'
 alias cat='pygmentize -g -O style=monokai'
 alias svim='sudoedit'
-alias up='sudo pacman -Syu && yay -Syu'
+alias up='sudo pacman -Sy'
+alias upp='sudo pacman -Syu && paru -Syu'
 alias off='poweroff'
 # alias sens='s-tui'
 alias suggest-pass='apg -s -a 1 -m 15 -M SNCL'
@@ -199,7 +197,8 @@ alias docker-remove-all-containers='docker rm $(docker container ls -a | grep -v
 alias docker-remove-none-images='docker rmi $(docker images -qa -f 'dangling=true')'
 # alias go-realsense="cd ~/docks/ros_kinetic_realsense/ros_ws_src/realsense/realsense_camera && rm launch/r200_handler.launch && ln ~/aragog_ws/src/hexapod_ros_project/launch/r200_handler.launch ./launch/r200_handler.launch && optirun ~/docks/ros_kinetic_realsense/go.sh"
 # alias kali-dock="cd docks/kali/ && ./go.sh"
-alias ros-docker='~/docks/ros_melodic/go.sh'
+alias ros-docker='~/docks/ros_noetic/go.sh'
+alias mfc-flash='~/docks/mfc/fast_flash.sh'
 
 # CUDA
 export PATH="$PATH:/usr/local/cuda/bin" # if the path does not exist do 'sudo ln -s /opt/cuda /usr/local/cuda'
@@ -212,6 +211,7 @@ export PATH="$PATH:/usr/local/cuda/bin" # if the path does not exist do 'sudo ln
 # alias perkey-aqua="msi-perkeyrgb --model GS63 -p aqua"
 
 # other useful aliases
+alias update-completion='rm -f ~/.zcompdump* && compinit'
 alias wifi-menu='sudo wifi-menu -o' # automatically obfuscate passwords
 alias jup-casadi='conda activate casadi && cd ~/sources/jupyter_projects && jupyter lab && cd - > /dev/null && conda deactivate'
 # alias apktool="docker run --rm -v `pwd`:/app theanam/apktool"
@@ -222,8 +222,10 @@ alias screeps='prime-run /home/flynn/.local/share/Steam/steamapps/common/Screeps
 
 alias eteam-server='TERM=linux ssh -p 430 mmugnai@131.114.72.123'
 alias lab-server='TERM=linux ssh michael.mugnai@10.30.5.226'
+alias lab-upboard='ssh etdv@10.30.5.129'
 alias lab-xavier='ssh etdv@10.30.5.9'
 alias gcloud-ovpn='TERM=linux ssh 35.209.208.20'
+alias iot_utini='TERM=linux ssh root@192.168.21.54'
 
 alias aureport-k='sudo aureport -k | grep -v /usr/bin/auditctl'
 alias aureport-n='sudo aureport -n | grep -v /usr/bin/urxvt'

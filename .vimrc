@@ -90,7 +90,7 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 " Bind to clear search
-nmap <leader>/ :nohlsearch<CR>
+nmap <leader><space> :nohlsearch<CR>
 
 " --- LaTeX Stuff ---
 " Navigating with guides
