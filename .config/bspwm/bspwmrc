@@ -101,9 +101,9 @@ killall -q redshift
 #while pgrep -u $UID -x redshift > /dev/null; do sleep 1; done
 redshift &
 
-# Battery status notifications
+# Battery status notifications: warn at 25%, critical at 20% and shutdown at 15%
 killall -q batsignal
-batsignal -n BAT1 -w 20 -c 10 -b
+batsignal -b -n BAT1 -w 25 -c 20 -d 15 -D 'sudo poweroff'
 
 # ------- Mouse/Touchpad fixes ------
 # Start libinput gestures
