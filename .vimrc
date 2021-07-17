@@ -107,6 +107,8 @@ autocmd FileType tex inoremap ,im $$<++><Esc>5hli
 autocmd FileType tex inoremap ,con \rightarrow
 autocmd FileType tex inoremap ,bic \leftrightarrow
 
+autocmd BufNewFile,BufRead *.launch set syntax=xml
+
 
 
 " --- Python Stuff ---
