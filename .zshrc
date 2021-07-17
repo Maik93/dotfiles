@@ -3,6 +3,7 @@
 ZSH_DISABLE_COMPFIX=true
 
 export ZSH="/home/flynn/.oh-my-zsh"
+export TERMCMD="urxvt"
 export EDITOR=vim
 export LC_NUMERIC="en_GB.UTF-8"
 
