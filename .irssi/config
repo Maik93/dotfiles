@@ -4,20 +4,28 @@ servers = (
     chatnet = "Freenode";
     port = "6697";
     use_tls = "yes";
-    tls_cert = "~/.irssi/irssi.pem";
+    tls_cert = "~/.irssi/certs/freenode.pem";
     tls_verify = "yes";
     tls_capath = "/etc/ssl/certs";
+  },
+  {
+    address = "irc.libera.chat";
+    chatnet = "libera";
+    port = "6697";
+    use_tls = "yes";
+    tls_cert = "~/.irssi/certs/libera.pem";
+    tls_verify = "no";
     autoconnect = "yes";
   }
 );
 
-chatnets = { Freenode = { type = "IRC"; }; };
+chatnets = { Freenode = { type = "IRC"; }; libera = { type = "IRC"; }; };
 
 channels = (
-  { name = "#archlinux"; chatnet = "Freenode"; autojoin = "yes"; },
-  { name = "#archlinux-aur"; chatnet = "freenode"; autojoin = "yes"; },
-  { name = "#archlinux-arm"; chatnet = "freenode"; autojoin = "yes"; },
-  { name = "#ros"; chatnet = "Freenode"; autojoin = "yes"; }
+  { name = "#archlinux"; chatnet = "libera"; autojoin = "yes"; },
+  { name = "#archlinux-aur"; chatnet = "libera"; autojoin = "yes"; },
+  { name = "#archlinuxarm"; chatnet = "libera"; autojoin = "yes"; },
+  { name = "#ros"; chatnet = "Freenode"; }
 );
 
 ignores = ( { level = "JOINS PARTS QUITS"; } );
@@ -174,7 +182,11 @@ statusbar = {
 };
 
 settings = {
-  core = { real_name = "Michael"; user_name = "Maik93"; nick = "Maik93"; };
+  core = {
+    real_name = "Michael Mugnai";
+    user_name = "Maik93";
+    nick = "Maik93";
+  };
   "fe-text" = {
     actlist_sort = "refnum";
     scroll_page_count = "2";
