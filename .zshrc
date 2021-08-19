@@ -159,6 +159,7 @@ alias clean='conda clean -a && sudo pacman -Scc && paru -Sc --aur'
 alias d2u='dos2unix'
 alias cat='pygmentize -g -O style=monokai'
 alias svim='sudoedit'
+alias sync='sync && notify-send "sync command" completed!'
 alias up='sudo pacman -Sy'
 alias upp='sudo pacman -Syu && paru -Syu'
 alias off='poweroff'
@@ -212,9 +213,11 @@ export PATH="$PATH:/usr/local/cuda/bin" # if the path does not exist do 'sudo ln
 # alias perkey-aqua="msi-perkeyrgb --model GS63 -p aqua"
 
 # other useful aliases
+alias dndrop='dragon-drag-and-drop --and-exit'
 alias update-completion='rm -f ~/.zcompdump* && compinit'
 alias wifi-menu='sudo wifi-menu -o' # automatically obfuscate passwords
 alias jup-casadi='conda activate casadi && cd ~/sources/jupyter_projects && jupyter lab && cd - > /dev/null && conda deactivate'
+alias jup-cv='conda activate computer_vision && cd ~/sources/jupyter_projects && jupyter lab && cd - > /dev/null && conda deactivate'
 # alias apktool="docker run --rm -v `pwd`:/app theanam/apktool"
 alias transen='trans -brief -shell en:it'
 alias transit='trans -brief -shell it:en'
@@ -222,6 +225,7 @@ alias transit='trans -brief -shell it:en'
 alias screeps='prime-run /home/flynn/.local/share/Steam/steamapps/common/Screeps/nw &'
 
 alias eteam-server='TERM=linux ssh -p 430 mmugnai@131.114.72.123'
+alias blue-nas='TERM=linux ssh blue_nas'
 alias lab-server='TERM=linux ssh michael.mugnai@10.30.5.226'
 alias lab-upboard='ssh etdv@10.30.5.129'
 alias lab-xavier='ssh etdv@10.30.5.9'
