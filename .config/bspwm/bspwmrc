@@ -1,20 +1,28 @@
 #! /bin/sh
 
 is_external_monitor_present=$(xrandr --query | grep '^DP-1-8 connected')
+is_third_monitor_present=$(xrandr --query | grep '^DP-1-1-8 connected')
 is_hdmi_present=$(xrandr --query | grep '^HDMI-1-0 connected')
 if [[ $is_external_monitor_present ]]; then
     export XCURSOR_SIZE=16
-    #~/.screenlayout/2_DisplayPort_above.sh
-    ~/.screenlayout/3_DisplayPort_daisy_USB_C.sh
-    bspc monitor eDP-1 -d 1 2 3
-    bspc monitor %DP-1-8 -d 4 5 6 7
-    bspc monitor %DP-1-1-8 -d 8 9 10
-    bspc wm -O eDP-1 DP-1-8 DP-1-1-8
 
-    bspc rule -a TelegramDesktop state=floating center=true follow=true border=false desktop='^3'
+    if [[ $is_third_monitor_present ]]; then
+        ~/.screenlayout/3_DisplayPort_daisy_USB_C.sh
+        bspc monitor eDP-1 -d 1 2 3
+        bspc monitor %DP-1-8 -d 4 5 6 7
+        bspc monitor %DP-1-1-8 -d 8 9 10
+        bspc wm -O eDP-1 DP-1-8 DP-1-1-8
+    else
+        ~/.screenlayout/2_DisplayPort_above.sh
+        bspc monitor eDP-1 -d 1 2 3 4 5
+        bspc monitor DP-1-8 -d 6 7 8 9
+        bspc wm -O eDP-1 DP-1-8
+    fi
+
+    bspc rule -a TelegramDesktop state=floating center=true follow=true desktop='^3'
 elif [[ $is_hdmi_present ]]; then
     #export XCURSOR_SIZE=16
-    ~/.screenlayout/1_HDMI.sh
+    ~/.screenlayout/1_HDMI_left.sh
     bspc monitor eDP-1 -d 1 2 3 4 5 6
     bspc monitor HDMI-1-0 -d 7 8 9 10
     bspc wm -O eDP-1 HDMI-1-0
