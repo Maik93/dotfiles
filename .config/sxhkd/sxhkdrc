@@ -144,10 +144,10 @@ super + l
     betterlockscreen --off 5 -l
 
 super + s
-    ~/.local/bin/scratchy.sh
+    ~/.local/bin/scratchy.sh 120x40
 
 super + shift + s
-    ~/.local/bin/scratchy.sh 120x40
+    ~/.local/bin/scratchy.sh
 
 # super + k
 #     KeeWeb

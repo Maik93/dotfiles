@@ -34,6 +34,7 @@ fi
 sxhkd &
 
 bspc rule -a URxvt:scratchy state=floating rectangle=widthxheight+Xoffset+Yoffset
+bspc rule -a URxvt:big-scratchy state=pseudo_tiled rectangle=widthxheight+Xoffset+Yoffset
 bspc rule -a Chromium desktop='^1' follow=true
 bspc rule -a Brave-browser desktop='^1' follow=true
 bspc rule -a Thunar follow=true state=pseudo_tiled

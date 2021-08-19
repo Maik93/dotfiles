@@ -3,9 +3,11 @@
 echo "$1";
 if [ -z "$1" ]; then
 	size=80x16;
+    name="scratchy"
 else
 	# size=120x40;
 	size=$1;
+    name="big-scratchy"
 fi
 
 # id=$(xdo id -n scratchy);
@@ -19,4 +21,4 @@ fi
 #   xdo $action -n scratchy
 # fi
 
-urxvt -name scratchy -g "$size";
+urxvt -name $name -g "$size";
