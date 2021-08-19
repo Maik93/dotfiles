@@ -265,6 +265,7 @@ handle_image() {
 
 handle_mime() {
     local mimetype="${1}"
+    #echo "----- $mimetype -----" && exit 5
     case "${mimetype}" in
         ## RTF and DOC
         text/rtf|*msword)
@@ -291,7 +292,7 @@ handle_mime() {
             exit 1;;
 
         ## Text
-        text/* | */xml | application/x-wine-extension-ini)
+        text/* | */xml | */launch | application/x-wine-extension-ini)
             ## Syntax highlight
             if [[ "$( stat --printf='%s' -- "${FILE_PATH}" )" -gt "${HIGHLIGHT_SIZE_MAX}" ]]; then
                 exit 2

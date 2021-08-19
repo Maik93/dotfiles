@@ -136,11 +136,9 @@ super + w
 
 super + e
 	nautilus
-	#urxvt -e ranger
 
 super + shift + e
-	sudo nautilus
-	#urxvt -e sudo ranger
+	TERMCMD=urxvt urxvt -e ranger
 
 super + l
     betterlockscreen --off 5 -l
