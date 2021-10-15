@@ -5,27 +5,26 @@
 # ====================================
 
 read -p 'Install virtualbox additions? (y/N): ' choice
-
 if [ "$choice" = "y" ]; then
     sudo pacman -S xf86-video-vmware virtualbox-guest-utils virtualbox-guest-modules-arch --noconfirm --needed
 fi
 
 sudo pacman -S zsh feh rofi ranger sxhkd dunst neofetch noto-fonts noto-fonts-emoji ttf-font-awesome otf-font-awesome pulseaudio pulseaudio-alsa pamixer unzip picom evince light maim w3m numlockx openssh telegram-desktop xclip wmname blueberry pacman-contrib --noconfirm --needed
 
-if pacman -Qs yay > /dev/null ; then
-    echo "Yay is already installed, moving on..."
+if pacman -Qs paru > /dev/null ; then
+    echo "Paru is already installed, moving on..."
 else
-    mkdir -p ~/sources
-    cd ~/sources
-    rm -rf yay
-    git clone https://aur.archlinux.org/yay.git
-    cd yay
+    mkdir -p ~/sources/compiled_from_source
+    cd ~/sources/compiled_from_source
+    rm -rf paru
+    git clone https://aur.archlinux.org/paru.git
+    cd paru
     makepkg -si --noconfirm
     cd ~
 fi
 
 
-yay -S bspwm-rounded-corners rxvt-unicode-256xresources polybar spicetify-cli nerd-fonts-iosevka python-ueberzug spotify betterlockscreen-git gotop xcwd-git pulseaudio-ctl hardcode-tray batsignal urxvt-tabbedex urxvt-vtwheel --needed --removemake --nocleanmenu --nodiffmenu --noeditmenu --noconfirm
+paru -S bspwm-rounded-corners rxvt-unicode-256xresources polybar spicetify-cli nerd-fonts-iosevka python-ueberzug spotify betterlockscreen-git gotop xcwd-git pulseaudio-ctl hardcode-tray batsignal urxvt-tabbedex urxvt-vtwheel --needed --noconfirm
 
 sudo pacman -S debtap
 sudo debtap -u
@@ -43,9 +42,12 @@ sudo install -Dm 644 clean_package_cache.hook /etc/pacman.d/hooks/clean_package_
 # source: https://us.download.nvidia.com/XFree86/Linux-x86_64/450.57/README/randr14.html
 # ====================================
 
-sudo pacman -S nvidia nvidia-prime bbswitch
-yay -S optimus-manager # if problem occurs, delete /etc/X11/xorg.conf and /etc/X11/xorg.conf.d/*
-sudo install -Dm 644 optimus-manager.conf /etc/optimus-manager/optimus-manager.conf
+read -p 'Install virtualbox additions? (y/N): ' choice
+if [ "$choice" = "y" ]; then
+    sudo pacman -S nvidia nvidia-prime bbswitch
+    paru -S optimus-manager # if problem occurs, delete /etc/X11/xorg.conf and /etc/X11/xorg.conf.d/*
+    sudo install -Dm 644 optimus-manager.conf /etc/optimus-manager/optimus-manager.conf
+fi
 
 # ====================================
 # Download and set background
