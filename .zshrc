@@ -130,7 +130,7 @@ _systemctl_unit_state() {
 export PATH="$PATH:/home/$USER/.local/bin:/home/flynn/.gem/ruby/2.7.0/bin"
 
 # AWS
-source aws_zsh_completer.sh
+#source aws_zsh_completer.sh
 
 # R.O.S.
 source ~/.rosrc
@@ -155,10 +155,10 @@ ros-connect() { export ROS_IP= }
 
 # general purpose aliases
 mkcd() { mkdir -p $1 && cd $1; }
-alias install='sudo pacman -S'
+alias inst='sudo pacman -S'
 #alias search='sudo pacman -Ss'
 alias orphans='pacman -Qtd'
-alias yinstall='paru -S'
+alias yinst='paru -S'
 alias search='paru -Ss'
 alias remove='sudo pacman -Rs'
 alias clean='conda clean -a && sudo pacman -Scc && paru -Sc --aur'
@@ -176,6 +176,7 @@ alias df='df -h | grep -v snap'
 alias lsblk='lsblk | grep -v snap'
 alias update-grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
 # awk '$1=="2020-12-20" && $3=="upgrade"' /var/log/pacman.log
+tarzst() { tar cv -I zstdmt -f $1.tar.zst $1; }
 
 # git aliases
 alias gadd='git add'
@@ -220,6 +221,7 @@ export PATH="$PATH:/usr/local/cuda/bin" # if the path does not exist do 'sudo ln
 
 # other useful aliases
 alias dndrop='dragon-drag-and-drop --and-exit'
+alias qrencode='qrencode -t ANSIUTF8'
 alias update-completion='rm -f ~/.zcompdump* && compinit'
 alias wifi-menu='sudo wifi-menu -o' # automatically obfuscate passwords
 alias jup-casadi='conda activate casadi && cd ~/sources/jupyter_projects && jupyter lab && cd - > /dev/null && conda deactivate'
@@ -245,3 +247,6 @@ alias poky-env='unset LD_LIBRARY_PATH && source /opt/poky-iot2000/2.6.2/environm
 
 # How to transfer docker images while compressing them on the fly:
 # docker save <image> | bzip2 | ssh user@host 'bunzip2 | docker load'
+
+ec2_connect() { TERM=rxvt-256color ssh -i ~/.ssh/aws-key.pem ubuntu@$1; }
+
