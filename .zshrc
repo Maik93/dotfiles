@@ -4,8 +4,14 @@ ZSH_DISABLE_COMPFIX=true
 
 export ZSH="/home/flynn/.oh-my-zsh"
 export TERMCMD="urxvt"
-export EDITOR=vim
 export LC_NUMERIC="en_GB.UTF-8"
+
+if [[ $TERM = 'xterm-kitty' ]]; then
+    export EDITOR=nvim
+    alias vim='nvim'
+else
+    export EDITOR=vim
+fi
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,

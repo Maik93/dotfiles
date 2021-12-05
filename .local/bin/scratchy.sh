@@ -2,11 +2,12 @@
 
 echo "$1";
 if [ -z "$1" ]; then
-	size=80x16;
+    w=80
+    h=16
     name="scratchy"
 else
-	# size=120x40;
-	size=$1;
+    w=$1
+    h=$2
     name="big-scratchy"
 fi
 
@@ -21,4 +22,4 @@ fi
 #   xdo $action -n scratchy
 # fi
 
-urxvt -name $name -g "$size";
+kitty --name=$name -o initial_window_width=${w}c -o initial_window_height=${h}c

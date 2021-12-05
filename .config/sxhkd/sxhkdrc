@@ -2,15 +2,15 @@
 
 # terminal emulator
 super + Return
-	urxvt
+    kitty
 
 # terminal emulator in same window as currently focused
 super + shift + Return
-	urxvt -cd "`xcwd`"
+	kitty -d="`xcwd`"
 
 # program launcher
 super + d
-	rofi -modi drun,ssh -show drun -show-icons "Papirus" -m primary
+	rofi -modi drun,ssh -show drun -show-icons "Papirus" -m primary -theme Monokai
 	#rofi -modi drun,ssh -show drun -columns 1 -width 24 -lines 8 -padding 45 -hide-scrollbar -show-icons -drun-icon-theme "Papirus"
 
 # reload sxhkd config
@@ -19,7 +19,7 @@ super + shift F2
 
 # open sxhkdrc config file
 super F2
-    urxvt -e /bin/zsh -c "sleep 0.2; vim ~/.config/sxhkd/sxhkdrc"
+    kitty /bin/zsh -c "sleep 0.2; nvim ~/.config/sxhkd/sxhkdrc"
 
 # reload bspwm config
 super + shift F1
@@ -27,15 +27,15 @@ super + shift F1
 
 # open bspwm config file
 super F1
-    urxvt -e /bin/zsh -c "sleep 0.2; vim ~/.config/bspwm/bspwmrc"
+   kitty /bin/zsh -c "sleep 0.2; nvim ~/.config/bspwm/bspwmrc"
 
 # zshrc
 super F3
-    urxvt -e /bin/zsh -c "sleep 0.2; vim ~/.zshrc"
+    kitty /bin/zsh -c "sleep 0.2; nvim ~/.zshrc"
 
 # zshrc
 super F4
-    urxvt -e /bin/zsh -c "sleep 0.2; vim ~/.rosrc"
+    kitty /bin/zsh -c "sleep 0.2; nvim ~/.rosrc"
 
 # quit bspwm
 super + ctrl + shift + q
@@ -144,7 +144,7 @@ super + l
     betterlockscreen --off 5 -l
 
 super + s
-    ~/.local/bin/scratchy.sh 120x40
+    ~/.local/bin/scratchy.sh 120 40
 
 super + shift + s
     ~/.local/bin/scratchy.sh
@@ -163,6 +163,10 @@ super F12
 super + shift F12
     maim | xclip -selection clipboard -t image/png; \
     notify-send "Screen acquired"
+
+super + ctrl F12
+    maim -s ~/Documents/Screenshots/$(date +%s).png; \
+    notify-send "Screen acquired and stored in ~/Documents/Screenshots"
 
 # Screen brightness control
 XF86MonBrightnessDown
