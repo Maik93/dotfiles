@@ -88,8 +88,7 @@ bspc config active_border_color "#4f515c"
 bspc config focused_border_color "#20ba63" # "#3c7f59"
 bspc config presel_feedback_color "#6272a4"
 
-bspc config border_width          3
-bspc config border_radius         6
+bspc config border_width          4
 bspc config window_gap           12
 
 bspc config split_ratio          0.52
@@ -100,7 +99,7 @@ bspc config gapless_monocle      true
 # ------- Non-BSPWM related ------
 # --------------------------------
 # Set wallpaper
-feh --bg-fill ~/Documents/Wallpapers/dawn.jpg
+feh --bg-fill ~/Documents/Images/howl_sophie.jpg
 # Reload .Xresources
 xrdb -load ~/.Xresources
 # Launch polybar
@@ -108,7 +107,7 @@ xrdb -load ~/.Xresources
 # Change from ugly 'X' cursor when hovering over background
 xsetroot -cursor_name left_ptr
 # Make betterlockscreen generate and cache a background image for locking
-betterlockscreen -u ~/Documents/Wallpapers/wolf_moon.jpg
+betterlockscreen -u ~/Documents/Wallpapers/wale.jpg
 
 # ------- Autostart apps ------
 # Dunst (notifications)
@@ -125,7 +124,7 @@ redshift &
 
 # Battery status notifications: warn at 25%, critical at 20% and shutdown at 15%
 killall -q batsignal
-batsignal -b -n BAT1 -w 25 -c 20 -d 15 -D 'sudo poweroff'
+batsignal -b -n BAT1 -w 25 -c 20 -d 15 -D 'systemctl poweroff'
 
 # ------- Mouse/Touchpad fixes ------
 # Start libinput gestures

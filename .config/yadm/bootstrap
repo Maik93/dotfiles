@@ -24,18 +24,13 @@ else
 fi
 
 
-paru -S bspwm-rounded-corners rxvt-unicode-256xresources polybar spicetify-cli nerd-fonts-iosevka python-ueberzug spotify betterlockscreen-git gotop xcwd-git pulseaudio-ctl hardcode-tray batsignal urxvt-tabbedex urxvt-vtwheel --needed --noconfirm
+paru -S paccache-hook bspwm-rounded-corners rxvt-unicode-256xresources polybar spicetify-cli nerd-fonts-iosevka python-ueberzug spotify betterlockscreen-git gotop xcwd-git pulseaudio-ctl hardcode-tray batsignal urxvt-tabbedex urxvt-vtwheel --needed --noconfirm
 
 sudo pacman -S debtap
 sudo debtap -u
 
 # tabbed extension for urxvt
 curl https://raw.githubusercontent.com/mina86/urxvt-tabbedex/master/install | sh
-
-cd ~/.config/yadm
-
-# pacman hook to keep only two installed package versions and zero uninstalled packages
-sudo install -Dm 644 clean_package_cache.hook /etc/pacman.d/hooks/clean_package_cache.hook
 
 # ====================================
 # Nvidia discrete card  (Xserver setup for multi-monitor)
