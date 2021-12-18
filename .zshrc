@@ -133,6 +133,9 @@ _systemctl_unit_state() {
 # local (user) bin folder and Ruby
 export PATH="$PATH:/home/$USER/.local/bin:/home/flynn/.gem/ruby/2.7.0/bin"
 
+# Kitty aliases
+alias ssh="kitty +kitten ssh"
+
 # AWS
 #source aws_zsh_completer.sh
 
