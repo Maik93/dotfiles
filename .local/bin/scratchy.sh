@@ -2,7 +2,7 @@
 
 echo "$1";
 if [ -z "$1" ]; then
-    w=80
+    w=70
     h=16
     name="scratchy"
 else

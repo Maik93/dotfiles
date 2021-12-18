@@ -144,7 +144,7 @@ super + l
     betterlockscreen --off 5 -l
 
 super + s
-    ~/.local/bin/scratchy.sh 120 40
+    ~/.local/bin/scratchy.sh 100 40
 
 super + shift + s
     ~/.local/bin/scratchy.sh

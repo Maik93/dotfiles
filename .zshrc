@@ -18,10 +18,8 @@ fi
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-# ZSH_THEME="robbyrussell"
-# ZSH_THEME="powerlevel9k/powerlevel9k"
-#ZSH_THEME="agnoster"
-ZSH_THEME="af-magic"
+#ZSH_THEME="af-magic"
+ZSH_THEME="afowler"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -142,7 +140,7 @@ export PATH="$PATH:/home/$USER/.local/bin:/home/flynn/.gem/ruby/2.7.0/bin"
 source ~/.rosrc
 alias catbuild="cd ${current_ros_ws} && catkin build && cd - > /dev/null"
 alias catmake="cd ${current_ros_ws} && catkin_make && cd - > /dev/null"
-alias ros-cd="cd ${current_ros_ws}/src"
+alias ros-cd="cd ${current_ros_ws}"
 
 alias rqt-graph='rosrun rqt_graph rqt_graph &' # show links between published and subscribed topics
 alias rqt-plot='rosrun rqt_plot rqt_plot &' # plot published topics
@@ -182,7 +180,11 @@ alias df='df -h | grep -v snap'
 alias lsblk='lsblk | grep -v snap'
 alias update-grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
 # awk '$1=="2020-12-20" && $3=="upgrade"' /var/log/pacman.log
-tarzst() { tar cv -I zstdmt -f $1.tar.zst $1; }
+tarzst() {
+	num_files=`find $1 | wc -w`
+	echo "==> Compressing '$1' in '$1.tar.zst'"
+	tar cv -I zstdmt -f $1.tar.zst $1 | pv -lep -s $num_files >/dev/null
+}
 
 # git aliases
 alias gadd='git add'
