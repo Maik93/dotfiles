@@ -1,0 +1,5 @@
+#!/usr/bin/sh
+
+echo "Switching git config of the current directory to Sant'Anna profile..."
+git config --local user.email michael.mugnai@gmail.com
+git config --local user.signingkey michael.mugnai@gmail.com
