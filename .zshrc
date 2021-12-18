@@ -3,13 +3,14 @@
 ZSH_DISABLE_COMPFIX=true
 
 export ZSH="/home/flynn/.oh-my-zsh"
-export TERMCMD="urxvt"
 export LC_NUMERIC="en_GB.UTF-8"
 
 if [[ $TERM = 'xterm-kitty' ]]; then
+	export TERMCMD="kitty"
     export EDITOR=nvim
     alias vim='nvim'
 else
+	export TERMCMD="urxvt"
     export EDITOR=vim
 fi
 
@@ -113,9 +114,14 @@ unsetopt share_history # disable history shared between open terminals
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
-bindkey '[3^' kill-word
-bindkey '[33~' backward-kill-word
-
+if [[ $TERM = 'xterm-kitty' ]]; then
+	#bindkey '' kill-word
+	bindkey '<C-Del>' backward-kill-word
+else # urxvt
+	bindkey '[3^' kill-word
+	bindkey '[33~' backward-kill-word
+d
+fi
 # systemctl autocompletition patch
 _systemctl_unit_state() {
   typeset -gA _sys_unit_state

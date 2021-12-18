@@ -9,6 +9,11 @@ let g:airline_powerline_fonts = 1
 set number
 set noshowmode
 
+" Intent options
+set tabstop=4
+set shiftwidth=4
+filetype plugin indent on
+
 lua <<EOF
 EOF
 
