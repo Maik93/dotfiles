@@ -4,12 +4,19 @@
 # Install packages
 # ====================================
 
-read -p 'Install virtualbox additions? (y/N): ' choice
-if [ "$choice" = "y" ]; then
-    sudo pacman -S xf86-video-vmware virtualbox-guest-utils virtualbox-guest-modules-arch --noconfirm --needed
-fi
+# read -p 'Install virtualbox additions? (y/N): ' choice
+# if [ "$choice" = "y" ]; then
+#     sudo pacman -S xf86-video-vmware virtualbox-guest-utils virtualbox-guest-modules-arch --noconfirm --needed
+# fi
 
-sudo pacman -S zsh feh rofi ranger sxhkd dunst neofetch noto-fonts noto-fonts-emoji ttf-font-awesome otf-font-awesome pulseaudio pulseaudio-alsa pamixer unzip picom evince light maim w3m numlockx openssh telegram-desktop xclip wmname blueberry pacman-contrib --noconfirm --needed
+sudo pacman -S --noconfirm --needed \
+    zsh kitty \
+    bspwm feh rofi ranger sxhkd dunst neofetch picom xclip wmname \
+    noto-fonts noto-fonts-emoji ttf-font-awesome otf-font-awesome ttf-jetbrains-mono \
+    pulseaudio pulseaudio-alsa pamixer blueberry \
+    unzip evince light maim w3m numlockx telegram-desktop \
+    openssh pacman-contrib debtap
+sudo debtap -u
 
 if pacman -Qs paru > /dev/null ; then
     echo "Paru is already installed, moving on..."
@@ -23,21 +30,18 @@ else
     cd ~
 fi
 
-
-paru -S paccache-hook bspwm-rounded-corners rxvt-unicode-256xresources polybar spicetify-cli nerd-fonts-iosevka python-ueberzug spotify betterlockscreen-git gotop xcwd-git pulseaudio-ctl hardcode-tray batsignal urxvt-tabbedex urxvt-vtwheel --needed --noconfirm
-
-sudo pacman -S debtap
-sudo debtap -u
-
-# tabbed extension for urxvt
-curl https://raw.githubusercontent.com/mina86/urxvt-tabbedex/master/install | sh
+paru -S --needed --noconfirm \
+    nvim-packer-git \
+    paccache-hook gotop xcwd-git \
+    polybar python-ueberzug betterlockscreen-git \
+    pulseaudio-ctl hardcode-tray batsignal \
+    spotify spicetify-cli nerd-fonts-iosevka
 
 # ====================================
-# Nvidia discrete card  (Xserver setup for multi-monitor)
-# source: https://us.download.nvidia.com/XFree86/Linux-x86_64/450.57/README/randr14.html
+# Nvidia discrete card
 # ====================================
 
-read -p 'Install virtualbox additions? (y/N): ' choice
+read -p 'Install nvidia stuff? (y/N): ' choice
 if [ "$choice" = "y" ]; then
     sudo pacman -S nvidia nvidia-prime bbswitch
     paru -S optimus-manager # if problem occurs, delete /etc/X11/xorg.conf and /etc/X11/xorg.conf.d/*
@@ -61,22 +65,19 @@ rm icomoon-feather.ttf
 fc-cache -vf ~/.local/share/fonts/
 
 # ====================================
-# Powerline symbols fix
-# ====================================
-
-wget https://github.com/powerline/powerline/raw/develop/font/PowerlineSymbols.otf
-wget https://github.com/powerline/powerline/raw/develop/font/10-powerline-symbols.conf
-install -Dm 644 PowerlineSymbols.otf ~/.local/share/fonts/PowerlineSymbols.otf
-install -Dm 644 10-powerline-symbols.conf ~/.config/fontconfig/conf.d/10-powerline-symbols.conf
-rm PowerlineSymbols.otf 10-powerline-symbols.conf
-fc-cache -vf ~/.local/share/fonts/
-
-# ====================================
 # oh-my-zsh
 # ====================================
 yes | sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 install -Dm 644 agnoster.zsh-theme ~/.oh-my-zsh/custom/themes/agnoster.zsh-theme
 install -Dm 644 af-magic.zsh-theme ~/.oh-my-zsh/custom/themes/af-magic.zsh-theme
+install -Dm 644 afowler.zsh-theme ~/.oh-my-zsh/custom/themes/afowler.zsh-theme
+
+# ====================================
+# Kitty
+# ====================================
+cd ~/.config/kitty
+git clone git@github.com:dexpota/kitty-themes.git
+ln -s ./kitty-themes/themes/Broadcast.conf theme.conf
 
 # ====================================
 # Icon theme
