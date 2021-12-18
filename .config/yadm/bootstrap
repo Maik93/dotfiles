@@ -53,7 +53,9 @@ fi
 # ====================================
 
 mkdir -p ~/Documents/Wallpapers
-curl https://i.imgur.com/XCaXGFB.png > ~/Documents/Wallpapers/gruvbox.png
+# curl https://i.imgur.com/XCaXGFB.png > ~/Documents/Wallpapers/gruvbox.png
+install -Dm 644 wale.jpg ~/Documents/Wallpapers/wale.jpg
+install -Dm 644 howl_sophie.jpg ~/Documents/Wallpapers/howl_sophie.jpg
 
 # ====================================
 # Polybar font
@@ -88,4 +90,4 @@ sudo hardcode-tray --size 24 --theme Papirus
 echo "=============="
 echo "==== DONE ===="
 echo "=============="
-echo "$ feh --bg-fill ~/Documents/Wallpapers/wallpaper.png"
+echo "$ feh --bg-fill ~/Documents/Wallpapers/howl_sophie.jpg"

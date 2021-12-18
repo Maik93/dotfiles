@@ -99,7 +99,7 @@ bspc config gapless_monocle      true
 # ------- Non-BSPWM related ------
 # --------------------------------
 # Set wallpaper
-feh --bg-fill ~/Documents/Images/howl_sophie.jpg
+feh --bg-fill ~/Documents/Wallpapers/howl_sophie.jpg
 # Reload .Xresources
 xrdb -load ~/.Xresources
 # Launch polybar
