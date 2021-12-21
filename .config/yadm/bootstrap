@@ -70,9 +70,9 @@ fc-cache -vf ~/.local/share/fonts/
 # oh-my-zsh
 # ====================================
 yes | sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-install -Dm 644 agnoster.zsh-theme ~/.oh-my-zsh/custom/themes/agnoster.zsh-theme
-install -Dm 644 af-magic.zsh-theme ~/.oh-my-zsh/custom/themes/af-magic.zsh-theme
-install -Dm 644 afowler.zsh-theme ~/.oh-my-zsh/custom/themes/afowler.zsh-theme
+for theme in `ls *.zsh-theme`; do
+	ln -s ~/.config/yadm/$theme ~/.oh-my-zsh/custom/themes/$theme
+done
 
 # ====================================
 # Kitty
