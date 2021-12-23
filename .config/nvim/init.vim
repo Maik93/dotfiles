@@ -1,11 +1,12 @@
 lua require('plugins')
 
+" Theme
 set background=dark
 colorscheme gruvbox
 let g:airline_theme='gruvbox'
-
 let g:airline_powerline_fonts = 1
 
+" Base config
 set number
 set noshowmode
 
@@ -13,6 +14,10 @@ set noshowmode
 set tabstop=4
 set shiftwidth=4
 filetype plugin indent on
+
+" Syntax highlighting
+au BufReadPost *.service set syntax=systemd
+au BufReadPost *.timer set syntax=systemd
 
 lua <<EOF
 EOF
