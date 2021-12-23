@@ -1,4 +1,7 @@
 # vim: syntax=bash
+#
+# Autocomplete bugfix:
+# https://superuser.com/questions/230301/strange-zsh-autocomplete-behaviour
 
 DEFAULT_HOST='ARCHOM'
 
@@ -9,7 +12,7 @@ else
 fi
 
 if [[ $HOST != "$DEFAULT_HOST" ]]; then
-    machine_name='%m '
+    machine_name='%{${fg_bold[yellow]}}%m '
 else
     machine_name=''
 fi
@@ -23,7 +26,7 @@ return_code() {
 	fi
 }
 
-PROMPT='$(return_code)${fg_bold[yellow]}${machine_name}%{${fg_bold[blue]}%}%{$reset_color%}%{${fg[blue]}%}%3~ $(git_prompt_info)%{${fg_bold[$CARETCOLOR]}%}»%{${reset_color}%} '
+PROMPT='$(return_code)${machine_name}%{${fg_bold[blue]}%}%{$reset_color%}%{${fg[blue]}%}%2~ $(git_prompt_info)%{${fg_bold[$CARETCOLOR]}%}»%{${reset_color}%} '
 
 # RPS1="${return_code}"
 
