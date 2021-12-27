@@ -11,11 +11,13 @@ else
     CARETCOLOR="blue"
 fi
 
-if [[ $HOST != "$DEFAULT_HOST" ]]; then
-    machine_name='%{${fg_bold[yellow]}}%m '
-else
-    machine_name=''
-fi
+machine_name() {
+	if [[ $HOST != "$DEFAULT_HOST" ]]; then
+		echo -n "%{${fg_bold[yellow]}%}%m "
+	else
+		echo -n ""
+	fi
+}
 
 return_code() {
 	ret_code_raw=$?
@@ -26,7 +28,7 @@ return_code() {
 	fi
 }
 
-PROMPT='$(return_code)${machine_name}%{${fg_bold[blue]}%}%{$reset_color%}%{${fg[blue]}%}%2~ $(git_prompt_info)%{${fg_bold[$CARETCOLOR]}%}»%{${reset_color}%} '
+PROMPT='$(return_code)$(machine_name)%{${fg_bold[blue]}%}%{$reset_color%}%{${fg[blue]}%}%2~ $(git_prompt_info)%{${fg_bold[$CARETCOLOR]}%}»%{${reset_color}%} '
 
 # RPS1="${return_code}"
 
