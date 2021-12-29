@@ -1,5 +1,5 @@
 #!/bin/sh
-
+set -e
 # ====================================
 # Install packages
 # ====================================
@@ -13,10 +13,9 @@ sudo pacman -S --noconfirm --needed \
     zsh kitty \
     bspwm feh rofi ranger sxhkd dunst neofetch picom xclip wmname \
     noto-fonts noto-fonts-emoji ttf-font-awesome otf-font-awesome ttf-jetbrains-mono \
-    pulseaudio pulseaudio-alsa pamixer blueberry \
+    pulseaudio pulseaudio-alsa pamixer blueberry bluez-utils \
     unzip evince light maim w3m numlockx telegram-desktop \
-    openssh pacman-contrib debtap
-sudo debtap -u
+    openssh pacman-contrib
 
 if pacman -Qs paru > /dev/null ; then
     echo "Paru is already installed, moving on..."
@@ -35,7 +34,8 @@ paru -S --needed --noconfirm \
     paccache-hook gotop xcwd-git \
     polybar python-ueberzug betterlockscreen-git \
     pulseaudio-ctl hardcode-tray batsignal \
-    spotify spicetify-cli nerd-fonts-iosevka
+    spotify spicetify-cli nerd-fonts-iosevka debtap
+sudo debtap -u
 
 # ====================================
 # Nvidia discrete card
@@ -60,7 +60,6 @@ install -Dm 644 howl_sophie.jpg ~/Documents/Wallpapers/howl_sophie.jpg
 # ====================================
 # Polybar font
 # ====================================
-
 curl https://raw.githubusercontent.com/adi1090x/polybar-themes/master/polybar-8/fonts/icomoon-feather.ttf > icomoon-feather.ttf
 install -Dm 644 icomoon-feather.ttf ~/.local/share/fonts/icomoon-feather.ttf
 rm icomoon-feather.ttf
