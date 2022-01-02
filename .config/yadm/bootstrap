@@ -17,6 +17,9 @@ sudo pacman -S --noconfirm --needed \
     unzip evince light maim w3m numlockx telegram-desktop \
     openssh pacman-contrib
 
+sudo systemctl enable bluetooth.service
+sudo systemctl start bluetooth.service
+
 if pacman -Qs paru > /dev/null ; then
     echo "Paru is already installed, moving on..."
 else
@@ -34,7 +37,8 @@ paru -S --needed --noconfirm \
     paccache-hook gotop xcwd-git \
     polybar python-ueberzug betterlockscreen-git \
     pulseaudio-ctl hardcode-tray batsignal \
-    spotify spicetify-cli nerd-fonts-iosevka debtap
+    spotify spicetify-cli debtap \
+    nerd-fonts-iosevka ttf-icomoon-feather
 sudo debtap -u
 
 # ====================================
