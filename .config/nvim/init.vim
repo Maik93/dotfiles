@@ -19,6 +19,14 @@ filetype plugin indent on
 au BufReadPost *.service set syntax=systemd
 au BufReadPost *.timer set syntax=systemd
 
+let g:markdown_fenced_languages = [
+	\ 'json=javascript',
+    \ 'python',
+    \ 'bash',
+    \ 'zsh',
+    \ 'sh',
+    \ ]
+
 lua <<EOF
 EOF
 

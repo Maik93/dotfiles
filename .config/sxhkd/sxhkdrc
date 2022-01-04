@@ -138,7 +138,7 @@ super + e
 	nautilus
 
 super + shift + e
-	TERMCMD=urxvt urxvt -e ranger
+	TERMCMD=kitty EDITOR=nvim kitty -e ranger
 
 super + l
     betterlockscreen --off 5 -l
