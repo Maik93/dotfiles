@@ -1,21 +1,27 @@
 #!/bin/bash -e
 
+set -e -x
+
 user=`id -un`
 group=`id -gn`
-set_owner=false
 
 usage() {
 	echo
-	echo "Usage: `basename $0` [-o] directory [-h]"
+	echo "Usage: `basename $0` [-o] [-s] directory [-h]"
 	echo "  o   set owner to $user:$group."
+	echo "  s   use sudo."
 	echo "  h   help and usage message."
 	echo
 }
 
+set_owner=false
+s_command=''
+
 # `getopts` ref: https://www.computerhope.com/unix/bash/getopts.htm                               
-while getopts "oh" arg; do
+while getopts "osh" arg; do
 	case $arg in
 		o) set_owner=true;;
+		s) s_command='sudo';;
 		h) echo "Set directory permissions to 755 and files to 644. Optionally set owner too."; usage; exit 0;;
 		?) echo "Unknown option: -$OPTARG" >&2; usage; exit 1;;
 		:)  echo "Missing option argument for -$OPTARG" >&2; usage; exit 1;;
@@ -36,14 +42,14 @@ export IFS=$'\n'
 for x in ${dirToFix[@]}; do
     # directories & subdirectories
     for i in $(find $x -type d); do
-        chmod -c 775 $i
-        $set_owner && chown -c $user:$group $i
+    	$set_owner && $s_command chown -c $user:$group $i
+        $s_command chmod -c 775 $i
     done
 
     # files
     for i in $(find $x -type f); do
-        chmod -c 664 $i
-        $set_owner && chown -c $user:$group $i
+    	$set_owner && $s_command chown -c $user:$group $i
+        $s_command chmod -c 664 $i
     done
 done
 
