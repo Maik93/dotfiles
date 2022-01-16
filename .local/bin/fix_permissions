@@ -1,32 +1,51 @@
 #!/bin/bash -e
 
-# list of directory to fix
-#dirToFix[0]="/home/me/Videos"
-#dirToFix[1]="/home/me/Music"
-dirToFix[0]="$(pwd)"
+user=`id -un`
+group=`id -gn`
+set_owner=false
+
+usage() {
+	echo
+	echo "Usage: `basename $0` [-o] directory [-h]"
+	echo "  o   set owner to $user:$group."
+	echo "  h   help and usage message."
+	echo
+}
+
+# `getopts` ref: https://www.computerhope.com/unix/bash/getopts.htm                               
+while getopts "oh" arg; do
+	case $arg in
+		o) set_owner=true;;
+		h) echo "Set directory permissions to 755 and files to 644. Optionally set owner too."; usage; exit 0;;
+		?) echo "Unknown option: -$OPTARG" >&2; usage; exit 1;;
+		:)  echo "Missing option argument for -$OPTARG" >&2; usage; exit 1;;
+	esac
+done
+
+# get remaining arguments after options
+shift $(($OPTIND - 1))
+dirToFix="$@"
+if [[ -z $dirToFix ]]; then
+	echo 'Missing target directory.' >&2; usage; exit 1
+fi
 
 # Setup find correctly
 export IFS=$'\n'
 
 # Loop through our array
-for x in ${dirToFix[@]}
-    do 
-        # Find all directories & subdirectories
-        for i in $(find $x -type d) 
-            do 
-                # Fix Permissions
-                chmod -c 775 $i
-                #chown -c me:user $i
-            done
-
-        # Find all Files
-        for i in $(find $x -type f) 
-            do 
-                # Fix Permissions
-                chmod -c 664 $i
-                # chown -c me:user $i
-            done
+for x in ${dirToFix[@]}; do
+    # directories & subdirectories
+    for i in $(find $x -type d); do
+        chmod -c 775 $i
+        $set_owner && chown -c $user:$group $i
     done
 
-echo "File and directory permissions under $dirToFix recursively fixed succesfully."
+    # files
+    for i in $(find $x -type f); do
+        chmod -c 664 $i
+        $set_owner && chown -c $user:$group $i
+    done
+done
+
+echo "File and directory permissions recursively fixed succesfully."
 echo "They are now set to 644 and 755, respectively."
