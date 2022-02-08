@@ -1,134 +1,8 @@
 ## BSPWM keymaps <3 ##
 
-# terminal emulator
-super + Return
-    kitty
-
-# terminal emulator in same window as currently focused
-super + shift + Return
-	kitty -d="`xcwd`"
-
-# program launcher
-super + d
-	rofi -modi drun,ssh -show drun -show-icons "Papirus" -m primary -theme Monokai
-	#rofi -modi drun,ssh -show drun -columns 1 -width 24 -lines 8 -padding 45 -hide-scrollbar -show-icons -drun-icon-theme "Papirus"
-
-# reload sxhkd config
-super + shift F2
-	pkill -USR1 -x sxhkd
-
-# open sxhkdrc config file
-super F2
-    kitty /bin/zsh -c "sleep 0.2; nvim ~/.config/sxhkd/sxhkdrc"
-
-# reload bspwm config
-super + shift F1
-	bspc wm -r
-
-# open bspwm config file
-super F1
-   kitty /bin/zsh -c "sleep 0.2; nvim ~/.config/bspwm/bspwmrc"
-
-# zshrc
-super F3
-    kitty /bin/zsh -c "sleep 0.2; nvim ~/.zshrc"
-
-# zshrc
-super F4
-    kitty /bin/zsh -c "sleep 0.2; nvim ~/.rosrc"
-
-# quit bspwm
-super + ctrl + shift + q
-    bspc quit
-
-# close and kill
-super + shift + q
-	bspc node -c
-
-#
-# state/flags
-#
-
-# set the window state
-super + {t,shift + t,shift + space,f}
-	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
-
-# set the node flags
-#super + ctrl + {m,x,y,z}
-#	bspc node -g {marked,locked,sticky,private}
-super + ctrl + s
-    bspc node -g sticky; \
-    notify-send "Current window stickness toggled"
-
-
-#
-# focus/swap
-#
-
-# focus or move the node in the given direction
-super + {_,shift + }{Left,Down,Up,Right}
-	bspc node -{f,s} {west,south,north,east}
-
-# focus to next/previous window
-super + {_,shift + }Tab
-    bspc node -f {next,prev}
-
-# focus the next/previous occupied desktop
-ctrl + alt + {Right,Left}
-    bspc desktop -f {next,prev}.occupied
-
-# focus or send to the given desktop
-# super + {_,shift + }{1-9}
-# 	bspc {desktop -f,node -d} '^{1-9}'
-
-# focus to the given desktop
-super + {1-9}
-	bspc desktop -f '^{1-9}'
-
-# send to the given desktop and follow
-super + shift + {1-9}
-	id=$(bspc query -N -n); \
-	bspc node -d ^{1-9}; \
-	bspc node -f ${id}
-
-ctrl + alt + shift + {Right,Left}
-    DIR={next,prev}; \
-    bspc node -d "$DIR"; \
-    bspc desktop -f "$DIR"
-
-#
-# preselect
-#
-
-# preselect the direction
-# super + ctrl + {h,j,k,l}
-super + ctrl + {Left,Down,Up,Right}
-	bspc node -p {west,south,north,east}
-
-# preselect the ratio
-super + ctrl + {1-9}
-	bspc node -o 0.{1-9}
-
-# cancel the preselection for the focused node
-super + ctrl + space
-	bspc node -p cancel
-
-#
-# move/resize
-#
-
-# expand a window by moving one of its side outward
-# super + alt + {h,j,k,l}
-super + alt + {Left,Down,Up,Right}
-	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
-
-# contract a window by moving one of its side inward
-# super + alt + shift + {h,j,k,l}
-super + alt + shift + {Left,Down,Up,Right}
-	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
 
 # ===================================
-# ========== User-specific ==========
+# ============ Programs =============
 # ===================================
 
 super + w
@@ -149,11 +23,154 @@ super + s
 super + shift + s
     ~/.local/bin/scratchy.sh
 
-# super + k
-#     KeeWeb
+# terminal emulator
+super + Return
+    kitty
 
-# super + shift + i
-#     imgur-screenshot
+# terminal emulator in same window as currently focused
+super + shift + Return
+	kitty -d="`xcwd`"
+
+# program launcher
+super + d
+	rofi -modi drun,ssh -show drun -show-icons "Papirus" -m primary -theme Monokai
+	#rofi -modi drun,ssh -show drun -columns 1 -width 24 -lines 8 -padding 45 -hide-scrollbar -show-icons -drun-icon-theme "Papirus"
+
+# close window and kill
+super + shift + q
+	bspc node -c
+
+# ===================================
+# ========== Terminal etc ===========
+# ===================================
+
+# ===================================
+# ========= Config editors ==========
+# ===================================
+
+# open bspwm config file
+super F1
+   kitty /bin/zsh -c "sleep 0.2; nvim ~/.config/bspwm/bspwmrc"
+
+# reload bspwm config
+super + shift F1
+	bspc wm -r
+
+# quit bspwm
+super + ctrl + shift + q
+    bspc quit
+
+# open sxhkdrc config file
+super F2
+    kitty /bin/zsh -c "sleep 0.2; nvim ~/.config/sxhkd/sxhkdrc"
+
+# reload sxhkd config
+super + shift F2
+	pkill -USR1 -x sxhkd
+
+# zshrc
+super F3
+    kitty /bin/zsh -c "sleep 0.2; nvim ~/.zshrc"
+
+# rosrc
+super F4
+    kitty /bin/zsh -c "sleep 0.2; nvim ~/.rosrc"
+
+# ===================================
+# ========== Window states ==========
+# ===================================
+
+# set the window state
+super + {t,shift + t,shift + space,f}
+	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
+
+# set the node flags
+#super + ctrl + {m,x,y,z}
+#	bspc node -g {marked,locked,sticky,private}
+super + ctrl + s
+    bspc node -g sticky; \
+    notify-send "Current window stickness toggled"
+
+
+# ===================================
+# ========== Focus - swap ===========
+# ===================================
+
+# flip orientation (horizontal <-> vertical)
+super + ctrl + Return
+	bspc node -f @parent; \
+	bspc node -R 90
+
+# focus or move the node in the given direction
+super + {_,shift + }{Left,Down,Up,Right}
+	bspc node -{f,s} {west,south,north,east}
+
+# focus to next/previous window
+super + {_,shift + }Tab
+    bspc node -f {next,prev}
+
+# focus the next/previous occupied desktop
+ctrl + alt + {Right,Left}
+    bspc desktop -f {next,prev}.occupied
+
+# focus or send to the given desktop
+# super + {_,shift + }{1-9}
+# 	bspc {desktop -f,node -d} '^{1-9}'
+
+# focus to the given desktop
+super + {1-9}
+	bspc desktop -f '^{1-9}'
+super + 0
+	bspc desktop -f '^10'
+
+# send to the given desktop and follow
+super + shift + {1-9}
+	id=$(bspc query -N -n); \
+	bspc node -d ^{1-9}; \
+	bspc node -f ${id}
+super + shift + 10
+	id=$(bspc query -N -n); \
+	bspc node -d ^10; \
+	bspc node -f ${id}
+ctrl + alt + shift + {Right,Left}
+    DIR={next,prev}; \
+    bspc node -d "$DIR"; \
+    bspc desktop -f "$DIR"
+
+# ===================================
+# ========== Preselections ==========
+# ===================================
+
+# preselect the direction
+# super + ctrl + {h,j,k,l}
+super + ctrl + {Left,Down,Up,Right}
+	bspc node -p {west,south,north,east}
+
+# preselect the ratio
+super + ctrl + {1-9}
+	bspc node -o 0.{1-9}
+
+# cancel the preselection for the focused node
+super + ctrl + space
+	bspc node -p cancel
+
+# ===================================
+# ========== move - resize ==========
+# ===================================
+
+# expand a window by moving one of its side outward
+# super + alt + {h,j,k,l}
+super + alt + {Left,Down,Up,Right}
+	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+
+# contract a window by moving one of its side inward
+# super + alt + shift + {h,j,k,l}
+super + alt + shift + {Left,Down,Up,Right}
+	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
+
+# ===================================
+# ============= Screen ==============
+# ===================================
 
 # Screenshots: from selection or entire screen
 super F12
@@ -174,6 +191,10 @@ XF86MonBrightnessDown
 XF86MonBrightnessUp
     sudo light -A 5
 
+# ===================================
+# ============== Music ==============
+# ===================================
+
 # Volume control
 XF86AudioRaiseVolume
     /usr/bin/pulseaudio-ctl up 5
@@ -186,7 +207,7 @@ XF86AudioMute
 # Play/pause
 #XF86AudioPlay
 ctrl + 9
-    dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause 
+    dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
 
 # Next/prev
 #XF86AudioNext
