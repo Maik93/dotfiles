@@ -1,4 +1,5 @@
 lua require('plugins')
+lua require('git-diffview')
 
 " Theme
 set background=dark
