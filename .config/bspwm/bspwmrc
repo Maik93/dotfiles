@@ -16,7 +16,7 @@ if [[ $is_external_monitor_present ]]; then
     else
         ~/.screenlayout/2_DisplayPort_above.sh
         bspc monitor eDP-1 -d 1 2 3 4 5
-        bspc monitor DP-1-8 -d 6 7 8 9
+        bspc monitor DP-1-8 -d 6 7 8 9 10
         bspc wm -O eDP-1 DP-1-8
     fi
 

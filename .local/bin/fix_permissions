@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-set -e -x
+set -e
 
 user=`id -un`
 group=`id -gn`

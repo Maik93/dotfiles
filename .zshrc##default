@@ -174,7 +174,8 @@ alias cat='pygmentize -g -O style=monokai'
 alias svim='sudoedit'
 alias sync='sync && notify-send "sync command" completed!'
 alias up='sudo pacman -Sy'
-alias upp='sudo pacman -Syu && paru -Syu'
+#alias upp='sudo pacman -Syu && paru -Syu'
+alias upp='snapper -c root create --command "sudo pacman -Syu && paru -Syu"'
 alias off='poweroff'
 # alias sens='s-tui'
 alias suggest-pass='apg -s -a 1 -m 15 -M SNCL'
@@ -183,6 +184,10 @@ alias df='df -h | grep -v snap'
 alias lsblk='lsblk | grep -v snap'
 alias update-grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
 # awk '$1=="2020-12-20" && $3=="upgrade"' /var/log/pacman.log
+7zc() {
+	echo "==> Compressing '$1' in '$1.7z'"
+	7z a -mmt=10 -mx=9 $1.7z $1
+}
 tarzst() {
 	num_files=`find $1 | wc -w`
 	echo "==> Compressing '$1' in '$1.tar.zst'"
@@ -221,7 +226,8 @@ alias ros-docker='~/docks/ros_noetic/go.sh'
 alias mfc-flash='~/docks/mfc/fast_flash.sh'
 
 # CUDA
-export PATH="$PATH:/usr/local/cuda/bin" # if the path does not exist do 'sudo ln -s /opt/cuda /usr/local/cuda'
+export PATH="$PATH:/opt/cuda/bin"
+# export PATH="$PATH:/usr/local/cuda/bin" # if the path does not exist do 'sudo ln -s /opt/cuda /usr/local/cuda'
 # export LD_LIBRARY_PATH="/usr/local/cuda/lib64:$LD_LIBRARY_PATH"
 
 # # MSI perkey-RGB
@@ -259,5 +265,10 @@ alias poky-env='unset LD_LIBRARY_PATH && source /opt/poky-iot2000/2.6.2/environm
 # How to transfer docker images while compressing them on the fly:
 # docker save <image> | bzip2 | ssh user@host 'bunzip2 | docker load'
 
-ec2_connect() { TERM=rxvt-256color ssh -i ~/.ssh/aws-key.pem ubuntu@$1; }
+eb_connect() {
+	cd ~/sources/startup_projects/AWS/EB
+	conda activate aws
+	TERM=rxvt-256color eb ssh
+	conda deactivate
+}
 
