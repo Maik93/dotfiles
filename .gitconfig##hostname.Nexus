@@ -1,0 +1,19 @@
+[user]
+	name = Maik from Nexus
+	email = michael.mugnai@gmail.com
+[commit]
+	gpgsign = false
+[pull]
+	ff = only
+[core]
+	autocrlf = input
+[credential]
+	helper = store
+[init]
+	defaultBranch = main
+[difftool]
+    prompt = true
+[diff]
+    tool = nvim-diff
+[difftool "nvim-diff"]
+    cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
