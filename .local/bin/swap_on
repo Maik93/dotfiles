@@ -1,0 +1,20 @@
+#!/usr/bin/bash
+set -e
+
+SWP_SIZE=16000 # in MiB
+
+cd ~
+
+if [[ ! -f swapfile ]]; then
+	truncate -s 0 swapfile
+	chattr +C swapfile
+
+	dd if=/dev/zero of=swapfile bs=1M count=$SWP_SIZE status=progress >/dev/null
+	chmod 0600 swapfile
+	mkswap -U clear swapfile
+
+	sudo chown root:root swapfile
+fi
+
+sudo swapon swapfile
+

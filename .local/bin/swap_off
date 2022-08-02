@@ -1,0 +1,8 @@
+#!/usr/bin/bash
+set -e
+
+cd ~
+
+sudo swapoff swapfile
+sudo rm swapfile
+
