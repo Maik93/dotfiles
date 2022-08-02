@@ -89,6 +89,9 @@ else
 	compinit -C
 fi
 
+# zoxide integration
+eval "$(zoxide init zsh)"
+
 # lazy loading ~/.local/autoloaded/* executables
 fpath=($fpath ~/.local/autoloaded)
 autoload conda

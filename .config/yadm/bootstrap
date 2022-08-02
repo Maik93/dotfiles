@@ -15,7 +15,11 @@ sudo pacman -S --noconfirm --needed \
     noto-fonts noto-fonts-emoji ttf-font-awesome otf-font-awesome ttf-jetbrains-mono \
     pulseaudio pulseaudio-alsa pamixer blueberry bluez-utils \
     unzip evince light maim w3m numlockx telegram-desktop \
-    openssh pacman-contrib
+    openssh pacman-contrib \
+	zoxide fzf
+
+# ranger plugins
+git clone git@github.com:jchook/ranger-zoxide.git ~/.config/ranger/plugins/zoxide
 
 sudo systemctl enable bluetooth.service
 sudo systemctl start bluetooth.service
@@ -44,7 +48,6 @@ sudo debtap -u
 # ====================================
 # Nvidia discrete card
 # ====================================
-
 read -p 'Install nvidia stuff? (y/N): ' choice
 if [ "$choice" = "y" ]; then
     sudo pacman -S nvidia nvidia-prime bbswitch
@@ -55,7 +58,6 @@ fi
 # ====================================
 # Download and set background
 # ====================================
-
 mkdir -p ~/Documents/Wallpapers
 # curl https://i.imgur.com/XCaXGFB.png > ~/Documents/Wallpapers/gruvbox.png
 install -Dm 644 wale.jpg ~/Documents/Wallpapers/wale.jpg
