@@ -6,7 +6,7 @@
 # ===================================
 
 super + w
-	brave
+	firefox
 
 super + e
 	nautilus
@@ -113,6 +113,12 @@ super + {_,shift + }Tab
 ctrl + alt + {Right,Left}
     bspc desktop -f {next,prev}.occupied
 
+alt + Tab
+    bspc desktop -f prev.occupied
+
+Print
+	bspc desktop -f next.occupied
+
 # focus or send to the given desktop
 # super + {_,shift + }{1-9}
 # 	bspc {desktop -f,node -d} '^{1-9}'
@@ -128,7 +134,7 @@ super + shift + {1-9}
 	id=$(bspc query -N -n); \
 	bspc node -d ^{1-9}; \
 	bspc node -f ${id}
-super + shift + 10
+super + shift + 0
 	id=$(bspc query -N -n); \
 	bspc node -d ^10; \
 	bspc node -f ${id}
