@@ -5,14 +5,14 @@ ZSH_DISABLE_COMPFIX=true
 export ZSH="/home/flynn/.oh-my-zsh"
 export LC_NUMERIC="en_GB.UTF-8"
 
-if [[ $TERM = 'xterm-kitty' ]]; then
-	export TERMCMD="kitty"
-    export EDITOR=nvim
-    alias vim='nvim'
-else
-	export TERMCMD="urxvt"
-    export EDITOR=vim
-fi
+# if [[ $TERM = 'xterm-kitty' ]]; then
+export TERMCMD="kitty"
+export EDITOR=nvim
+alias vim='nvim'
+# else
+# 	export TERMCMD="urxvt"
+#     export EDITOR=vim
+# fi
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -105,20 +105,13 @@ unsetopt share_history # disable history shared between open terminals
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
 if [[ $TERM = 'xterm-kitty' ]]; then
 	#bindkey '' kill-word
 	bindkey '<C-Del>' backward-kill-word
-else # urxvt
+else # tmux
 	bindkey '[3^' kill-word
 	bindkey '[33~' backward-kill-word
 d
@@ -126,21 +119,33 @@ fi
 # systemctl autocompletition patch
 _systemctl_unit_state() {
   typeset -gA _sys_unit_state
-  _sys_unit_state=( $(__systemctl list-unit-files "$PREFIX*" | awk '{print $1, $2}') ) }
+  _sys_unit_state=( $(__systemctl list-unit-files "$PREFIX*" | awk '{print $1, $2}') )
+}
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 
+# distcc compiling:
+# call 'pump ...' to ask Ryzen server for compilation for help! (e.g. 'pump make -j40')
+mkdir -p /tmp/distcc; export DISTCC_DIR=/tmp/distcc
+export DISTCC_HOSTS="10.30.5.9/30,cpp,lzo localhost/10"
+
 # local (user) bin folder and Ruby
 export PATH="$PATH:/home/$USER/.local/bin:/home/flynn/.gem/ruby/2.7.0/bin"
 
 # Kitty aliases
-alias ssh="kitty +kitten ssh"
+#alias ssh="kitty +kitten ssh"
 
 # AWS
-#source aws_zsh_completer.sh
+complete -C '/usr/bin/aws_completer' aws
+eb_connect() {
+	cd ~/sources/startup_projects/AWS/EB
+	conda activate aws
+	TERM=rxvt-256color eb ssh
+	conda deactivate
+}
 
 # R.O.S.
 source ~/.rosrc
@@ -177,8 +182,9 @@ alias cat='pygmentize -g -O style=monokai'
 alias svim='sudoedit'
 alias sync='sync && notify-send "sync command" completed!'
 alias up='sudo pacman -Sy'
-#alias upp='sudo pacman -Syu && paru -Syu'
-alias upp='snapper -c root create --command "sudo pacman -Syu && paru -Syu"'
+alias upp='sudo pacman -Syu && paru -Syu'
+#alias upp='snapper -c root create --command "sudo pacman -Syu && paru -Syu"'
+alias susp='systemctl suspend; exit 0'
 alias off='poweroff'
 # alias sens='s-tui'
 alias suggest-pass='apg -s -a 1 -m 15 -M SNCL'
@@ -187,6 +193,11 @@ alias df='df -h | grep -v snap'
 alias lsblk='lsblk | grep -v snap'
 alias update-grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
 # awk '$1=="2020-12-20" && $3=="upgrade"' /var/log/pacman.log
+
+# Some utility functions
+mount-as-user() {
+	sudo mount -o rw,nosuid,nodev,relatime,uid=$(id -u),gid=$(id -g),fmask=0022,dmask=0022 $1 $2
+}
 7zc() {
 	echo "==> Compressing '$1' in '$1.7z'"
 	7z a -mmt=10 -mx=9 $1.7z $1
@@ -195,6 +206,15 @@ tarzst() {
 	num_files=`find $1 | wc -w`
 	echo "==> Compressing '$1' in '$1.tar.zst'"
 	tar cv -I zstdmt -f $1.tar.zst $1 | pv -lep -s $num_files >/dev/null
+}
+update-arch-keys() {
+	sudo pacman -Sy archlinux-keyring
+	sudo pacman-key --populate archlinux
+	sudo pacman-key --refresh-keys
+}
+paste-file() {
+	echo "==> Pasting '$1' content over ix.io..."
+	noglob cat $1 |& curl -F 'f:1=<-' ix.io
 }
 
 # git aliases
@@ -215,18 +235,11 @@ alias gpu-hidden='optirun -b none env DISPLAY=:8' # to run something headless wi
 alias check-gpu='optirun --status'
 # complete -cf gpu # auto-completition
 
-# # Install Ruby Gems to ~/gems
-# export GEM_HOME=$HOME/gems
-# export PATH=$HOME/gems/bin:$PATH
-
 # Docker
-# alias docker-remove-all-containers='docker container rm $(docker container ls -a -q)'
 alias docker-remove-all-containers='docker rm $(docker container ls -a | grep -v "ros-" | awk "NR>1 {print $ 1}")'
 alias docker-remove-none-images='docker rmi $(docker images -qa -f 'dangling=true')'
-# alias go-realsense="cd ~/docks/ros_kinetic_realsense/ros_ws_src/realsense/realsense_camera && rm launch/r200_handler.launch && ln ~/aragog_ws/src/hexapod_ros_project/launch/r200_handler.launch ./launch/r200_handler.launch && optirun ~/docks/ros_kinetic_realsense/go.sh"
-# alias kali-dock="cd docks/kali/ && ./go.sh"
-alias ros-docker='~/docks/ros_noetic/go.sh'
-alias mfc-flash='~/docks/mfc/fast_flash.sh'
+alias ros-docker='~/sources/docker_images/ros_noetic/go.sh'
+alias mfc-flash='~/sources/docker_images/image_builders/misc/mfc/fast_flash.sh'
 
 # CUDA
 export PATH="$PATH:/opt/cuda/bin"
@@ -240,25 +253,16 @@ export PATH="$PATH:/opt/cuda/bin"
 # alias perkey-aqua="msi-perkeyrgb --model GS63 -p aqua"
 
 # other useful aliases
+alias distcc-status='watch -c -n 2 -- distccmon-text 2'
 alias dndrop='dragon-drag-and-drop --and-exit'
 alias qrencode='qrencode -t ANSIUTF8'
 alias update-completion='rm -f ~/.zcompdump* && compinit'
 alias wifi-menu='sudo wifi-menu -o' # automatically obfuscate passwords
-alias jup-casadi='conda activate casadi && cd ~/sources/jupyter_projects && jupyter lab && cd - > /dev/null && conda deactivate'
+# alias jup-casadi='conda activate casadi && cd ~/sources/jupyter_projects && jupyter lab && cd - > /dev/null && conda deactivate'
 alias jup-cv='conda activate computer_vision && cd ~/sources/jupyter_projects && jupyter lab && cd - > /dev/null && conda deactivate'
 # alias apktool="docker run --rm -v `pwd`:/app theanam/apktool"
 alias transen='trans -brief -shell en:it'
 alias transit='trans -brief -shell it:en'
-
-alias screeps='prime-run /home/flynn/.local/share/Steam/steamapps/common/Screeps/nw &'
-
-alias eteam-server='TERM=linux ssh -p 430 mmugnai@131.114.72.123'
-alias blue-nas='TERM=linux ssh blue_nas'
-alias lab-server='TERM=linux ssh michael.mugnai@10.30.5.226'
-alias lab-upboard='ssh etdv@10.30.5.129'
-alias lab-xavier='ssh etdv@10.30.5.9'
-alias gcloud-ovpn='TERM=linux ssh 35.209.208.20'
-alias iot_utini='TERM=linux ssh root@192.168.21.54'
 
 alias aureport-k='sudo aureport -k | grep -v /usr/bin/auditctl'
 alias aureport-n='sudo aureport -n | grep -v /usr/bin/urxvt'
@@ -267,11 +271,3 @@ alias poky-env='unset LD_LIBRARY_PATH && source /opt/poky-iot2000/2.6.2/environm
 
 # How to transfer docker images while compressing them on the fly:
 # docker save <image> | bzip2 | ssh user@host 'bunzip2 | docker load'
-
-eb_connect() {
-	cd ~/sources/startup_projects/AWS/EB
-	conda activate aws
-	TERM=rxvt-256color eb ssh
-	conda deactivate
-}
-
