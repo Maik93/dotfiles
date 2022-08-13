@@ -5,15 +5,17 @@
 
 DEFAULT_HOST='ARCHOM'
 
-if [ $UID -eq 0 ]; then
-    CARETCOLOR="red"
-else
-    CARETCOLOR="blue"
-fi
+# if [ $UID -eq 0 ]; then
+#     CARETCOLOR="red"
+# else
+#     CARETCOLOR="blue"
+# fi
+
+gold="%F{222}"
 
 machine_name() {
 	if [[ $HOST != "$DEFAULT_HOST" ]]; then
-		echo -n "%{${fg_bold[yellow]}%}%m "
+		echo -n "%{${fg_bold[white]}%}%m "
 	else
 		echo -n ""
 	fi
@@ -28,9 +30,7 @@ return_code() {
 	fi
 }
 
-PROMPT='$(return_code)$(machine_name)%{${fg_bold[blue]}%}%{$reset_color%}%{${fg[blue]}%}%2~ $(git_prompt_info)%{${fg_bold[$CARETCOLOR]}%}»%{${reset_color}%} '
-
-# RPS1="${return_code}"
+PROMPT='$(return_code)$(machine_name)${gold}%2~ $(git_prompt_info)${gold}»%{${reset_color}%}%f '
 
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[yellow]%}‹"
 ZSH_THEME_GIT_PROMPT_SUFFIX="› %{$reset_color%}"

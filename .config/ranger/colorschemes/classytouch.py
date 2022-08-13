@@ -18,7 +18,7 @@ class Default(ColorScheme):
 			else:
 				attr = normal
 			if context.empty or context.error:
-				fg = black
+				fg = white
 			if context.border:
 				attr = normal
 				fg = gold
@@ -45,7 +45,7 @@ class Default(ColorScheme):
 				if context.device:
 					attr |= bold
 			if context.link:
-				fg = context.good and white or red
+				fg = context.good and gold or red
 			if context.tag_marker and not context.selected:
 				attr |= bold
 				if fg in (red, white):
