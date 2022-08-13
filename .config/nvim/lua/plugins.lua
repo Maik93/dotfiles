@@ -13,4 +13,10 @@ return require('packer').startup(function()
 
   -- Git diff
   use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
+
+  -- Color highlighter
+  use 'lilydjwg/colorizer'
+
+  -- Singularity highlighter
+  use { 'Maik93/singularity.lang' }
 end)
