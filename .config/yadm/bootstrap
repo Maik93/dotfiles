@@ -81,7 +81,7 @@ fc-cache -vf ~/.local/share/fonts/
 # ====================================
 yes | sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 for theme in `ls *.zsh-theme`; do
-	ln -s ~/.config/yadm/$theme ~/.oh-my-zsh/custom/themes/$theme
+	ln -s -r ~/.config/yadm/$theme ~/.oh-my-zsh/custom/themes/$theme
 done
 
 # ====================================

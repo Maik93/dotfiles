@@ -4,6 +4,7 @@
 # Original author: https://github.com/andyfleming/oh-my-zsh
 
 DEFAULT_USER='flynn'
+DEFAULT_HOST='ARCHOM'
 
 # settings (" ↵" removed)
 typeset +H return_code="%(?..%{$fg[red]%}%?%{$reset_color%})"
@@ -41,43 +42,43 @@ function afmagic_dashes {
 
 # Context: user@hostname (who am I and where am I)
 prompt_context() {
-	if [[ -n "$SSH_CLIENT" ]]; then
-	  actual_context=' $my_orange'
+	if [[ $HOST != "$DEFAULT_HOST" ]]; then
+	  actual_context=' %{$my_orange%}'
 	else
-		actual_context=' $my_gray'
+		actual_context=' %{$my_gray%}'
 	fi
 
-  if [[ "$USER" != "$DEFAULT_USER" ]]; then
+  if [[ $USERNAME != "$DEFAULT_USER" ]]; then
     actual_context+='%n@'
   fi
 
-	actual_context+='%m%{$reset_color%}%'
+	actual_context+='%m%{$reset_color%}'
 	echo -n $actual_context
 }
 
 # primary prompt
-PS1='$my_gray${(l.$(afmagic_dashes)..-.)}%{$reset_color%}
-$my_cyan%c$(git_prompt_info)$(hg_prompt_info) $my_violet%(!.#.»)%{$reset_color%} '
+PS1='%{$my_gray%}${(l.$(afmagic_dashes)..-.)}%{$reset_color%}
+%{$my_cyan%}%c$(git_prompt_info)$(hg_prompt_info) %{$my_violet%}%(!.#.»)%{$reset_color%} '
 PS2='%{$fg[red]%}\ %{$reset_color%}'
 RPS1='${return_code}'
 
 # right prompt
 (( $+functions[virtualenv_prompt_info] )) && RPS1+='$(virtualenv_prompt_info)'
-# RPS1+=' $my_gray%n@%m%{$reset_color%}%' # original version
+# RPS1+=' %{$my_gray%}%n@%m%{$reset_color%}%' # original version
 RPS1+="$(prompt_context)"
 
 # git settings
-ZSH_THEME_GIT_PROMPT_PREFIX=" $my_cyan($my_green"
+ZSH_THEME_GIT_PROMPT_PREFIX=" %{$my_cyan%}(%{$my_green%}"
 ZSH_THEME_GIT_PROMPT_CLEAN=""
-ZSH_THEME_GIT_PROMPT_DIRTY="$my_orange*%{$reset_color%}"
-ZSH_THEME_GIT_PROMPT_SUFFIX="$my_cyan)%{$reset_color%}"
+ZSH_THEME_GIT_PROMPT_DIRTY="%{$my_orange%}*%{$reset_color%}"
+ZSH_THEME_GIT_PROMPT_SUFFIX="%{$my_cyan%})%{$reset_color%}"
 
 # hg settings
-ZSH_THEME_HG_PROMPT_PREFIX="$my_cyan($my_green"
+ZSH_THEME_HG_PROMPT_PREFIX="%{$my_cyan%}(%{$my_green%}"
 ZSH_THEME_HG_PROMPT_CLEAN=""
-ZSH_THEME_HG_PROMPT_DIRTY="$my_orange*%{$reset_color%}"
-ZSH_THEME_HG_PROMPT_SUFFIX="$my_cyan)%{$reset_color%}"
+ZSH_THEME_HG_PROMPT_DIRTY="%{$my_orange%}*%{$reset_color%}"
+ZSH_THEME_HG_PROMPT_SUFFIX="%{$my_cyan%})%{$reset_color%}"
 
 # virtualenv settings
-ZSH_THEME_VIRTUALENV_PREFIX=" $my_cyan"
+ZSH_THEME_VIRTUALENV_PREFIX=" %{$my_cyan%}"
 ZSH_THEME_VIRTUALENV_SUFFIX="]%{$reset_color%}"
