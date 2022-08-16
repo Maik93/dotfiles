@@ -2,6 +2,8 @@
 
 Dot files for my Arch Linux + bspwm + kitty + neovim.
 
+![](.config/yadm/screen.jpg)
+
 ## Packages
 
 ### Primary
