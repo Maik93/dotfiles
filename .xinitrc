@@ -36,6 +36,8 @@ numlockx &
 # optimus-manager GPUs handler
 /usr/bin/prime-offload
 
+export XKB_DEFAULT_LAYOUT=it
+
 bspwm
 
 # when the session ends...

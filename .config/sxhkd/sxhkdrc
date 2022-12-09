@@ -12,7 +12,8 @@ super + e
 	nautilus
 
 super + shift + e
-	TERMCMD=kitty EDITOR=nvim kitty -e ranger
+	TERMCMD=kitty EDITOR=nvim kitty -e tmux new-session ranger
+	#TERMCMD=kitty EDITOR=nvim kitty -e ranger
 
 super + l
     betterlockscreen --off 5 -l
@@ -107,7 +108,8 @@ super + {_,shift + }{Left,Down,Up,Right}
 
 # focus to next/previous window
 super + {_,shift + }Tab
-    bspc node -f {next,prev}
+    bspc desktop -f {next,prev}.occupied
+    #bspc node -f {next,prev}
 
 # focus the next/previous occupied desktop
 ctrl + alt + {Right,Left}

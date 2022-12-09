@@ -136,8 +136,8 @@ else # real system
   mkdir -p /tmp/distcc; export DISTCC_DIR=/tmp/distcc
   export DISTCC_HOSTS="10.30.5.9/30,cpp,lzo localhost/10"
 
-  # local (user) bin folder and Ruby
-  export PATH="$PATH:/home/$USER/.local/bin:/home/flynn/.gem/ruby/2.7.0/bin"
+  # local (user) bin folder and Rust (cargo bin folder)
+  export PATH="$PATH:/home/$USER/.local/bin:/home/flynn/.cargo/bin"
 
   # Kitty aliases
   #alias ssh="kitty +kitten ssh"
@@ -224,6 +224,7 @@ fi
 
 # General purpose aliases
 mkcd() { mkdir -p $1 && cd $1; }
+alias cdtmp='cd `mktemp -d`'
 alias suggest-pass='apg -s -a 1 -m 15 -M SNCL'
 alias du='du -hs'
 alias df='df -h | grep -v snap'
@@ -252,6 +253,21 @@ tarzst() {
 paste-file() {
   echo "==> Pasting '$1' content over ix.io..."
   noglob cat $1 |& curl -F 'f:1=<-' ix.io
+}
+
+# Tmux: kill pane
+killp () {
+    if [ $# -eq 0 ]; then
+        echo "The command killp() needs an argument, but none was provided!";
+        return;
+    else
+        pes=$1;
+    fi;
+    for child in $(ps -o pid,ppid -ax | awk "{ if ( \$2 == $pes ) { print \$1 }}");
+    do
+        killp $child;
+    done;
+    kill -9 "$1" > /dev/null 2> /dev/null
 }
 
 # alias up-down="awk '{if(l1){print "Down: "($2-l1)/1024"kB/s","Up: "($10-l2)/1024"kB/s"} else{l1=$2; l2=$10;}}' \
