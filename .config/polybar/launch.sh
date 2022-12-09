@@ -33,3 +33,7 @@ fi
 if [[ $(xrandr --query | grep '^DP-1-1-8 connected') ]]; then
     polybar -c ~/.config/polybar/config_usb_c-1-1-8.ini main &
 fi
+# third screen when Nvidia driver is active
+if [[ $(xrandr --query | grep '^DP-1-1-1-8 connected') ]]; then
+    polybar -c ~/.config/polybar/config_usb_c-1-1-1-8.ini main &
+fi

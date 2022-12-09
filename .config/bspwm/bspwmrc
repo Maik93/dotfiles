@@ -1,12 +1,13 @@
 #!/bin/sh
 
 is_external_monitor_present=$(xrandr --query | grep '^DP-1-8 connected')
-is_third_monitor_present=$(xrandr --query | grep '^DP-1-1-8 connected')
+is_nvidia_external_monitor_present=$(xrandr --query | grep '^DP-1-1-8 connected')
 is_hdmi_present=$(xrandr --query | grep '^HDMI-1-0 connected')
 is_usb_c_adaptor_present=$(xrandr --query | grep '^DP-1 connected')
 if [[ $is_external_monitor_present ]]; then
     export XCURSOR_SIZE=16
 
+	is_third_monitor_present=$(xrandr --query | grep '^DP-1-1-8 connected')
     if [[ $is_third_monitor_present ]]; then
         ~/.screenlayout/3_DisplayPort_daisy_USB_C.sh
         bspc monitor eDP-1 -d 1 2 3
@@ -21,12 +22,32 @@ if [[ $is_external_monitor_present ]]; then
     fi
 
     bspc rule -a TelegramDesktop state=floating center=true follow=true desktop='^3'
+
+elif [[ $is_nvidia_external_monitor_present ]]; then
+    export XCURSOR_SIZE=16
+
+	is_third_monitor_present=$(xrandr --query | grep '^DP-1-1-1-8 connected')
+    if [[ $is_third_monitor_present ]]; then
+        ~/.screenlayout/3_Nvidia_DisplayPort_daisy_USB_C.sh
+        bspc monitor eDP-1-1 -d 1 2 3
+        bspc monitor %DP-1-1-8 -d 4 5 6 7
+        bspc monitor %DP-1-1-1-8 -d 8 9 10
+        bspc wm -O eDP-1-1 DP-1-1-8 DP-1-1-1-8
+#    else
+#        ~/.screenlayout/2_DisplayPort_above.sh
+#        bspc monitor eDP-1 -d 1 2 3 4 5
+#        bspc monitor DP-1-8 -d 6 7 8 9 10
+#        bspc wm -O eDP-1 DP-1-8
+    fi
+
+    bspc rule -a TelegramDesktop state=floating center=true follow=true desktop='^3'
 elif [[ $is_hdmi_present ]]; then
-    #export XCURSOR_SIZE=16
-    ~/.screenlayout/1_HDMI_left.sh
+    export XCURSOR_SIZE=16
+    #~/.screenlayout/1_HDMI_left.sh
+    ~/.screenlayout/1_HDMI_top_right.sh
     bspc monitor eDP-1 -d 1 2 3 4 5 6
     bspc monitor HDMI-1-0 -d 7 8 9 10
-    bspc wm -O eDP-1 HDMI-1-0
+	bspc wm -O eDP-1 HDMI-1-0
 
     bspc rule -a TelegramDesktop state=floating center=true follow=true desktop='^3'
 elif [[ $is_usb_c_adaptor_present ]]; then
@@ -56,7 +77,7 @@ bspc rule -a Chromium desktop='^1' follow=true
 bspc rule -a Brave-browser desktop='^1' follow=true
 bspc rule -a firefox desktop='^1' follow=true
 bspc rule -a Thunar follow=true state=pseudo_tiled
-bspc rule -a Org.gnome.Nautilus follow=true state=pseudo_tiled
+bspc rule -a org.gnome.Nautilus follow=true state=pseudo_tiled
 bspc rule -a File-roller follow=true state=pseudo_tiled
 bspc rule -a MEGAsync follow=true state=floating
 
@@ -72,7 +93,7 @@ bspc rule -a QjackCtl follow=true state=pseudo_tiled
 bspc rule -a jetbrains-pycharm follow=true state=floating
 bspc rule -a jetbrains-clion follow=true state=floating
 bspc rule -a jetbrains-webstorm follow=true state=floating
-bspc rule -a matplotlib follow=true state=floating
+bspc rule -a Matplotlib follow=true state=floating
 bspc rule -a "MATLAB R2019b - academic use" follow=true state=pseudo_tiled
 bspc rule -a MATLABWindow follow=true center=true state=floating
 
