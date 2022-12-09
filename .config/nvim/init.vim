@@ -15,6 +15,9 @@ let g:airline_powerline_fonts = 1
 set number
 set noshowmode
 
+" yank to system clipboard
+set clipboard+=unnamedplus
+
 " Search case-insensitive
 set ignorecase
 set smartcase
