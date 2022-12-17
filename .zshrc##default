@@ -137,10 +137,13 @@ else # real system
   export DISTCC_HOSTS="10.30.5.9/30,cpp,lzo localhost/10"
 
   # local (user) bin folder and Rust (cargo bin folder)
-  export PATH="$PATH:/home/$USER/.local/bin:/home/flynn/.cargo/bin"
+  export PATH="/home/$USER/.local/bin:/home/flynn/.cargo/bin:$PATH"
 
   # Kitty aliases
   #alias ssh="kitty +kitten ssh"
+
+  # Wayland fix for unsupported Qt applications
+  QT_QPA_PLATFORM='wayland;xcb'
 
   # AWS
   complete -C '/usr/bin/aws_completer' aws
@@ -207,7 +210,7 @@ else # real system
 
   # other useful aliases
   alias distcc-status='watch -c -n 2 -- distccmon-text 2'
-  alias dndrop='dragon-drag-and-drop --and-exit'
+  alias dndrop='dragon-drop --and-exit'
   alias qrencode='qrencode -t ANSIUTF8'
   alias update-completion='rm -f ~/.zcompdump* && compinit'
   alias wifi-menu='sudo wifi-menu -o' # automatically obfuscate passwords
@@ -229,6 +232,7 @@ alias suggest-pass='apg -s -a 1 -m 15 -M SNCL'
 alias du='du -hs'
 alias df='df -h | grep -v snap'
 alias lsblk='lsblk | grep -v snap'
+alias pacdiff='DIFFPROG="nvim -d" pacdiff -s'
 
 # Git aliases
 alias gadd='git add'
