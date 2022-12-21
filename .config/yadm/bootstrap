@@ -4,17 +4,9 @@ set -e
 # Install packages
 # ====================================
 
-# read -p 'Install virtualbox additions? (y/N): ' choice
-# if [ "$choice" = "y" ]; then
-#     sudo pacman -S xf86-video-vmware virtualbox-guest-utils virtualbox-guest-modules-arch --noconfirm --needed
-# fi
-
 sudo pacman -S --noconfirm --needed \
-    zsh kitty \
-    bspwm feh rofi ranger sxhkd dunst neofetch picom xclip wmname \
-    noto-fonts noto-fonts-emoji ttf-font-awesome otf-font-awesome ttf-jetbrains-mono \
-    pulseaudio pulseaudio-alsa pamixer blueberry bluez-utils \
-    unzip evince light maim w3m numlockx telegram-desktop \
+    zsh ranger \
+    btop unzip \
     openssh pacman-contrib \
 	zoxide fzf
 
@@ -26,55 +18,20 @@ git clone git@github.com:joouha/ranger_tmux.git ~/.config/ranger/plugins/ranger_
 git clone git@github.com:wfxr/tmux-net-speed.git ~/.config/tmux/tmux-net-speed
 git clone git@github.com:tmux-plugins/tmux-prefix-highlight.git ~/.config/tmux/tmux-prefix-highlight
 
-sudo systemctl enable bluetooth.service
-sudo systemctl start bluetooth.service
-
 if pacman -Qs paru > /dev/null ; then
     echo "Paru is already installed, moving on..."
 else
     mkdir -p ~/sources/compiled_from_source
     cd ~/sources/compiled_from_source
     rm -rf paru
-    git clone https://aur.archlinux.org/paru.git
+    git clone https://aur.archlinux.org/paru-bin.git
     cd paru
     makepkg -si --noconfirm
     cd ~
 fi
 
 paru -S --needed --noconfirm \
-    nvim-packer-git \
-    paccache-hook gotop xcwd-git \
-    polybar python-ueberzug betterlockscreen-git \
-    pulseaudio-ctl hardcode-tray batsignal \
-    spotify spicetify-cli debtap \
-    nerd-fonts-iosevka ttf-icomoon-feather
-sudo debtap -u
-
-# ====================================
-# Nvidia discrete card
-# ====================================
-read -p 'Install nvidia stuff? (y/N): ' choice
-if [ "$choice" = "y" ]; then
-    sudo pacman -S nvidia nvidia-prime bbswitch
-    paru -S optimus-manager # if problem occurs, delete /etc/X11/xorg.conf and /etc/X11/xorg.conf.d/*
-    sudo install -Dm 644 optimus-manager.conf /etc/optimus-manager/optimus-manager.conf
-fi
-
-# ====================================
-# Download and set background
-# ====================================
-mkdir -p ~/Documents/Wallpapers
-# curl https://i.imgur.com/XCaXGFB.png > ~/Documents/Wallpapers/gruvbox.png
-install -Dm 644 wale.jpg ~/Documents/Wallpapers/wale.jpg
-install -Dm 644 howl_sophie.jpg ~/Documents/Wallpapers/howl_sophie.jpg
-
-# ====================================
-# Polybar font
-# ====================================
-curl https://raw.githubusercontent.com/adi1090x/polybar-themes/master/polybar-8/fonts/icomoon-feather.ttf > icomoon-feather.ttf
-install -Dm 644 icomoon-feather.ttf ~/.local/share/fonts/icomoon-feather.ttf
-rm icomoon-feather.ttf
-fc-cache -vf ~/.local/share/fonts/
+    nvim-packer-git paccache-hook
 
 # ====================================
 # oh-my-zsh
@@ -84,20 +41,6 @@ for theme in `ls *.zsh-theme`; do
 	ln -s -r ~/.config/yadm/$theme ~/.oh-my-zsh/custom/themes/$theme
 done
 
-# ====================================
-# Kitty
-# ====================================
-cd ~/.config/kitty
-git clone git@github.com:dexpota/kitty-themes.git
-ln -s ./kitty-themes/themes/Broadcast.conf theme.conf
-
-# ====================================
-# Icon theme
-# ====================================
-wget -qO- https://git.io/papirus-icon-theme-install | DESTDIR="$HOME/.icons" sh
-sudo hardcode-tray --size 24 --theme Papirus
-
 echo "=============="
 echo "==== DONE ===="
 echo "=============="
-echo "$ feh --bg-fill ~/Documents/Wallpapers/howl_sophie.jpg"

@@ -160,7 +160,7 @@ else # real system
   alias up='sudo pacman -Sy'
   alias upp='sudo pacman -Syu && paru -Syu'
   alias orphans='pacman -Qtd'
-  alias yinst='paru -S'
+  alias instaur='paru -S'
   alias search='paru -Ss'
   alias remove='sudo pacman -Rs'
   alias clean='conda clean -a && sudo pacman -Scc && paru -Sc --aur'

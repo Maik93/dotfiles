@@ -1,5 +1,0 @@
-if [ -z $NVM_BIN ]; then
-  source /usr/share/nvm/init-nvm.sh
-fi
-
-nvm "$@"

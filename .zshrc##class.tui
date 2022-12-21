@@ -1,0 +1,208 @@
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
+ZSH_DISABLE_COMPFIX=true
+
+export ZSH="$HOME/.oh-my-zsh"
+export LC_NUMERIC="en_GB.UTF-8"
+
+if [[ $TERM = 'xterm-kitty' || $TERM = 'xterm-256color' ]]; then
+    export EDITOR=nvim
+    alias vim='nvim'
+else
+    export EDITOR=vim
+fi
+
+# Set name of the theme to load --- if set to "random", it will
+# load a random theme each time oh-my-zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
+# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+#ZSH_THEME="agnoster"
+#ZSH_THEME="af-magic"
+ZSH_THEME="afowler"
+
+# Set list of themes to pick from when loading at random
+# Setting this variable when ZSH_THEME=random will cause zsh to load
+# a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
+# If set to an empty array, this variable will have no effect.
+# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+
+# Uncomment the following line to use case-sensitive completion.
+# CASE_SENSITIVE="true"
+
+# Uncomment the following line to use hyphen-insensitive completion.
+# Case-sensitive completion must be off. _ and - will be interchangeable.
+# HYPHEN_INSENSITIVE="true"
+
+# Uncomment the following line to disable bi-weekly auto-update checks.
+DISABLE_AUTO_UPDATE="true"
+
+# Uncomment the following line to automatically update without prompting.
+# DISABLE_UPDATE_PROMPT="true"
+
+# Uncomment the following line to change how often to auto-update (in days).
+# export UPDATE_ZSH_DAYS=13
+
+# Uncomment the following line if pasting URLs and other text is messed up.
+# DISABLE_MAGIC_FUNCTIONS=true
+
+# Uncomment the following line to disable colors in ls.
+# DISABLE_LS_COLORS="true"
+
+# Uncomment the following line to disable auto-setting terminal title.
+# DISABLE_AUTO_TITLE="true"
+
+# Uncomment the following line to enable command auto-correction.
+# ENABLE_CORRECTION="true"
+
+# Uncomment the following line to display r.e.d. dots whilst waiting for completion.
+COMPLETION_WAITING_DOTS="true"
+
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# You can set one of the optional three formats:
+# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# or set a custom format using the strftime function format specifications,
+# see 'man strftime' for details.
+# HIST_STAMPS="mm/dd/yyyy"
+
+# Would you like to use another custom folder than $ZSH/custom?
+# ZSH_CUSTOM=/path/to/new-custom-folder
+
+# Which plugins would you like to load?
+# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(git zsh-autosuggestions docker colored-man-pages)
+
+# zoxide integration
+eval "$(zoxide init zsh)"
+
+# regenerate .zcompdump only if older than a day
+autoload -Uz compinit
+if [[ -n ~/.zcompdump(#qN.mh+24) ]]; then
+  compinit
+else
+  compinit -C
+fi
+
+source $ZSH/oh-my-zsh.sh
+
+setopt hist_ignore_space # do not record commands that start with spaces
+# now if you write ' unset HISTFILE' both this command and the history of the current terminal from now on will not be stored
+alias incognito=' unset HISTFILE'
+
+unsetopt share_history # disable history shared between open terminals
+
+# User configuration
+
+# export MANPATH="/usr/local/man:$MANPATH"
+
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
+
+# local (user) bin folder and Rust (cargo bin folder)
+  export PATH="/home/$USER/.local/bin:/home/flynn/.cargo/bin:$PATH"
+
+bindkey '[3^' kill-word
+bindkey '[33~' backward-kill-word
+
+# systemctl autocompletition patch
+_systemctl_unit_state() {
+  typeset -gA _sys_unit_state
+  _sys_unit_state=( $(__systemctl list-unit-files "$PREFIX*" | awk '{print $1, $2}') ) }
+
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+
+# Archlinux aliases
+alias inst='sudo pacman -S'
+alias up='sudo pacman -Sy'
+alias upp='sudo pacman -Syu && paru -Syu'
+alias orphans='pacman -Qtd'
+alias instaur='paru -S'
+alias search='paru -Ss'
+alias remove='sudo pacman -Rs'
+alias clean='conda clean -a && sudo pacman -Scc && paru -Sc --aur'
+
+# Git aliases
+alias gadd='git add'
+alias gcom='git commit'
+alias gcomall='git commit -a'
+alias glog='git log --oneline --graph --decorate --all'
+alias gpush='git push --all && git push --tags'
+alias gpull='git pull'
+alias gstat='git status'
+alias gfetch='git fetch --all -p -P'
+
+# Other useful aliases
+alias qrencode='qrencode -t ANSIUTF8'
+alias update-completion='rm -f ~/.zcompdump* && compinit'
+alias wifi-menu='sudo wifi-menu -o' # automatically obfuscate passwords
+alias aureport-k='sudo aureport -k | grep -v /usr/bin/auditctl'
+alias aureport-n='sudo aureport -n | grep -v /usr/bin/urxvt'
+
+# General purpose aliases
+mkcd() { mkdir -p $1 && cd $1; }
+alias svim='sudoedit'
+alias reboot='sudo reboot'
+#alias off='sudo poweroff'
+#alias sens='s-tui'
+alias suggest-pass='apg -s -a 1 -m 15 -M SNCL'
+alias du='du -hs'
+alias df='df -h | grep -v snap'
+alias lsblk='lsblk | grep -v snap'
+alias pacdiff='DIFFPROG="nvim -d" pacdiff -s'
+alias update-grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
+
+# General purpose functions
+7zc() {
+  echo "==> Compressing '$1' in '$1.7z'"
+  7z a -mmt=10 -mx=9 $1.7z $1
+}
+tarzst() {
+  num_files=`find $1 | wc -w`
+  echo "==> Compressing '$1' in '$1.tar.zst'"
+  tar cv -I zstdmt -f $1.tar.zst $1 | pv -lep -s $num_files >/dev/null
+}
+paste-file() {
+  echo "==> Pasting '$1' content over ix.io..."
+  noglob cat $1 |& curl -F 'f:1=<-' ix.io
+}
+
+# Tmux: kill pane
+killp () {
+    if [ $# -eq 0 ]; then
+        echo "The command killp() needs an argument, but none was provided!";
+        return;
+    else
+        pes=$1;
+    fi;
+    for child in $(ps -o pid,ppid -ax | awk "{ if ( \$2 == $pes ) { print \$1 }}");
+    do
+        killp $child;
+    done;
+    kill -9 "$1" > /dev/null 2> /dev/null
+}
+
+# Admin utility functions
+mount-as-user() {
+  sudo mount -o rw,nosuid,nodev,relatime,uid=$(id -u),gid=$(id -g),fmask=0022,dmask=0022 $1 $2
+}
+update-arch-keys() {
+  sudo pacman -Sy archlinux-keyring
+  sudo pacman-key --populate archlinux
+  sudo pacman-key --refresh-keys
+}
+
+# Docker
+alias docker-remove-all-containers='docker container rm $(docker container ls -a -q)'
+#alias docker-remove-all-containers='docker rm $(docker container ls -a | grep -v "ros-" | awk "NR>1 {print $ 1}")'
+alias docker-remove-none-images='docker rmi $(docker images -qa -f 'dangling=true')'
+
