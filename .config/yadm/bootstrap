@@ -4,6 +4,8 @@ set -e
 # Install packages
 # ====================================
 
+script_path=`( cd "$(dirname "$0")" && pwd -P )`
+
 sudo pacman -S --noconfirm --needed \
     zsh ranger \
     btop unzip \
@@ -31,12 +33,15 @@ else
 fi
 
 paru -S --needed --noconfirm \
-    nvim-packer-git paccache-hook
+    bat nvim-packer-git pacman-cleanup-hook
 
 # ====================================
 # oh-my-zsh
 # ====================================
 yes | sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+
+cd $script_path
 for theme in `ls *.zsh-theme`; do
 	ln -s -r ~/.config/yadm/$theme ~/.oh-my-zsh/custom/themes/$theme
 done
