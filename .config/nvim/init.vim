@@ -3,6 +3,7 @@ lua require('git-diffview')
 
 " Theme
 set background=dark
+"let g:gruvbox_transparent_bg = '1'
 colorscheme gruvbox
 let g:airline_theme='gruvbox'
 let g:airline_powerline_fonts = 1
@@ -43,7 +44,10 @@ lua <<EOF
 EOF
 
 " show unsaved modifications
-command Wdiff execute "w !diff % -"
+command Wd execute "w !diff % -"
+
+" save with sudo
+command Ws execute "w !sudo tee %"
 
 "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
 "If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
