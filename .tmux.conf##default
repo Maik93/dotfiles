@@ -28,6 +28,10 @@ set-option -g bell-action none
 #set -g prefix2 C-a
 #bind C-a send-prefix -2
 
+# new split pane commands (to be used after prefix)
+bind \/ split-window -h # horizontal
+bind \; split-window -v # vertical
+
 # tab navigation
 bind -n C-t new-window -a -c "#{pane_current_path}"
 bind -n S-Right next
