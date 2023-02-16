@@ -121,15 +121,7 @@ _systemctl_unit_state() {
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 
-# Archlinux aliases
-alias inst='sudo pacman -S'
-alias up='sudo pacman -Sy'
-alias upp='sudo pacman -Syu && paru -Syu'
-alias orphans='pacman -Qtd'
-alias instaur='paru -S'
-alias search='paru -Ss'
-alias remove='sudo pacman -Rs'
-alias clean='conda clean -a && sudo pacman -Scc && paru -Sc --aur'
+[ -f /home/$USER/.aliases ] && source /home/$USER/.aliases
 
 # Git aliases
 alias gadd='git add'
@@ -144,9 +136,6 @@ alias gfetch='git fetch --all -p -P'
 # Other useful aliases
 alias qrencode='qrencode -t ANSIUTF8'
 alias update-completion='rm -f ~/.zcompdump* && compinit'
-alias wifi-menu='sudo wifi-menu -o' # automatically obfuscate passwords
-alias aureport-k='sudo aureport -k | grep -v /usr/bin/auditctl'
-alias aureport-n='sudo aureport -n | grep -v /usr/bin/urxvt'
 
 # General purpose aliases
 mkcd() { mkdir -p $1 && cd $1; }
@@ -158,7 +147,6 @@ alias suggest-pass='apg -s -a 1 -m 15 -M SNCL'
 alias du='du -hs'
 alias df='df -h | grep -v snap'
 alias lsblk='lsblk | grep -v snap'
-alias pacdiff='DIFFPROG="nvim -d" pacdiff -s'
 alias update-grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
 
 # General purpose functions
@@ -195,14 +183,4 @@ killp () {
 mount-as-user() {
   sudo mount -o rw,nosuid,nodev,relatime,uid=$(id -u),gid=$(id -g),fmask=0022,dmask=0022 $1 $2
 }
-update-arch-keys() {
-  sudo pacman -Sy archlinux-keyring
-  sudo pacman-key --populate archlinux
-  sudo pacman-key --refresh-keys
-}
-
-# Docker
-alias docker-remove-all-containers='docker container rm $(docker container ls -a -q)'
-#alias docker-remove-all-containers='docker rm $(docker container ls -a | grep -v "ros-" | awk "NR>1 {print $ 1}")'
-alias docker-remove-none-images='docker rmi $(docker images -qa -f 'dangling=true')'
 

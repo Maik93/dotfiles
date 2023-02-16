@@ -1,0 +1,41 @@
+#!/bin/sh
+set -e
+# ====================================
+# Install packages
+# ====================================
+
+script_path=`( cd "$(dirname "$0")" && pwd -P )`
+
+sudo apt install -y \
+    zsh ranger \
+    btop unzip fzf
+
+# zoxide
+curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
+
+# ranger plugins
+git clone https://github.com/jchook/ranger-zoxide.git ~/.config/ranger/plugins/zoxide
+git clone https://github.com/joouha/ranger_tmux.git ~/.config/ranger/plugins/ranger_tmux
+
+# tmux plugins
+git clone https://github.com/wfxr/tmux-net-speed.git ~/.config/tmux/tmux-net-speed
+git clone https://github.com/tmux-plugins/tmux-prefix-highlight.git ~/.config/tmux/tmux-prefix-highlight
+
+# packer nvim
+git clone --depth 1 https://github.com/wbthomason/packer.nvim \
+	~/.local/share/nvim/site/pack/packer/start/packer.nvim
+
+# ====================================
+# oh-my-zsh
+# ====================================
+yes | sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+
+cd $script_path
+for theme in `ls *.zsh-theme`; do
+	ln -s -r ~/.config/yadm/$theme ~/.oh-my-zsh/custom/themes/$theme
+done
+
+echo "=============="
+echo "==== DONE ===="
+echo "=============="
