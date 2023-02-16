@@ -1,0 +1,2 @@
+# ROS sources and commands
+source /opt/ros/noetic/setup.zsh

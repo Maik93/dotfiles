@@ -116,12 +116,14 @@ _systemctl_unit_state() {
   typeset -gA _sys_unit_state
   _sys_unit_state=( $(__systemctl list-unit-files "$PREFIX*" | awk '{print $1, $2}') ) }
 
+[ -f /home/$USER/.config/zsh_sources/sources ] && source /home/$USER/.config/zsh_sources/sources
+
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 
-[ -f /home/$USER/.aliases ] && source /home/$USER/.aliases
+[ -f /home/$USER/.config/zsh_sources/aliases ] && source /home/$USER/.config/zsh_sources/aliases
 
 # Git aliases
 alias gadd='git add'
