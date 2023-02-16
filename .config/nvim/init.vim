@@ -18,6 +18,20 @@ set noshowmode
 " yank to system clipboard
 set clipboard+=unnamedplus
 
+" yank to Windows clipboard too
+let g:clipboard = {
+          \   'name': 'win32yank-wsl',
+          \   'copy': {
+          \      '+': 'win32yank.exe -i --crlf',
+          \      '*': 'win32yank.exe -i --crlf',
+          \    },
+          \   'paste': {
+          \      '+': 'win32yank.exe -o --lf',
+          \      '*': 'win32yank.exe -o --lf',
+          \   },
+          \   'cache_enabled': 0,
+          \ }
+
 " Search case-insensitive
 set ignorecase
 set smartcase
@@ -26,6 +40,9 @@ set smartcase
 set tabstop=4
 set shiftwidth=4
 filetype plugin indent on
+
+" Line sotf-wrap
+set wrap linebreak
 
 " Syntax highlighting
 au BufReadPost *.service set syntax=systemd
@@ -44,6 +61,9 @@ EOF
 
 " show unsaved modifications
 command Wdiff execute "w !diff % -"
+
+" alias exit command when using shift by accident
+command Wq execute "wq"
 
 "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
 "If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
