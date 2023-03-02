@@ -3,7 +3,7 @@
 	email = michael.mugnai@gmail.com
 	signingKey = D0EB4FE1E3BD1EB832AC64ABE19824862AEE50D5
 [commit]
-	gpgsign = true
+	gpgsign = false
 [pull]
 	ff = only
 [core]
