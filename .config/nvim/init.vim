@@ -59,6 +59,9 @@ let g:markdown_fenced_languages = [
 lua <<EOF
 EOF
 
+" save with sudo
+command Wsudo execute ':silent w !sudo tee % > /dev/null' | :edit!
+
 " show unsaved modifications
 command Wdiff execute "w !diff % -"
 

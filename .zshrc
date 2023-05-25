@@ -135,10 +135,14 @@ alias gpull='git pull'
 alias gstat='git status'
 alias gfetch='git fetch --all -p -P'
 
+# Docker utilities
+alias docker-remove-all-containers='docker rm $(docker container ls -a | awk "NR>1 {print $ 1}")'
+alias docker-remove-none-images='docker rmi $(docker images -qa -f 'dangling=true')'
+
 # Other useful aliases
 alias qrencode='qrencode -t ANSIUTF8'
 alias update-completion='rm -f ~/.zcompdump* && compinit'
-alias tr='tmux new-session ranger'
+alias ranger='tmux new-session ranger'
 
 # General purpose aliases
 mkcd() { mkdir -p $1 && cd $1; }
