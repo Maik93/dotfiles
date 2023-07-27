@@ -45,7 +45,11 @@ return_code() {
     fi
 }
 
-PROMPT='${gold}╭─${reset} $(return_code)${gold}%~ $(git_prompt_info)$(current_clock)
+elapsed_time() {
+  echo -n "${gray}${prompt_elapsed_time}${reset} "
+}
+
+PROMPT='${gold}╭─${reset} $(return_code)$(elapsed_time)${gold}%~ $(git_prompt_info)$(current_clock)
 ${gold}╰─${reset} $(machine_name) ${gold}»${reset}%f '
 
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[yellow]%}‹"

@@ -77,7 +77,7 @@ COMPLETION_WAITING_DOTS="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions docker colored-man-pages)
+plugins=(git zsh-autosuggestions docker colored-man-pages elapsed-time)
 
 # zoxide integration
 eval "$(zoxide init zsh)"
@@ -97,6 +97,8 @@ setopt hist_ignore_space # do not record commands that start with spaces
 alias incognito=' unset HISTFILE'
 
 unsetopt share_history # disable history shared between open terminals
+
+ZSH_ELAPSED_TIME_EXCLUDE=(vim bat less man git yadm)
 
 # User configuration
 

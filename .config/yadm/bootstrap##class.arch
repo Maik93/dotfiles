@@ -43,8 +43,11 @@ git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/p
 
 cd $script_path
 for theme in `ls *.zsh-theme`; do
-	ln -s -r ~/.config/yadm/$theme ~/.oh-my-zsh/custom/themes/$theme
+	ln -sr ~/.config/yadm/$theme ~/.oh-my-zsh/custom/themes/$theme
 done
+mkdir -p ~/.oh-my-zsh/custom/plugins/elapsed-time
+ln -sr ~/.config/yadm/elapsed-time.plugin.zsh ~/.oh-my-zsh/custom/plugins/elapsed-time/.
+
 
 echo "=============="
 echo "==== DONE ===="
