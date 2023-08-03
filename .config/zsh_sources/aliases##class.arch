@@ -11,7 +11,7 @@ alias orphans='pacman -Qtd'
 alias instaur='paru -S'
 alias search='paru -Ss'
 alias remove='sudo pacman -Rs'
-alias clean='conda clean -a && sudo pacman -Scc && paru -Sc --aur'
+alias clean='sudo pacman -Scc && paru -Sc --aur && (conda clean -a || true)'
 
 # Other useful aliases
 alias wifi-menu='sudo wifi-menu -o' # automatically obfuscate passwords

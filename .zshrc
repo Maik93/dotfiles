@@ -98,7 +98,7 @@ alias incognito=' unset HISTFILE'
 
 unsetopt share_history # disable history shared between open terminals
 
-ZSH_ELAPSED_TIME_EXCLUDE=(vim bat less man git yadm)
+ZSH_ELAPSED_TIME_EXCLUDE=(cd vim bat less man htop btop ranger tmux ssh)
 
 # User configuration
 
@@ -144,7 +144,6 @@ alias docker-remove-none-images='docker rmi $(docker images -qa -f 'dangling=tru
 # Other useful aliases
 alias qrencode='qrencode -t ANSIUTF8'
 alias update-completion='rm -f ~/.zcompdump* && compinit'
-alias ranger='tmux new-session ranger'
 
 # General purpose aliases
 mkcd() { mkdir -p $1 && cd $1; }
@@ -157,8 +156,16 @@ alias du='du -hs'
 alias df='df -h | grep -v snap'
 alias lsblk='lsblk | grep -v snap'
 alias update-grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
+alias chmox='chmod +x'
 
 # General purpose functions
+ranger() {
+  if [ -n "$TMUX" ]; then
+	/usr/sbin/ranger
+  else
+	tmux new-session /usr/sbin/ranger
+  fi
+}
 7zc() {
   echo "==> Compressing '$1' in '$1.7z'"
   7z a -mmt=10 -mx=9 $1.7z $1
