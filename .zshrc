@@ -4,6 +4,9 @@ ZSH_DISABLE_COMPFIX=true
 export ZSH="$HOME/.oh-my-zsh"
 export LC_NUMERIC="en_GB.UTF-8"
 
+# local (user) bin folder and Rust (cargo bin folder)
+export PATH="/home/$USER/.local/bin:/home/$USER/.cargo/bin:$PATH"
+
 if [[ $TERM = 'xterm-kitty' || $TERM = 'xterm-256color' || $TERM = 'screen-256color' ]]; then
     export EDITOR=nvim
     alias vim='nvim'
@@ -106,9 +109,6 @@ ZSH_ELAPSED_TIME_EXCLUDE=(cd vim bat less man htop btop ranger tmux ssh)
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
-
-# local (user) bin folder and Rust (cargo bin folder)
-  export PATH="/home/$USER/.local/bin:/home/flynn/.cargo/bin:$PATH"
 
 bindkey '[3^' kill-word
 bindkey '[33~' backward-kill-word
