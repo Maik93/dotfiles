@@ -7,6 +7,9 @@ colorscheme gruvbox
 let g:airline_theme='gruvbox'
 let g:airline_powerline_fonts = 1
 
+" set transparent background
+hi Normal guibg=NONE ctermbg=NONE
+
 " change separators
 "let g:airline_left_sep = "\uE0CC"
 "let g:airline_right_sep = "\uE0CD"
