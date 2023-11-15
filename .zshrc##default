@@ -173,7 +173,7 @@ else # real system
 
   # Other host-only aliases
   alias d2u='dos2unix'
-  alias cat='pygmentize -g -O style=monokai'
+  #alias cat='pygmentize -g -O style=monokai'
   alias svim='sudoedit'
   alias sync='sync && notify-send "sync command" completed!'
   #alias upp='snapper -c root create --command "sudo pacman -Syu && paru -Syu"'

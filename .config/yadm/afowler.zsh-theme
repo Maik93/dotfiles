@@ -16,6 +16,7 @@ gold="%F{222}"
 violet="%F{105}"
 orange="%F{214}"
 white_bold="%{${fg_bold[white]}%}"
+gray="%F{239}"
 reset="%{$reset_color%}"
 
 machine_name() {
@@ -25,10 +26,14 @@ machine_name() {
     fi
 
     if [[ $HOST != "$DEFAULT_HOST" ]]; then
-        context+="${violet}%m${reset} "
+        context+="${violet}%m${reset}"
     else
     fi
     echo -n "$context"
+}
+
+current_clock() {
+	echo -n "${gray}[%D - %T]${reset}"
 }
 
 return_code() {
@@ -40,7 +45,8 @@ return_code() {
     fi
 }
 
-PROMPT='$(return_code)$(machine_name)${gold}%2~ $(git_prompt_info)${gold}»${reset}%f '
+PROMPT='${gold}╭─${reset} $(return_code)${gold}%~ $(git_prompt_info)$(current_clock)
+${gold}╰─${reset} $(machine_name) ${gold}»${reset}%f '
 
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[yellow]%}‹"
 ZSH_THEME_GIT_PROMPT_SUFFIX="› ${reset}"

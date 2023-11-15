@@ -1,0 +1,44 @@
+# terminal colors
+set-option -g default-terminal "screen-256color"
+
+# configure plugins
+set -g @tmux_power_theme 'snow'
+set -g @tmux_power_time_format '%H:%M'
+#set -g @tmux_power_show_upload_speed true
+#set -g @tmux_power_show_download_speed true
+set -g @tmux_power_prefix_highlight_pos 'R'
+
+# import theme and plugins
+run-shell "~/.config/tmux/tmux-power.tmux"
+run-shell "~/.config/tmux/tmux-net-speed/net-speed.tmux"
+run-shell "~/.config/tmux/tmux-prefix-highlight/prefix_highlight.tmux"
+
+# disable bells
+set-option -g visual-activity off
+set-option -g visual-bell off
+set-option -g visual-silence off
+set-window-option -g monitor-activity off
+set-option -g bell-action none
+
+# ----------------------------- keybindings -----------------------------
+
+# Page-Up for scrolling
+#bind-key -n PPage copy-mode -u
+
+# set secondary prefix key as ctrl+A
+#set -g prefix2 C-a
+#bind C-a send-prefix -2
+
+# tab navigation
+bind -n C-t new-window -a -c "#{pane_current_path}"
+bind -n S-Right next
+bind -n S-Left prev
+
+# kill button
+bind-key k \
+split-window \; \
+setw synchronize-panes on \; \
+send-keys "sleep 1; pwd >> /tmp/tmux_restore_path.txt; tmux list-panes -s -F \"#{pane_pid} #{pane_current_command}\" | grep -v tmux | awk '{print $1}' | while read in; do killp \$in; done" C-m exit C-m
+
+# reload config file
+bind-key r source-file ~/.tmux.conf \; display-message "~/.tmux.conf reloaded"

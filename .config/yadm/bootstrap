@@ -4,10 +4,7 @@ set -e
 # Install packages
 # ====================================
 
-# read -p 'Install virtualbox additions? (y/N): ' choice
-# if [ "$choice" = "y" ]; then
-#     sudo pacman -S xf86-video-vmware virtualbox-guest-utils virtualbox-guest-modules-arch --noconfirm --needed
-# fi
+script_path=`( cd "$(dirname "$0")" && pwd -P )`
 
 sudo pacman -S --noconfirm --needed \
     zsh kitty \
@@ -19,12 +16,12 @@ sudo pacman -S --noconfirm --needed \
 	zoxide fzf
 
 # ranger plugins
-git clone git@github.com:jchook/ranger-zoxide.git ~/.config/ranger/plugins/zoxide
-git clone git@github.com:joouha/ranger_tmux.git ~/.config/ranger/plugins/ranger_tmux
+git clone https://github.com/jchook/ranger-zoxide.git ~/.config/ranger/plugins/zoxide
+git clone https://github.com/joouha/ranger_tmux.git ~/.config/ranger/plugins/ranger_tmux
 
 # tmux plugins
-git clone git@github.com:wfxr/tmux-net-speed.git ~/.config/tmux/tmux-net-speed
-git clone git@github.com:tmux-plugins/tmux-prefix-highlight.git ~/.config/tmux/tmux-prefix-highlight
+git clone https://github.com/wfxr/tmux-net-speed.git ~/.config/tmux/tmux-net-speed
+git clone https://github.com/tmux-plugins/tmux-prefix-highlight.git ~/.config/tmux/tmux-prefix-highlight
 
 sudo systemctl enable bluetooth.service
 sudo systemctl start bluetooth.service
@@ -43,12 +40,11 @@ fi
 
 paru -S --needed --noconfirm \
     nvim-packer-git \
-    paccache-hook gotop xcwd-git \
+    pacman-cleanup-hook bat btop xcwd-git \
     polybar python-ueberzug betterlockscreen-git \
     pulseaudio-ctl hardcode-tray batsignal \
     spotify spicetify-cli debtap \
     nerd-fonts-iosevka ttf-icomoon-feather
-sudo debtap -u
 
 # ====================================
 # Nvidia discrete card
@@ -80,6 +76,9 @@ fc-cache -vf ~/.local/share/fonts/
 # oh-my-zsh
 # ====================================
 yes | sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+
+cd $script_path
 for theme in `ls *.zsh-theme`; do
 	ln -s -r ~/.config/yadm/$theme ~/.oh-my-zsh/custom/themes/$theme
 done
