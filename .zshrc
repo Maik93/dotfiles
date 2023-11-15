@@ -121,7 +121,7 @@ _systemctl_unit_state() {
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 
-[ -f /home/$USER/.aliases ] && source /home/$USER/.aliases
+[ -f /home/$USER/.config/zsh_sources/aliases ] && source /home/$USER/.config/zsh_sources/aliases
 
 # Git aliases
 alias gadd='git add'
