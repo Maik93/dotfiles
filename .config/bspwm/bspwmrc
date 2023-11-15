@@ -1,61 +1,46 @@
 #!/bin/sh
 
-is_external_monitor_present=$(xrandr --query | grep '^DP-1-8 connected')
-is_nvidia_external_monitor_present=$(xrandr --query | grep '^DP-1-1-8 connected')
+main_monitor='DP-4.8'
+second_monitor='DP-4.1.8'
+
+is_external_monitor_present=$(xrandr --query | grep "^${second_monitor} connected")
 is_hdmi_present=$(xrandr --query | grep '^HDMI-1-0 connected')
 is_usb_c_adaptor_present=$(xrandr --query | grep '^DP-1 connected')
 if [[ $is_external_monitor_present ]]; then
-    export XCURSOR_SIZE=16
+    export XCURSOR_SIZE=8
 
 	is_third_monitor_present=$(xrandr --query | grep '^DP-1-1-8 connected')
     if [[ $is_third_monitor_present ]]; then
+		third_monitor='DP-1-1-8'
         ~/.screenlayout/3_DisplayPort_daisy_USB_C.sh
-        bspc monitor eDP-1 -d 1 2 3
-        bspc monitor %DP-1-8 -d 4 5 6 7
-        bspc monitor %DP-1-1-8 -d 8 9 10
-        bspc wm -O eDP-1 DP-1-8 DP-1-1-8
+        bspc monitor "%${main_monitor}" -d 1 2 3
+        bspc monitor "%${second_monitor}" -d 4 5 6 7
+        bspc monitor $third_monitor -d 8 9 10
+        bspc wm -O "%${main_monitor}" "%${second_monitor}" $third_monitor
     else
-        ~/.screenlayout/2_DisplayPort_above.sh
-        bspc monitor eDP-1 -d 1 2 3 4 5
-        bspc monitor DP-1-8 -d 6 7 8 9 10
-        bspc wm -O eDP-1 DP-1-8
+        ~/.screenlayout/2_DisplayPort_right_vertical.sh
+        bspc monitor "%${main_monitor}" -d 1 2 3 4 5
+        bspc monitor "%${second_monitor}" -d 6 7 8 9 10
+        bspc wm -O "%${main_monitor}" "%${second_monitor}"
     fi
 
     bspc rule -a TelegramDesktop state=floating center=true follow=true desktop='^3'
 
-elif [[ $is_nvidia_external_monitor_present ]]; then
-    export XCURSOR_SIZE=16
-
-	is_third_monitor_present=$(xrandr --query | grep '^DP-1-1-1-8 connected')
-    if [[ $is_third_monitor_present ]]; then
-        ~/.screenlayout/3_Nvidia_DisplayPort_daisy_USB_C.sh
-        bspc monitor eDP-1-1 -d 1 2 3
-        bspc monitor %DP-1-1-8 -d 4 5 6 7
-        bspc monitor %DP-1-1-1-8 -d 8 9 10
-        bspc wm -O eDP-1-1 DP-1-1-8 DP-1-1-1-8
-#    else
-#        ~/.screenlayout/2_DisplayPort_above.sh
-#        bspc monitor eDP-1 -d 1 2 3 4 5
-#        bspc monitor DP-1-8 -d 6 7 8 9 10
-#        bspc wm -O eDP-1 DP-1-8
-    fi
-
-    bspc rule -a TelegramDesktop state=floating center=true follow=true desktop='^3'
 elif [[ $is_hdmi_present ]]; then
     export XCURSOR_SIZE=16
     #~/.screenlayout/1_HDMI_left.sh
     ~/.screenlayout/1_HDMI_top_right.sh
-    bspc monitor eDP-1 -d 1 2 3 4 5 6
+    bspc monitor "%${main_monitor}" -d 1 2 3 4 5 6
     bspc monitor HDMI-1-0 -d 7 8 9 10
-	bspc wm -O eDP-1 HDMI-1-0
+	bspc wm -O "%${main_monitor}" HDMI-1-0
 
     bspc rule -a TelegramDesktop state=floating center=true follow=true desktop='^3'
 elif [[ $is_usb_c_adaptor_present ]]; then
     export XCURSOR_SIZE=16
     ~/.screenlayout/1_USB_C_left.sh
-    bspc monitor eDP-1 -d 1 2 3 4 5 6
+    bspc monitor "%${main_monitor}" -d 1 2 3 4 5 6
     bspc monitor DP-1 -d 7 8 9 10
-    bspc wm -O eDP-1 DP-1
+    bspc wm -O "%${main_monitor}" DP-1
 
     bspc rule -a TelegramDesktop state=floating center=true follow=true desktop='^3'
 else
@@ -152,17 +137,18 @@ batsignal -b -n BAT1 -w 25 -c 20 -d 15 -D 'systemctl poweroff'
 
 # ------- Mouse/Touchpad fixes ------
 # Start libinput gestures
-libinput-gestures-setup start
+#libinput-gestures-setup start
 # Xinput configs (touchpad)
-xinput set-prop "ETPS/2 Elantech Touchpad" "libinput Tapping Enabled" 1
-xinput set-prop "ETPS/2 Elantech Touchpad" "libinput Natural Scrolling Enabled" 1
-#xinput set-prop "ETPS/2 Elantech Touchpad" "libinput Click Method Enabled" 0 1
-#xinput set-prop "ETPS/2 Elantech Touchpad" "libinput Disable While Typing Enabled" 0
+#xinput set-prop "ETPS/2 Elantech Touchpad" "libinput Tapping Enabled" 1
+#xinput set-prop "ETPS/2 Elantech Touchpad" "libinput Natural Scrolling Enabled" 1
+##xinput set-prop "ETPS/2 Elantech Touchpad" "libinput Click Method Enabled" 0 1
+##xinput set-prop "ETPS/2 Elantech Touchpad" "libinput Disable While Typing Enabled" 0
 
 # ------- Keyboard fixes ------
 # Remap Caps-lock key to Escape, for using VIM
 # setxkbmap -option caps:escape
-setxkbmap -layout it
+#setxkbmap -layout it
+setxkbmap -layout us -variant intl
 
 # Fix for Jetbrains IDEs
 wmname LG3D
