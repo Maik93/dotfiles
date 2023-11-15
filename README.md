@@ -9,15 +9,16 @@ Choose the right classes, mixing together OS and scenario.
 If nothing is supplied, everything is written for Archlinux with BSWM.
 
 Set OS among:
-- arch
-- ubuntu
+- `arch`
+- `ubuntu`
 
 Optionally, set a scenario:
 - `tui`: non-graphical target;
 - `wsl`: non-graphical, inside WSL2.
 
 ```bash
-yadm config --add local.class <anything_u_want> 
+yadm config --add local.class <anything_u_want>
+yadm alt # refresh links based on the selected classes
 ```
 ## Packages
 
@@ -72,16 +73,4 @@ The bootstrapping script should setup and install most things, and get you a com
 ### Neovim setup
 
 Simply open `nvim` and run `:PackerCompile` (during the first run ONLY), then `PackerInstall`.
-
-## Device/hardware specific settings
-
-These are some of the tweaks I've made for my specific setup, most of them are to optimize battery lifetime.
-
-### Kernel parameters
-
-Below are the kernel parameters I would pass to all linux installations, but I think they depends on the hardware (mine is an MSI GS63 8RE).
-
-```
-acpi_osi=Linux
-```
-
+For any plugin that you'll later update, run `PackerUpdate`.
