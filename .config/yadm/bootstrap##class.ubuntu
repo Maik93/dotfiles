@@ -21,10 +21,13 @@ git clone https://github.com/joouha/ranger_tmux.git ~/.config/ranger/plugins/ran
 git clone https://github.com/wfxr/tmux-net-speed.git ~/.config/tmux/tmux-net-speed
 git clone https://github.com/tmux-plugins/tmux-prefix-highlight.git ~/.config/tmux/tmux-prefix-highlight
 
-# packer.nvim
+# nvim
 wget https://github.com/neovim/neovim/releases/download/stable/nvim-linux64.deb
 sudo apt install -y ./nvim-linux64.deb
 rm ./nvim-linux64.deb
+
+# packer.nvim
+git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 
 # ====================================
 # oh-my-zsh

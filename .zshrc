@@ -136,6 +136,7 @@ alias gfetch='git fetch --all -p -P'
 # Other useful aliases
 alias qrencode='qrencode -t ANSIUTF8'
 alias update-completion='rm -f ~/.zcompdump* && compinit'
+alias tr='tmux new-session ranger'
 
 # General purpose aliases
 mkcd() { mkdir -p $1 && cd $1; }

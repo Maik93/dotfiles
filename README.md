@@ -4,6 +4,21 @@ Dot files for my Arch Linux + bspwm + kitty + neovim.
 
 ![](.config/yadm/screen.jpg)
 
+## Setup
+Choose the right classes, mixing together OS and scenario.
+If nothing is supplied, everything is written for Archlinux with BSWM.
+
+Set OS among:
+- arch
+- ubuntu
+
+Optionally, set a scenario:
+- `tui`: non-graphical target;
+- `wsl`: non-graphical, inside WSL2.
+
+```bash
+yadm config --add local.class <anything_u_want> 
+```
 ## Packages
 
 ### Primary
