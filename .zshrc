@@ -4,6 +4,9 @@ ZSH_DISABLE_COMPFIX=true
 export ZSH="$HOME/.oh-my-zsh"
 export LC_NUMERIC="en_GB.UTF-8"
 
+# local (user) bin folder and Rust (cargo bin folder)
+export PATH="/home/$USER/.local/bin:/home/$USER/.cargo/bin:$PATH"
+
 if [[ $TERM = 'xterm-kitty' || $TERM = 'xterm-256color' || $TERM = 'screen-256color' ]]; then
     export EDITOR=nvim
     alias vim='nvim'
@@ -77,7 +80,7 @@ COMPLETION_WAITING_DOTS="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions docker colored-man-pages)
+plugins=(git zsh-autosuggestions docker colored-man-pages elapsed-time)
 
 # zoxide integration
 eval "$(zoxide init zsh)"
@@ -98,15 +101,14 @@ alias incognito=' unset HISTFILE'
 
 unsetopt share_history # disable history shared between open terminals
 
+ZSH_ELAPSED_TIME_EXCLUDE=(cd vim bat less man htop btop ranger tmux ssh)
+
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
-
-# local (user) bin folder and Rust (cargo bin folder)
-  export PATH="/home/$USER/.local/bin:/home/flynn/.cargo/bin:$PATH"
 
 bindkey '[3^' kill-word
 bindkey '[33~' backward-kill-word
@@ -133,10 +135,13 @@ alias gpull='git pull'
 alias gstat='git status'
 alias gfetch='git fetch --all -p -P'
 
+# Docker utilities
+alias docker-remove-all-containers='docker rm $(docker container ls -a | awk "NR>1 {print $ 1}")'
+alias docker-remove-none-images='docker rmi $(docker images -qa -f 'dangling=true')'
+
 # Other useful aliases
 alias qrencode='qrencode -t ANSIUTF8'
 alias update-completion='rm -f ~/.zcompdump* && compinit'
-alias tr='tmux new-session ranger'
 
 # General purpose aliases
 mkcd() { mkdir -p $1 && cd $1; }
@@ -149,8 +154,16 @@ alias du='du -hs'
 alias df='df -h | grep -v snap'
 alias lsblk='lsblk | grep -v snap'
 alias update-grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
+alias chmox='chmod +x'
 
 # General purpose functions
+ranger() {
+  if [ -n "$TMUX" ]; then
+	/usr/sbin/ranger
+  else
+	tmux new-session /usr/sbin/ranger
+  fi
+}
 7zc() {
   echo "==> Compressing '$1' in '$1.7z'"
   7z a -mmt=10 -mx=9 $1.7z $1
