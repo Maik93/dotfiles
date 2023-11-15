@@ -47,7 +47,7 @@ paru -S --needed --noconfirm \
     polybar python-ueberzug betterlockscreen-git \
     pulseaudio-ctl hardcode-tray batsignal \
     spotify spicetify-cli debtap \
-    nerd-fonts-iosevka ttf-icomoon-feather
+    ttf-iosevka-nerd ttf-jetbrains-mono-nerd ttf-icomoon-feather
 sudo debtap -u
 
 # ====================================
