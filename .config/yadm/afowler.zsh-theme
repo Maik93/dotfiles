@@ -6,6 +6,9 @@
 DEFAULT_USER='flynn'
 DEFAULT_HOST='ARCHOM'
 
+# Disable system virtual environment name before the shell
+export VIRTUAL_ENV_DISABLE_PROMPT=1
+
 # if [ $UID -eq 0 ]; then
 #     CARETCOLOR="red"
 # else
@@ -15,6 +18,7 @@ DEFAULT_HOST='ARCHOM'
 gold="%F{222}"
 violet="%F{105}"
 orange="%F{214}"
+green="%F{green}"
 white_bold="%{${fg_bold[white]}%}"
 gray="%F{239}"
 reset="%{$reset_color%}"
@@ -46,10 +50,16 @@ return_code() {
 }
 
 elapsed_time() {
-  echo -n "${gray}${prompt_elapsed_time}${reset} "
+	echo -n "${gray}${prompt_elapsed_time}${reset} "
 }
 
-PROMPT='${gold}╭─${reset} $(return_code)$(elapsed_time)${gold}%~ $(git_prompt_info)$(current_clock)
+venv_info() {
+    if [[ -n "${VIRTUAL_ENV}" ]]; then
+		echo -n "${green}${ZSH_THEME_VIRTUALENV_PREFIX=}${VIRTUAL_ENV:t:gs/%/%%} 🐍${ZSH_THEME_VIRTUALENV_SUFFIX=}${reset} "
+    fi
+}
+
+PROMPT='${gold}╭─${reset} $(return_code)$(elapsed_time)${gold}%~ $(git_prompt_info)$(venv_info)$(current_clock)
 ${gold}╰─${reset} $(machine_name) ${gold}»${reset}%f '
 
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[yellow]%}‹"
