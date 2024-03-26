@@ -1,3 +1,6 @@
+# increase scroll history
+set-option -g history-limit 10000
+
 # terminal colors
 set-option -g default-terminal "screen-256color"
 
@@ -32,7 +35,13 @@ set-option -g bell-action none
 bind \/ split-window -h # horizontal
 bind \; split-window -v # vertical
 
-# tab navigation
+# panes navigation
+bind -n S-Left selectp -L
+bind -n S-Right selectp -R
+bind -n S-Up selectp -U
+bind -n S-Down selectp -D
+
+# windows navigation
 bind -n C-t new-window -a -c "#{pane_current_path}"
 bind -n S-Right next
 bind -n S-Left prev
