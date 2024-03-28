@@ -44,8 +44,8 @@ bind -n S-Down selectp -D
 
 # windows navigation
 bind -n C-t new-window -a -c "#{pane_current_path}"
-bind -n C-m next
-bind -n C-n prev
+bind -n C-Down next
+bind -n C-Up prev
 
 # kill button
 bind-key k \
