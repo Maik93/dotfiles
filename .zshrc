@@ -159,9 +159,9 @@ alias chmox='chmod +x'
 # General purpose functions
 ranger() {
   if [ -n "$TMUX" ]; then
-	/usr/sbin/ranger
+	/usr/bin/ranger
   else
-	tmux new-session /usr/sbin/ranger
+	tmux new-session /usr/bin/ranger
   fi
 }
 7zc() {
