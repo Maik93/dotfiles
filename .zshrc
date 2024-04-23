@@ -124,6 +124,7 @@ _systemctl_unit_state() {
 # For a full list of active aliases, run `alias`.
 
 [ -f /home/$USER/.config/zsh_sources/aliases ] && source /home/$USER/.config/zsh_sources/aliases
+[ -f /home/$USER/.config/zsh_sources/private_aliases ] && source /home/$USER/.config/zsh_sources/private_aliases
 
 # Git aliases
 alias gadd='git add'
