@@ -51,7 +51,7 @@ DISABLE_AUTO_UPDATE="true"
 # DISABLE_LS_COLORS="true"
 
 # Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
+DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
 # ENABLE_CORRECTION="true"
@@ -94,6 +94,9 @@ else
 fi
 
 source $ZSH/oh-my-zsh.sh
+
+# Set window title as the hostname
+title $HOST
 
 setopt hist_ignore_space # do not record commands that start with spaces
 # now if you write ' unset HISTFILE' both this command and the history of the current terminal from now on will not be stored
