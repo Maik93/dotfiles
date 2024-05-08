@@ -140,8 +140,11 @@ alias gstat='git status'
 alias gfetch='git fetch --all -p -P'
 
 # Docker utilities
-alias docker-remove-all-containers='docker rm $(docker container ls -a | awk "NR>1 {print $ 1}")'
 alias docker-remove-none-images='docker rmi $(docker images -qa -f 'dangling=true')'
+docker-all-containers() {
+  [ $# -ne 1 ] && echo "Usage: docker-all-containers [start|stop|rm]" && return 1
+  docker $1 $(docker container ls -a | awk "NR>1 {print $ 1}")
+}
 
 # Other useful aliases
 alias qrencode='qrencode -t ANSIUTF8'
