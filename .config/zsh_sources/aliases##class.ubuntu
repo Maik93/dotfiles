@@ -10,3 +10,4 @@ alias upp='sudo apt update && sudo apt upgrade'
 alias search='sudo apt search'
 alias remove='sudo apt remove'
 
+# vim: filetype=zsh ft=zsh ts=2 sw=2 et

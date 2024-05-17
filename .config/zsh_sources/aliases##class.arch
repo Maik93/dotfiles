@@ -25,3 +25,4 @@ update-arch-keys() {
   sudo pacman-key --refresh-keys
 }
 
+# vim: filetype=zsh ft=zsh ts=2 sw=2 et
