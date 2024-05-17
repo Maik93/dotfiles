@@ -1,8 +1,31 @@
 #!/bin/bash
 
-HOST=$1
-shift
+if [ $# -lt 2 ]; then
+  echo "Usage: $0 <host> <port1> <port2> <port3> ..."
+  exit 1
+fi
 
-for ARG in "$@"; do
-  nmap -Pn --host-timeout 2 --max-retries 0 -p $ARG $HOST > /dev/null
-done
+# Check that eiter exists nc (openbsd-netcat) or nmap
+KNOCK_CMD=`which nc`
+if [ $? -eq 0 ]; then
+
+  $KNOCK_CMD -z $@
+  exit 0
+
+else
+  KNOCK_CMD=`which nmap`
+  if [ $? -eq 0 ]; then
+
+    KNOCK_CMD+=" -Pn --host-timeout 2 --max-retries 0 -p"
+    HOST=$1; shift
+    for PORT in "$@"; do
+      nmap -Pn --host-timeout 2 --max-retries 0 -p $PORT $HOST > /dev/null
+    done
+    exit 0
+
+  else
+    echo "You need to have either nc (openbsd-netcat) or nmap installed"
+    echo "Come back when you have one of them installed, or don't come back at all"
+    exit 1
+  fi
+fi
