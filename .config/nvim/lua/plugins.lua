@@ -5,7 +5,8 @@ return require('packer').startup(function()
   use 'wbthomason/packer.nvim'
 
   -- Theme
-  use 'morhetz/gruvbox'
+  --use 'morhetz/gruvbox'
+  use 'gruvbox-community/gruvbox'
 
   -- Navbar
   use 'vim-airline/vim-airline'

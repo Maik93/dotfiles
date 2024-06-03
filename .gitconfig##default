@@ -22,3 +22,7 @@
 	forceSignAnnotated = true
 [gpg]
 	program = gpg
+	format = openpgp
+[gpg "ssh"]
+	program = ssh-keygen
+	allowedSignersFile = ""

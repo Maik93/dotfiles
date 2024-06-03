@@ -33,12 +33,21 @@ fi
 
 numlockx &
 
-# optimus-manager GPUs handler
+xhost +local:docker
+
+# BSPWM - copied in /etc/lemurs/wms/bspwm
+## optimus-manager GPUs handler
 #/usr/bin/prime-offload
-
+#
 #export XKB_DEFAULT_LAYOUT=it
+#
+#bspwm
+#
+## when the session ends...
+#sudo /usr/bin/prime-switch
 
-bspwm
-
-# when the session ends...
+# GNOME - copied in /etc/lemurs/wms/gnome
+#/usr/bin/prime-offload
+#export XKB_DEFAULT_LAYOUT=it
+XDG_SESSION_TYPE=x11 GDK_BACKEND=x11 exec gnome-session
 #sudo /usr/bin/prime-switch

@@ -95,6 +95,9 @@ fi
 
 source $ZSH/oh-my-zsh.sh
 
+# Conda initialisation
+[ -f /opt/miniconda3/etc/profile.d/conda.sh ] && source /opt/miniconda3/etc/profile.d/conda.sh
+
 setopt hist_ignore_space # do not record commands that start with spaces
 # now if you write ' unset HISTFILE' both this command and the history of the current terminal from now on will not be stored
 alias incognito=' unset HISTFILE'
@@ -106,6 +109,21 @@ ZSH_ELAPSED_TIME_EXCLUDE=(cd vim bat less man htop btop ranger tmux ssh)
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
+
+#export MAMBA_ROOT_PREFIX="/home/$USER/.cache/mamba"
+#
+## >>> mamba initialize >>>
+## !! Contents within this block are managed by 'mamba init' !!
+#export MAMBA_EXE='/usr/bin/micromamba';
+#export MAMBA_ROOT_PREFIX='/home/flynn/.cache/mamba';
+#__mamba_setup="$("$MAMBA_EXE" shell hook --shell zsh --root-prefix "$MAMBA_ROOT_PREFIX" 2> /dev/null)"
+#if [ $? -eq 0 ]; then
+#    eval "$__mamba_setup"
+#else
+#    alias micromamba="$MAMBA_EXE"  # Fallback on help from mamba activate
+#fi
+#unset __mamba_setup
+## <<< mamba initialize <<<
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
