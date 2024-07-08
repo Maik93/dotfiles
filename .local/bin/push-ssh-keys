@@ -1,0 +1,12 @@
+#!/usr/bin/bash
+set -e
+
+host=$1
+key=maik
+
+if [ -z $host ]; then
+    echo "Usage: $0 <host>"
+    exit 1
+fi
+
+scp $HOME/.ssh/$key{,.pub} $host:~/.ssh/.
