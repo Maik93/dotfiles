@@ -6,7 +6,7 @@
 # ===================================
 
 super + w
-	firefox
+	google-chrome-stable
 
 super + e
 	nautilus
@@ -107,7 +107,7 @@ super + {_,shift + }{Left,Down,Up,Right}
 	bspc node -{f,s} {west,south,north,east}
 
 # focus to next/previous window
-super + {_,shift + }Tab
+alt + {_,shift + }Tab
     bspc desktop -f {next,prev}.occupied
     #bspc node -f {next,prev}
 
@@ -115,11 +115,9 @@ super + {_,shift + }Tab
 ctrl + alt + {Right,Left}
     bspc desktop -f {next,prev}.occupied
 
-alt + Tab
-    bspc desktop -f prev.occupied
-
-Print
-	bspc desktop -f next.occupied
+# move to recent window
+super + Tab
+    bspc node -f last
 
 # focus or send to the given desktop
 # super + {_,shift + }{1-9}
