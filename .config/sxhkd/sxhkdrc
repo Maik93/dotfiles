@@ -8,12 +8,14 @@
 super + w
 	google-chrome-stable
 
-super + e
-	nautilus
+#super + e
+#	nautilus
 
-super + shift + e
-	TERMCMD=kitty EDITOR=nvim kitty -e tmux new-session ranger
-	#TERMCMD=kitty EDITOR=nvim kitty -e ranger
+super + e
+	TERMCMD=kitty EDITOR=nvim kitty \
+		--name ranger \
+		-o initial_window_width=175c -o initial_window_height=45c \
+		-e tmux new-session ranger
 
 super + l
     betterlockscreen --off 5 -l

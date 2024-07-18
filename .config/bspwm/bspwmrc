@@ -54,8 +54,8 @@ else
     #picom --xrender-sync-fence &
 fi
 
-sxhkd &
-
+# Get window names with `xprop | grep 'CLASS'`
+bspc rule -a kitty:ranger state=pseudo_tiled rectangle=widthxheight+Xoffset+Yoffset
 bspc rule -a kitty:scratchy state=floating rectangle=widthxheight+Xoffset+Yoffset
 bspc rule -a kitty:big-scratchy state=pseudo_tiled rectangle=widthxheight+Xoffset+Yoffset
 bspc rule -a Chromium desktop='^1' follow=true
@@ -149,6 +149,9 @@ batsignal -b -n BAT1 -w 25 -c 20 -d 15 -D 'systemctl poweroff'
 # setxkbmap -option caps:escape
 #setxkbmap -layout it
 setxkbmap -layout us -variant intl
+
+# keybinding handler
+sxhkd &
 
 # Fix for Jetbrains IDEs
 wmname LG3D
