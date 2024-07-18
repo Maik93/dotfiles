@@ -24,7 +24,7 @@ if [[ $is_external_monitor_present ]]; then
         bspc wm -O "%${main_monitor}" "%${second_monitor}"
     fi
 
-    bspc rule -a TelegramDesktop state=floating center=true follow=true desktop='^3'
+    bspc rule -a TelegramDesktop state=floating center=true follow=true desktop='^7'
 
 elif [[ $is_hdmi_present ]]; then
     export XCURSOR_SIZE=16
@@ -158,3 +158,5 @@ wmname LG3D
 
 # allow Docker to open X11 windows
 xhost +local:docker
+
+#export GPG_TTY=$(tty)

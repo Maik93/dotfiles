@@ -75,10 +75,6 @@ super + shift F2
 super F3
     kitty /bin/zsh -c "sleep 0.2; nvim ~/.zshrc"
 
-# rosrc
-super F4
-    kitty /bin/zsh -c "sleep 0.2; nvim ~/.rosrc"
-
 # ===================================
 # ========== Window states ==========
 # ===================================
@@ -185,11 +181,11 @@ super F12
     maim -s | xclip -selection clipboard -t image/png; \
     notify-send "Screen acquired"
 
-super + shift F12
+super + shift + F12
     maim | xclip -selection clipboard -t image/png; \
     notify-send "Screen acquired"
 
-super + ctrl F12
+super + ctrl + F12
     maim -s ~/Documents/Screenshots/$(date +%s).png; \
     notify-send "Screen acquired and stored in ~/Documents/Screenshots"
 
@@ -213,15 +209,14 @@ XF86AudioMute
     notify-send "Mute toggled"
 
 # Play/pause
-#XF86AudioPlay
-ctrl + 9
+{XF86AudioPlay,ctrl + 9}
     dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
 
-# Next/prev
-#XF86AudioNext
-ctrl + 0
+# Next
+{XF86AudioNext,ctrl + 0}
     dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
-#XF86AudioPrev
-ctrl + 8
+
+# Previous
+{XF86AudioPrev,ctrl + 8}
     dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous
 
