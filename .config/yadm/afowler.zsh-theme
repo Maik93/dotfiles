@@ -54,9 +54,14 @@ elapsed_time() {
 }
 
 venv_info() {
-    if [[ -n "${VIRTUAL_ENV}" ]]; then
-		echo -n "${green}${ZSH_THEME_VIRTUALENV_PREFIX=}${VIRTUAL_ENV:t:gs/%/%%} 🐍${ZSH_THEME_VIRTUALENV_SUFFIX=}${reset} "
+    if [[ -n "$VIRTUAL_ENV" ]]; then
+      env_name=$VIRTUAL_ENV
+    elif [[ -n $CONDA_DEFAULT_ENV ]]; then
+      env_name=$CONDA_DEFAULT_ENV
+    else
+      return
     fi
+		echo -n "${green}${ZSH_THEME_VIRTUALENV_PREFIX=}${env_name:t:gs/%/%%} 🐍${ZSH_THEME_VIRTUALENV_SUFFIX=}${reset} "
 }
 
 PROMPT='${gold}╭─${reset} $(return_code)$(elapsed_time)${gold}%~ $(git_prompt_info)$(venv_info)$(current_clock)
