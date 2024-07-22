@@ -1,0 +1,53 @@
+#!/bin/sh
+set -e
+# ====================================
+# Install packages
+# ====================================
+
+script_path=`( cd "$(dirname "$0")" && pwd -P )`
+
+sudo pacman -S --noconfirm --needed \
+    ranger unzip \
+    openssh pacman-contrib \
+	zoxide fzf
+
+# ranger plugins
+git clone https://github.com/jchook/ranger-zoxide.git ~/.config/ranger/plugins/zoxide
+git clone https://github.com/joouha/ranger_tmux.git ~/.config/ranger/plugins/ranger_tmux
+
+# tmux plugins
+git clone https://github.com/wfxr/tmux-net-speed.git ~/.config/tmux/tmux-net-speed
+git clone https://github.com/tmux-plugins/tmux-prefix-highlight.git ~/.config/tmux/tmux-prefix-highlight
+
+if pacman -Qs paru > /dev/null ; then
+    echo "Paru is already installed, moving on..."
+else
+    mkdir -p ~/sources/compiled_from_source
+    cd ~/sources/compiled_from_source
+    rm -rf paru
+    git clone https://aur.archlinux.org/paru.git
+    cd paru
+    makepkg -si --noconfirm
+    cd ~
+fi
+
+paru -S --needed --noconfirm \
+    nvim-packer-git \
+    pacman-cleanup-hook bat btop
+
+# ====================================
+# oh-my-zsh
+# ====================================
+yes | sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+
+cd $script_path
+for theme in `ls *.zsh-theme`; do
+	ln -sr ~/.config/yadm/$theme ~/.oh-my-zsh/custom/themes/$theme
+done
+mkdir -p ~/.oh-my-zsh/custom/plugins/elapsed-time
+ln -sr ~/.config/yadm/elapsed-time.plugin.zsh ~/.oh-my-zsh/custom/plugins/elapsed-time/.
+
+echo "=============="
+echo "==== DONE ===="
+echo "=============="
