@@ -1,38 +1,34 @@
-#!/bin/bash -e
-
+#!/bin/bash
 set -e
 
-user=`id -un`
-group=`id -gn`
-
 usage() {
-	echo
-	echo "Usage: `basename $0` [-o] [-s] directory [-h]"
-	echo "  o   set owner to $user:$group."
-	echo "  s   use sudo."
-	echo "  h   help and usage message."
-	echo
+        echo
+        echo "Usage: `basename $0` [-o user:group] [-s] directory [-h]"
+        echo "  o   set owner, e.g. '-o `id -un`:`id -gn`'."
+        echo "  s   use sudo."
+        echo "  h   help and usage message."
+        echo
 }
 
 set_owner=false
-s_command=''
+sudo_cmd=''
 
-# `getopts` ref: https://www.computerhope.com/unix/bash/getopts.htm                               
-while getopts "osh" arg; do
-	case $arg in
-		o) set_owner=true;;
-		s) s_command='sudo';;
-		h) echo "Set directory permissions to 755 and files to 644. Optionally set owner too."; usage; exit 0;;
-		?) echo "Unknown option: -$OPTARG" >&2; usage; exit 1;;
-		:)  echo "Missing option argument for -$OPTARG" >&2; usage; exit 1;;
-	esac
+# `getopts` ref: https://www.computerhope.com/unix/bash/getopts.htm
+while getopts "o:sh" arg; do
+        case $arg in
+                o) set_owner=true; new_owner=${OPTARG};;
+                s) sudo_cmd='sudo';;
+                h) echo "Set directory permissions to 755 and files to 644. Optionally set owner too."; usage; exit 0;;
+                ?) echo "Unknown option: -$OPTARG" >&2; usage; exit 1;;
+                :)  echo "Missing option argument for -$OPTARG" >&2; usage; exit 1;;
+        esac
 done
 
 # get remaining arguments after options
 shift $(($OPTIND - 1))
 dirToFix="$@"
 if [[ -z $dirToFix ]]; then
-	echo 'Missing target directory.' >&2; usage; exit 1
+        echo 'Missing target directory.' >&2; usage; exit 1
 fi
 
 # Setup find correctly
@@ -41,15 +37,17 @@ export IFS=$'\n'
 # Loop through our array
 for x in ${dirToFix[@]}; do
     # directories & subdirectories
-    for i in $(find $x -type d); do
-    	$set_owner && $s_command chown -c $user:$group $i
-        $s_command chmod -c 775 $i
+	echo "Fixing directory permissions..."
+    for i in $($sudo_cmd find $x -type d); do
+        $set_owner && $sudo_cmd chown -c $new_owner $i
+        $sudo_cmd chmod -c 775 $i
     done
 
     # files
-    for i in $(find $x -type f); do
-    	$set_owner && $s_command chown -c $user:$group $i
-        $s_command chmod -c 664 $i
+	echo "Fixing file permissions..."
+    for i in $($sudo_cmd find $x -type f); do
+        $set_owner && $sudo_cmd chown -c $new_owner $i
+        $sudo_cmd chmod -c 664 $i
     done
 done
 
