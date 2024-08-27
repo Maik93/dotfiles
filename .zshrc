@@ -162,6 +162,7 @@ alias df='df -h | grep -v snap'
 alias lsblk='lsblk | grep -v snap'
 alias update-grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
 alias chmox='chmod +x'
+alias ip='ip --color=auto'
 
 # General purpose functions
 ranger() {
