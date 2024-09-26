@@ -13,11 +13,16 @@ alias search='paru -Ss'
 alias remove='sudo pacman -Rs'
 alias clean='sudo pacman -Scc && paru -Sc --aur && (conda clean -a || true)'
 
+# TexLive stuff
+export TEXMFHOME=~/.config/texmf
+alias tlmgr='/usr/share/texmf-dist/scripts/texlive/tlmgr.pl --usermode'
+
 # Other useful aliases
 alias wifi-menu='sudo wifi-menu -o' # automatically obfuscate passwords
 alias aureport-k='sudo aureport -k | grep -v /usr/bin/auditctl'
 alias aureport-n='sudo aureport -n | grep -v /usr/bin/urxvt'
 alias pacdiff='DIFFPROG="nvim -d" pacdiff -s'
+alias dndrop='dragon-drop --and-exit'
 
 update-arch-keys() {
   sudo pacman -Sy archlinux-keyring

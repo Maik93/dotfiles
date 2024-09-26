@@ -152,6 +152,7 @@ alias update-completion='rm -f ~/.zcompdump* && compinit'
 
 # General purpose aliases
 mkcd() { mkdir -p $1 && cd $1; }
+cdtmp() { d=$(mktemp -d -t XXXX); cd $d }
 alias svim='sudoedit'
 alias reboot='sudo reboot'
 #alias off='sudo poweroff'
