@@ -1,0 +1,16 @@
+[manager]
+prepend_keymap = [
+	{ on = [ "c", "m" ], run = "plugin chmod",     desc = "Chmod on selected files" },
+	{ on = [ "c", "d" ], run = "cd --interactive", desc = "Go to a directory interactively" },
+	{ on = [ "c", "p" ], run = "copy dirname",     desc = "Copy the directory path" },
+
+	{ on = "y", run = "yank",       desc = "Copy selected files" },
+	{ on = "d", run = "yank --cut", desc = "Cut selected files" },
+	{ on = "p", run = "paste",      desc = "Paste files" },
+	{ on = "X", run = "unyank",     desc = "Cancel the copy/cut status" },
+#	{ on = "D", run = "remove",     desc = "Trash selected files" },
+	{ on = "D", run = "remove --permanently", desc = "Permanently delete selected files" },
+
+	{ on = "s", run = "shell --orphan --confirm 'if [[ -n $TMUX ]]; then tmux split-window -h -c `pwd`; else kitty; fi;'", desc="Open a terminal in the current path" },
+	{ on = "e", run = "shell --orphan --confirm 'if [[ -n $TMUX ]]; then tmux split-window -h nvim $0; else kitty -e nvim $0; fi;'", desc="Edit a current file in nvim" },
+]

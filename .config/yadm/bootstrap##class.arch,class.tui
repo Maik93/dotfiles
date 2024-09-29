@@ -48,6 +48,17 @@ done
 mkdir -p ~/.oh-my-zsh/custom/plugins/elapsed-time
 ln -sr ~/.config/yadm/elapsed-time.plugin.zsh ~/.oh-my-zsh/custom/plugins/elapsed-time/.
 
+# ====================================
+# Yazi
+# ====================================
+sudo pacman -S yazi ffmpegthumbnailer p7zip jq poppler fd ripgrep fzf zoxide imagemagick
+mkdir -p ~/.config/yazi
+ya pack -a dangooddd/kanagawa # flavor
+ya pack -a yazi-rs/plugins:full-border
+ya pack -a yazi-rs/plugins:git
+ya pack -a yazi-rs/plugins:chmod
+ya pack -a yazi-rs/plugins:mime-ext
+
 echo "=============="
 echo "==== DONE ===="
 echo "=============="

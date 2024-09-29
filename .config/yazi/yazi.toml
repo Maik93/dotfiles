@@ -1,0 +1,19 @@
+[manager]
+linemode = "size"
+
+[[plugin.prepend_fetchers]]
+id   = "git"
+name = "*"
+run  = "git"
+
+[[plugin.prepend_fetchers]]
+id   = "git"
+name = "*/"
+run  = "git"
+
+[[plugin.prepend_fetchers]]
+id   = "mime"
+if   = "!mime"
+name = "*"
+run  = "mime-ext"
+prio = "high"
