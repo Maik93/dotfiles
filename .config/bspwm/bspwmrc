@@ -56,8 +56,10 @@ fi
 
 # Get window names with `xprop | grep 'CLASS'`
 bspc rule -a kitty:ranger state=pseudo_tiled rectangle=widthxheight+Xoffset+Yoffset
+bspc rule -a kitty:yazi state=pseudo_tiled rectangle=widthxheight+Xoffset+Yoffset
 bspc rule -a kitty:scratchy state=floating rectangle=widthxheight+Xoffset+Yoffset
 bspc rule -a kitty:big-scratchy state=pseudo_tiled rectangle=widthxheight+Xoffset+Yoffset
+bspc rule -a Google-chrome desktop='^1' follow=true
 bspc rule -a Chromium desktop='^1' follow=true
 bspc rule -a Brave-browser desktop='^1' follow=true
 bspc rule -a firefox desktop='^1' follow=true

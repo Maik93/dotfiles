@@ -1,5 +1,7 @@
 [manager]
-linemode = "size"
+#linemode = "size"
+linemode = "size_and_mtime"
+mouse_events = [] # disabled
 
 [[plugin.prepend_fetchers]]
 id   = "git"

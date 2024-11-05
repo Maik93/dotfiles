@@ -11,6 +11,8 @@ prepend_keymap = [
 #	{ on = "D", run = "remove",     desc = "Trash selected files" },
 	{ on = "D", run = "remove --permanently", desc = "Permanently delete selected files" },
 
-	{ on = "s", run = "shell --orphan --confirm 'if [[ -n $TMUX ]]; then tmux split-window -h -c `pwd`; else kitty; fi;'", desc="Open a terminal in the current path" },
+	{ on = "s", run = "shell --orphan --confirm 'if [[ -n $TMUX ]]; then tmux split-window -h -c \"$(pwd)\"; else kitty -d=\"$(pwd)\"; fi;'", desc="Open a terminal in the current path" },
+	{ on = [ "v", "s" ], run = "shell --orphan --confirm 'if [[ -n $TMUX ]]; then tmux split-window -v -c \"$(pwd)\"; else kitty -d=\"$(pwd)\"; fi;'", desc="Open a terminal in the current path, vertically" },
 	{ on = "e", run = "shell --orphan --confirm 'if [[ -n $TMUX ]]; then tmux split-window -h nvim $0; else kitty -e nvim $0; fi;'", desc="Edit a current file in nvim" },
+	{ on = [ "v", "e" ], run = "shell --orphan --confirm 'if [[ -n $TMUX ]]; then tmux split-window -v nvim $0; else kitty -e nvim $0; fi;'", desc="Edit a current file in nvim, vertically" },
 ]

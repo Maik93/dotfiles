@@ -5,7 +5,11 @@ export ZSH="$HOME/.oh-my-zsh"
 export LC_NUMERIC="en_GB.UTF-8"
 
 # local (user) bin folder and Rust (cargo bin folder)
-export PATH="/home/$USER/.local/bin:/home/$USER/.cargo/bin:$PATH"
+export PATH="$HOME/.local/bin:$HOME/.cargo/bin:$PATH"
+
+# Go path
+export GOPATH=$HOME/.local/go
+export PATH="$PATH:$GOPATH/bin"
 
 if [[ $TERM = 'xterm-kitty' || $TERM = 'xterm-256color' || $TERM = 'screen-256color' ]]; then
     export EDITOR=nvim
@@ -104,7 +108,7 @@ alias incognito=' unset HISTFILE'
 
 unsetopt share_history # disable history shared between open terminals
 
-ZSH_ELAPSED_TIME_EXCLUDE=(cd vim bat less man htop btop ranger tmux ssh)
+ZSH_ELAPSED_TIME_EXCLUDE=(cd vim bat less man htop btop ranger yazi tmux ssh)
 
 # User configuration
 
@@ -155,7 +159,7 @@ mkcd() { mkdir -p $1 && cd $1; }
 cdtmp() { d=$(mktemp -d -t XXXX); cd $d }
 alias svim='sudoedit'
 alias reboot='sudo reboot'
-#alias off='sudo poweroff'
+alias off='sudo poweroff'
 #alias sens='s-tui'
 alias suggest-pass='apg -s -a 1 -m 15 -M SNCL'
 alias du='du -hs'
