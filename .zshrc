@@ -181,6 +181,21 @@ ranger() {
   echo "==> Compressing '$1' in '$1.7z'"
   7z a -mmt=10 -mx=9 $1.7z $1
 }
+# Yazi
+function y() {
+  if [ -n "$TMUX" ]; then
+	# Run yazi and keep the pwd on exit (remaining in tmux)
+    local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+    yazi "$@" --cwd-file="$tmp"
+    if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+            builtin cd -- "$cwd"
+    fi
+    rm -f -- "$tmp"
+  else
+	# Run yazi in tmux and exit
+	tmux new-session yazi
+  fi
+}
 tarzst() {
   num_files=`find $1 | wc -w`
   echo "==> Compressing '$1' in '$1.tar.zst'"
