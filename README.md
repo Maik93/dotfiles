@@ -29,6 +29,7 @@ If nothing is supplied, everything is written for Archlinux with BSWM.
 Set OS among:
 - `arch`
 - `ubuntu`
+- `debian`
 
 Optionally, set a scenario:
 - `tui`: non-graphical target;
