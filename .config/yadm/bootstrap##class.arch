@@ -85,6 +85,11 @@ done
 mkdir -p ~/.oh-my-zsh/custom/plugins/elapsed-time
 ln -sr ~/.config/yadm/elapsed-time.plugin.zsh ~/.oh-my-zsh/custom/plugins/elapsed-time/.
 
+if [[ -f ~/.zshrc.pre-oh-my-zsh ]]; then
+	rm ~/.zshrc
+	mv ~/.zshrc.pre-oh-my-zsh ~/.zshrc
+fi
+sudo chsh -s /bin/zsh ${USER}
 
 # ====================================
 # Kitty
