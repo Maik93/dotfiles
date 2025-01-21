@@ -1,54 +1,53 @@
 #!/bin/sh
 
-main_monitor='DP-4.8'
-second_monitor='DP-4.1.8'
+main_monitor='eDP-1'
+second_monitor='DP-1-0.8'
+third_monitor='DP-1-0.1.8'
 
 is_external_monitor_present=$(xrandr --query | grep "^${second_monitor} connected")
 is_hdmi_present=$(xrandr --query | grep '^HDMI-1-0 connected')
-is_usb_c_adaptor_present=$(xrandr --query | grep '^DP-1 connected')
-if [[ $is_external_monitor_present ]]; then
+#is_usb_c_adaptor_present=$(xrandr --query | grep '^DP-1 connected')
+if [[ -n $is_external_monitor_present ]]; then
     export XCURSOR_SIZE=8
 
-	is_third_monitor_present=$(xrandr --query | grep '^DP-1-1-8 connected')
+	is_third_monitor_present=$(xrandr --query | grep "^${third_monitor} connected")
     if [[ $is_third_monitor_present ]]; then
-		third_monitor='DP-1-1-8'
-        ~/.screenlayout/3_DisplayPort_daisy_USB_C.sh
+        ~/.screenlayout/3_usbC.sh
         bspc monitor "%${main_monitor}" -d 1 2 3
         bspc monitor "%${second_monitor}" -d 4 5 6 7
-        bspc monitor $third_monitor -d 8 9 10
-        bspc wm -O "%${main_monitor}" "%${second_monitor}" $third_monitor
+        bspc monitor "%${third_monitor}" -d 8 9 10
+        bspc wm -O "${main_monitor}" "${second_monitor}" "${third_monitor}"
     else
-        ~/.screenlayout/2_DisplayPort_right_vertical.sh
-        bspc monitor "%${main_monitor}" -d 1 2 3 4 5
+        ~/.screenlayout/2_usbC.sh
+        bspc monitor "${main_monitor}" -d 1 2 3 4 5
         bspc monitor "%${second_monitor}" -d 6 7 8 9 10
-        bspc wm -O "%${main_monitor}" "%${second_monitor}"
+        bspc wm -O "${main_monitor}" "${second_monitor}"
     fi
-
-    bspc rule -a TelegramDesktop state=floating center=true follow=true desktop='^7'
 
 elif [[ $is_hdmi_present ]]; then
     export XCURSOR_SIZE=16
     #~/.screenlayout/1_HDMI_left.sh
-    ~/.screenlayout/1_HDMI_top_right.sh
+    #~/.screenlayout/1_HDMI_top.sh
+    ~/.screenlayout/1_HDMI_right.sh
     bspc monitor "%${main_monitor}" -d 1 2 3 4 5 6
     bspc monitor HDMI-1-0 -d 7 8 9 10
 	bspc wm -O "%${main_monitor}" HDMI-1-0
+#
+#elif [[ $is_usb_c_adaptor_present ]]; then
+#    export XCURSOR_SIZE=16
+#    ~/.screenlayout/1_USB_C_left.sh
+#    bspc monitor "%${main_monitor}" -d 1 2 3 4 5 6
+#    bspc monitor DP-1 -d 7 8 9 10
+#    bspc wm -O "%${main_monitor}" DP-1
+	
+	bspc rule -a TelegramDesktop state=floating center=true follow=true
 
-    bspc rule -a TelegramDesktop state=floating center=true follow=true desktop='^3'
-elif [[ $is_usb_c_adaptor_present ]]; then
-    export XCURSOR_SIZE=16
-    ~/.screenlayout/1_USB_C_left.sh
-    bspc monitor "%${main_monitor}" -d 1 2 3 4 5 6
-    bspc monitor DP-1 -d 7 8 9 10
-    bspc wm -O "%${main_monitor}" DP-1
-
-    bspc rule -a TelegramDesktop state=floating center=true follow=true desktop='^3'
 else
     xrandr --auto
     bspc monitor -d 1 2 3 4 5 6 7 8 9 10
     # ~/.local/bin/floating_ws_5.sh & # any windows in WS 5 will be floating
-
-    bspc rule -a TelegramDesktop state=floating center=true follow=true desktop='^7'
+	
+	bspc rule -a TelegramDesktop state=floating center=true follow=true desktop='^7'
 
     # Picom (compositor)
     #picom --xrender-sync-fence &
@@ -129,27 +128,20 @@ dunst &
 #nm-applet &
 
 # Blue-light dimmer
-killall -q redshift
+#killall -q redshift
 #while pgrep -u $UID -x redshift > /dev/null; do sleep 1; done
-# redshift &
+#redshift &
 
-# Battery status notifications: warn at 25%, critical at 20% and shutdown at 15%
+# Battery status notifications: warn at 25%, critical at 15% and shutdown at 10%
 killall -q batsignal
-batsignal -b -n BAT1 -w 25 -c 20 -d 15 -D 'systemctl poweroff'
+batsignal -b -n BAT0 -w 25 -c 15 -d 10 -D 'systemctl poweroff'
 
-# ------- Mouse/Touchpad fixes ------
-# Start libinput gestures
-#libinput-gestures-setup start
-# Xinput configs (touchpad)
-#xinput set-prop "ETPS/2 Elantech Touchpad" "libinput Tapping Enabled" 1
-#xinput set-prop "ETPS/2 Elantech Touchpad" "libinput Natural Scrolling Enabled" 1
-##xinput set-prop "ETPS/2 Elantech Touchpad" "libinput Click Method Enabled" 0 1
-##xinput set-prop "ETPS/2 Elantech Touchpad" "libinput Disable While Typing Enabled" 0
+# ------- Touchpad fixes ------
+[ -f ~/.local/autorun/rogue_touchpad_setup.sh ] && ~/.local/autorun/rogue_touchpad_setup.sh
 
 # ------- Keyboard fixes ------
 # Remap Caps-lock key to Escape, for using VIM
 # setxkbmap -option caps:escape
-#setxkbmap -layout it
 setxkbmap -layout us -variant intl
 
 # keybinding handler
