@@ -13,9 +13,9 @@ super + w
 
 super + e
 	TERMCMD=kitty EDITOR=nvim kitty \
-		--name ranger \
+		--name yazi \
 		-o initial_window_width=175c -o initial_window_height=45c \
-		-e tmux new-session ranger
+		-e tmux new-session yazi
 
 super + l
     betterlockscreen --off 5 -l
