@@ -1,0 +1,42 @@
+#!/usr/bin/bash
+set -e
+
+# First of all, enable IP forwarding:
+# create `/etc/sysctl.d/99-sysctl-ip_forward.conf`
+# with `net.ipv4.ip_forward=1`, then run `sudo sysctl --system`
+#
+# Then, install `dhcp` and configure `/etc/dhcpd.conf`:
+# ```
+# option domain-name-servers 8.8.8.8 8.8.4.4;
+# option subnet-mask 255.255.255.0;
+# option routers 192.168.211.1;
+# subnet 192.168.211.0 netmask 255.255.255.0 {
+#   range 192.168.211.100 192.168.211.250;
+# }
+# ```
+
+eth_dev=enp0s20f0u2
+wlan_dev=wlan1
+
+sudo ip link set up dev $eth_dev
+sudo ip a add 192.168.211.1/24 dev $eth_dev
+
+read -p "Do you wish to share the internet connection too? [Yn] " yn
+if [[ "$yn" != "n" ]]; then
+    sudo iptables -t nat -A POSTROUTING -o $wlan_dev -j MASQUERADE
+    sudo iptables -A FORWARD -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+    sudo iptables -A FORWARD -i $eth_dev -o $wlan_dev -j ACCEPT
+    echo "Internet connection shared to hosts!"
+fi
+
+# Allow DHCP and DNS requests
+sudo iptables -I INPUT -p udp --dport 67 -i $eth_dev -j ACCEPT
+sudo iptables -I INPUT -p udp --dport 53 -s 192.168.211.0/24 -j ACCEPT
+sudo iptables -I INPUT -p tcp --dport 53 -s 192.168.211.0/24 -j ACCEPT
+
+sudo systemctl start dhcpd4.service
+sudo ip r delete default via 192.168.211.1 >/dev/null 2>&1 | true
+
+# refs:
+# - https://wiki.archlinux.org/index.php/Internet_sharing
+# - https://wiki.archlinux.org/title/Dhcpd
