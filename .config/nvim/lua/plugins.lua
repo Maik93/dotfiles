@@ -12,7 +12,7 @@ return require('packer').startup(function()
   use 'vim-airline/vim-airline-themes'
 
   -- Git diff
-  use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
+  --use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
 
   -- Color highlighter
   use 'lilydjwg/colorizer'
