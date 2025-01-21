@@ -22,3 +22,10 @@
 	forceSignAnnotated = true
 [gpg]
 	program = gpg
+[safe]
+	directory = /opt/esp-idf
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
