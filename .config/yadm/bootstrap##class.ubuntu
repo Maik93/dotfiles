@@ -48,6 +48,25 @@ if [[ -f ~/.zshrc.pre-oh-my-zsh ]]; then
 fi
 sudo chsh -s /bin/zsh ${USER}
 
+# ====================================
+# Yazi
+# ====================================
+sudo apt install -y \
+	ffmpeg 7zip jq poppler-utils fd-find ripgrep fzf zoxide imagemagick
+
+cd ~/.local
+wget https://github.com/sxyazi/yazi/releases/latest/download/yazi-x86_64-unknown-linux-gnu.zip
+unzip yazi-x86_64-unknown-linux-gnu.zip
+ln -sr ~/.local/yazi-x86_64-unknown-linux-gnu/yazi ~/.local/bin/yazi
+ln -sr ~/.local/yazi-x86_64-unknown-linux-gnu/ya ~/.local/bin/ya
+
+mkdir -p ~/.config/yazi
+ya pack -a dangooddd/kanagawa # flavor
+ya pack -a yazi-rs/plugins:full-border
+ya pack -a yazi-rs/plugins:git
+ya pack -a yazi-rs/plugins:chmod
+ya pack -a yazi-rs/plugins:mime-ext
+
 echo "=============="
 echo "==== DONE ===="
 echo "=============="
