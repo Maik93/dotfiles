@@ -1,4 +1,4 @@
-require("full-border"):setup()
+--require("full-border"):setup()
 require("git"):setup()
 
 function Linemode:size_and_mtime()

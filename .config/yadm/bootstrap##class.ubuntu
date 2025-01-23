@@ -59,9 +59,13 @@ wget https://github.com/sxyazi/yazi/releases/latest/download/yazi-x86_64-unknown
 unzip yazi-x86_64-unknown-linux-gnu.zip
 ln -sr ~/.local/yazi-x86_64-unknown-linux-gnu/yazi ~/.local/bin/yazi
 ln -sr ~/.local/yazi-x86_64-unknown-linux-gnu/ya ~/.local/bin/ya
-
 mkdir -p ~/.config/yazi
-ya pack -a dangooddd/kanagawa # flavor
+
+# flavors (i.e. themes)
+ya pack -a dangooddd/kanagawa
+ya pack -a Chromium-3-Oxide/everforest-medium
+
+# plugins
 ya pack -a yazi-rs/plugins:full-border
 ya pack -a yazi-rs/plugins:git
 ya pack -a yazi-rs/plugins:chmod

@@ -1,2 +1,5 @@
 [flavor]
-use = "kanagawa"
+light = "everforest-medium"
+dark = "everforest-medium"
+#dark = "kanagawa"
+#dark = "gruvbox-dark"
