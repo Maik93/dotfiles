@@ -2,33 +2,35 @@
 set -e
 
 usage() {
-        echo
-        echo "Usage: `basename $0` [-o user:group] [-s] directory [-h]"
-        echo "  o   set owner, e.g. '-o `id -un`:`id -gn`'."
-        echo "  s   use sudo."
-        echo "  h   help and usage message."
-        echo
+    echo
+    echo "Usage: `basename $0` [-o user:group] [-d] [-s] directory [-h]"
+    echo "  o   set owner, e.g. '-o `id -un`:`id -gn`'."
+    echo "  d   just fix directories."
+    echo "  s   use sudo."
+    echo "  h   help and usage message."
+    echo
 }
 
 set_owner=false
 sudo_cmd=''
 
 # `getopts` ref: https://www.computerhope.com/unix/bash/getopts.htm
-while getopts "o:sh" arg; do
-        case $arg in
-                o) set_owner=true; new_owner=${OPTARG};;
-                s) sudo_cmd='sudo';;
-                h) echo "Set directory permissions to 755 and files to 644. Optionally set owner too."; usage; exit 0;;
-                ?) echo "Unknown option: -$OPTARG" >&2; usage; exit 1;;
-                :)  echo "Missing option argument for -$OPTARG" >&2; usage; exit 1;;
-        esac
+while getopts "o:sdh" arg; do
+    case $arg in
+        o) set_owner=true; new_owner=${OPTARG};;
+        d) just_dirs=true;;
+        s) sudo_cmd='sudo';;
+        h) echo "Set directory permissions to 755 and files to 644. Optionally set owner too."; usage; exit 0;;
+        ?) echo "Unknown option: -$OPTARG" >&2; usage; exit 1;;
+        :) echo "Missing option argument for -$OPTARG" >&2; usage; exit 1;;
+    esac
 done
 
 # get remaining arguments after options
 shift $(($OPTIND - 1))
 dirToFix="$@"
 if [[ -z $dirToFix ]]; then
-        echo 'Missing target directory.' >&2; usage; exit 1
+    echo 'Missing target directory.' >&2; usage; exit 1
 fi
 
 # Setup find correctly
@@ -43,6 +45,10 @@ for x in ${dirToFix[@]}; do
         $sudo_cmd chmod -c 775 $i
     done
 
+    if [ "$just_dirs" = true ]; then
+        continue
+    fi
+
     # files
 	echo "Fixing file permissions..."
     for i in $($sudo_cmd find $x -type f); do
@@ -51,5 +57,4 @@ for x in ${dirToFix[@]}; do
     done
 done
 
-echo "File and directory permissions recursively fixed succesfully."
-echo "They are now set to 644 and 755, respectively."
+echo "Permissions recursively fixed succesfully."
