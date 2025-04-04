@@ -15,6 +15,11 @@ run-shell "~/.config/tmux/tmux-power.tmux"
 run-shell "~/.config/tmux/tmux-net-speed/net-speed.tmux"
 run-shell "~/.config/tmux/tmux-prefix-highlight/prefix_highlight.tmux"
 
+# image previews for yazi
+set -g allow-passthrough on
+set -ga update-environment TERM
+set -ga update-environment TERM_PROGRAM
+
 # disable bells
 set-option -g visual-activity off
 set-option -g visual-bell off
