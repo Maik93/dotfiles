@@ -55,21 +55,21 @@ sudo apt install -y \
 	ffmpeg 7zip jq poppler-utils fd-find ripgrep fzf zoxide imagemagick
 
 cd ~/.local
-wget https://github.com/sxyazi/yazi/releases/latest/download/yazi-x86_64-unknown-linux-gnu.zip
-unzip yazi-x86_64-unknown-linux-gnu.zip
-ln -sr ~/.local/yazi-x86_64-unknown-linux-gnu/yazi ~/.local/bin/yazi
-ln -sr ~/.local/yazi-x86_64-unknown-linux-gnu/ya ~/.local/bin/ya
+wget https://github.com/sxyazi/yazi/releases/latest/download/yazi-x86_64-unknown-linux-musl.zip
+unzip yazi-x86_64-unknown-linux-musl.zip
+ln -sr ~/.local/yazi-x86_64-unknown-linux-musl/yazi ~/.local/bin/yazi
+ln -sr ~/.local/yazi-x86_64-unknown-linux-musl/ya ~/.local/bin/ya
 mkdir -p ~/.config/yazi
 
 # flavors (i.e. themes)
-ya pack -a dangooddd/kanagawa
-ya pack -a Chromium-3-Oxide/everforest-medium
+~/.local/bin/ya pack -a dangooddd/kanagawa
+~/.local/bin/ya pack -a Chromium-3-Oxide/everforest-medium
 
 # plugins
-ya pack -a yazi-rs/plugins:full-border
-ya pack -a yazi-rs/plugins:git
-ya pack -a yazi-rs/plugins:chmod
-ya pack -a yazi-rs/plugins:mime-ext
+~/.local/bin/ya pack -a yazi-rs/plugins:full-border
+~/.local/bin/ya pack -a yazi-rs/plugins:git
+~/.local/bin/ya pack -a yazi-rs/plugins:chmod
+~/.local/bin/ya pack -a yazi-rs/plugins:mime-ext
 
 echo "=============="
 echo "==== DONE ===="
