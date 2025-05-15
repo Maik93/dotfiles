@@ -108,7 +108,7 @@ alias incognito=' unset HISTFILE'
 
 unsetopt share_history # disable history shared between open terminals
 
-ZSH_ELAPSED_TIME_EXCLUDE=(cd vim bat less man htop btop ranger yazi tmux ssh)
+ZSH_ELAPSED_TIME_EXCLUDE=(cd vim bat less man htop btop ranger yazi y tmux ssh)
 
 # User configuration
 
@@ -180,6 +180,15 @@ ranger() {
 7zc() {
   echo "==> Compressing '$1' in '$1.7z'"
   7z a -mmt=10 -mx=9 $1.7z $1
+}
+get-ssh-host() {
+  awk -v host="$1" '
+    $1 == "Host" {
+      if (found) exit
+      in_block = index(" " $0 " ", " " host " ") > 0
+    }
+    in_block { print; found=1 }
+  ' ~/.ssh/config.d/*
 }
 # Yazi
 function y() {
