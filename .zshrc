@@ -150,13 +150,20 @@ docker-all-containers() {
   docker $1 $(docker container ls -a | awk "NR>1 {print $ 1}")
 }
 docker-volume-backup() {
-  if [ $# -lt 2 ]; then
-    echo "Usage: docker-volume-backup <volume_name> <output_tar_gz_path>"
+  if [ $# -lt 1 ]; then
+    echo "Usage: docker-volume-backup <volume_name> [<output_tar_gz_path>]"
     return 1
   fi
 
   local volume_name=$1
-  local output_tar_gz=$(readlink -f "$2")
+
+  # Set default output path if not provided
+  if [ -z "$2" ]; then
+    local output_tar_gz=$(pwd)/${volume_name}.tar.gz
+  else
+    local output_tar_gz=$(readlink -f "$2")
+  fi
+
   local output_dir=$(dirname "$output_tar_gz")
   local output_file=$(basename "$output_tar_gz")
 
