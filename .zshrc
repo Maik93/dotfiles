@@ -149,6 +149,43 @@ docker-all-containers() {
   [ $# -ne 1 ] && echo "Usage: docker-all-containers [start|stop|rm]" && return 1
   docker $1 $(docker container ls -a | awk "NR>1 {print $ 1}")
 }
+docker-volume-backup() {
+  if [ $# -lt 2 ]; then
+    echo "Usage: docker-volume-backup <volume_name> <output_tar_gz_path>"
+    return 1
+  fi
+
+  local volume_name=$1
+  local output_tar_gz=$(readlink -f "$2")
+  local output_dir=$(dirname "$output_tar_gz")
+  local output_file=$(basename "$output_tar_gz")
+
+  docker run --rm \
+    -v "${volume_name}":/data:ro \
+    -v "${output_dir}":/backup \
+    alpine \
+    sh -c "tar -czf /backup/${output_file} -C /data ."
+}
+docker-volume-restore() {
+  if [ $# -lt 2 ]; then
+    echo "Usage: docker-volume-restore <input_tar_gz_path> <new_volume_name>"
+    return 1
+  fi
+
+  local input_tar_gz=$(readlink -f "$1")
+  local input_dir=$(dirname "$input_tar_gz")
+  local input_file=$(basename "$input_tar_gz")
+  local new_volume_name=$2
+
+  docker volume create "$new_volume_name"
+
+  docker run --rm \
+    -v "${new_volume_name}":/data \
+    -v "${input_dir}":/backup \
+    alpine \
+    sh -c "tar -xzf /backup/${input_file} -C /data"
+}
+
 
 # Other useful aliases
 alias qrencode='qrencode -t ANSIUTF8'
