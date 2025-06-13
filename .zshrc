@@ -117,6 +117,8 @@ ZSH_ELAPSED_TIME_EXCLUDE=(cd vim bat less man htop btop ranger yazi y tmux ssh)
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
+# Word cursor moves and deletes
+export WORDCHARS='*?_[]~=&;!#$%^(){}<>'
 bindkey '[3^' kill-word
 bindkey '[33~' backward-kill-word
 
