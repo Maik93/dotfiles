@@ -236,6 +236,9 @@ get-ssh-host() {
     in_block { print; found=1 }
   ' ~/.ssh/config.d/*
 }
+rm-empty-dirs() {
+	find $1 -type d -empty -delete
+}
 # Yazi
 function y() {
   if [ -n "$TMUX" ]; then
