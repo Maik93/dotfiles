@@ -24,9 +24,9 @@ if pacman -Qs paru > /dev/null ; then
 else
     mkdir -p ~/sources/compiled_from_source
     cd ~/sources/compiled_from_source
-    rm -rf paru
-    git clone https://aur.archlinux.org/paru.git
-    cd paru
+    rm -rf paru-bin
+    git clone https://aur.archlinux.org/paru-bin.git
+    cd paru-bin
     makepkg -si --noconfirm
     cd ~
 fi
