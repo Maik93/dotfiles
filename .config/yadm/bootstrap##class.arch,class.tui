@@ -12,12 +12,30 @@ sudo pacman -S --noconfirm --needed \
 	zoxide fzf
 
 # ranger plugins
-git clone https://github.com/jchook/ranger-zoxide.git ~/.config/ranger/plugins/zoxide
-git clone https://github.com/joouha/ranger_tmux.git ~/.config/ranger/plugins/ranger_tmux
+if [ ! -d ~/.config/ranger/plugins/zoxide ]; then
+    git clone https://github.com/jchook/ranger-zoxide.git ~/.config/ranger/plugins/zoxide
+else
+    git -C ~/.config/ranger/plugins/zoxide pull
+fi
+
+if [ ! -d ~/.config/ranger/plugins/ranger_tmux ]; then
+    git clone https://github.com/joouha/ranger_tmux.git ~/.config/ranger/plugins/ranger_tmux
+else
+    git -C ~/.config/ranger/plugins/ranger_tmux pull
+fi
 
 # tmux plugins
-git clone https://github.com/wfxr/tmux-net-speed.git ~/.config/tmux/tmux-net-speed
-git clone https://github.com/tmux-plugins/tmux-prefix-highlight.git ~/.config/tmux/tmux-prefix-highlight
+if [ ! -d ~/.config/tmux/tmux-net-speed ]; then
+    git clone https://github.com/wfxr/tmux-net-speed.git ~/.config/tmux/tmux-net-speed
+else
+    git -C ~/.config/tmux/tmux-net-speed pull
+fi
+
+if [ ! -d ~/.config/tmux/tmux-prefix-highlight ]; then
+    git clone https://github.com/tmux-plugins/tmux-prefix-highlight.git ~/.config/tmux/tmux-prefix-highlight
+else
+    git -C ~/.config/tmux/tmux-prefix-highlight pull
+fi
 
 if pacman -Qs paru > /dev/null ; then
     echo "Paru is already installed, moving on..."
@@ -57,13 +75,13 @@ sudo chsh -s /bin/zsh ${USER}
 # ====================================
 # Yazi
 # ====================================
-sudo pacman -S yazi ffmpegthumbnailer p7zip jq poppler fd ripgrep fzf zoxide imagemagick
+sudo pacman -S --noconfirm yazi ffmpegthumbnailer p7zip jq poppler fd ripgrep fzf zoxide imagemagick
 mkdir -p ~/.config/yazi
-ya pack -a dangooddd/kanagawa # flavor
-ya pack -a yazi-rs/plugins:full-border
-ya pack -a yazi-rs/plugins:git
-ya pack -a yazi-rs/plugins:chmod
-ya pack -a yazi-rs/plugins:mime-ext
+ya pkg add dangooddd/kanagawa # flavor
+ya pkg add yazi-rs/plugins:full-border
+ya pkg add yazi-rs/plugins:git
+ya pkg add yazi-rs/plugins:chmod
+ya pkg add yazi-rs/plugins:mime-ext
 
 echo "=============="
 echo "==== DONE ===="

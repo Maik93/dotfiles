@@ -62,14 +62,14 @@ ln -sr ~/.local/yazi-x86_64-unknown-linux-musl/ya ~/.local/bin/ya
 mkdir -p ~/.config/yazi
 
 # flavors (i.e. themes)
-~/.local/bin/ya pack -a dangooddd/kanagawa
-~/.local/bin/ya pack -a Chromium-3-Oxide/everforest-medium
+~/.local/bin/ya pkg add dangooddd/kanagawa
+~/.local/bin/ya pkg add Chromium-3-Oxide/everforest-medium
 
 # plugins
-~/.local/bin/ya pack -a yazi-rs/plugins:full-border
-~/.local/bin/ya pack -a yazi-rs/plugins:git
-~/.local/bin/ya pack -a yazi-rs/plugins:chmod
-~/.local/bin/ya pack -a yazi-rs/plugins:mime-ext
+~/.local/bin/ya pkg add yazi-rs/plugins:full-border
+~/.local/bin/ya pkg add yazi-rs/plugins:git
+~/.local/bin/ya pkg add yazi-rs/plugins:chmod
+~/.local/bin/ya pkg add yazi-rs/plugins:mime-ext
 
 echo "=============="
 echo "==== DONE ===="
