@@ -1,0 +1,8 @@
+if [ -z $BUN_INSTALL ]; then
+[ -s "/home/flynn/.local/share/reflex/bun/_bun" ] && source "/home/flynn/.local/share/reflex/bun/_bun"
+# bun
+export BUN_INSTALL="$HOME/.local/share/reflex/bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+fi
+
+conda "$@"

@@ -97,6 +97,12 @@ else
   compinit -C
 fi
 
+# lazy loading ~/.local/autoloaded/* executables
+fpath=($fpath ~/.local/autoloaded)
+autoload conda
+#autoload nvm
+autoload bun
+
 source $ZSH/oh-my-zsh.sh
 
 # Set window title as the hostname
