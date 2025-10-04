@@ -8,7 +8,7 @@ script_path=`( cd "$(dirname "$0")" && pwd -P )`
 
 sudo pacman -S --noconfirm --needed \
     ranger unzip \
-    openssh pacman-contrib \
+    openssh pacman-contrib fakeroot \
 	zoxide fzf
 
 # ranger plugins
@@ -77,7 +77,12 @@ sudo chsh -s /bin/zsh ${USER}
 # ====================================
 sudo pacman -S --noconfirm yazi ffmpegthumbnailer p7zip jq poppler fd ripgrep fzf zoxide imagemagick
 mkdir -p ~/.config/yazi
-ya pkg add dangooddd/kanagawa # flavor
+
+# flavors (i.e. themes)
+ya pkg add dangooddd/kanagawa
+ya pkg add Chromium-3-Oxide/everforest-medium
+
+# plugins
 ya pkg add yazi-rs/plugins:full-border
 ya pkg add yazi-rs/plugins:git
 ya pkg add yazi-rs/plugins:chmod
