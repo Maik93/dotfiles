@@ -233,6 +233,10 @@ ranger() {
   echo "==> Compressing '$1' in '$1.7z'"
   7z a -mmt=10 -mx=9 $1.7z $1
 }
+tarc() {
+  echo "==> Compressing '$1' in '$1.tgz'"
+  tar -czf $1.tgz $1
+}
 get-ssh-host() {
   awk -v host="$1" '
     $1 == "Host" {

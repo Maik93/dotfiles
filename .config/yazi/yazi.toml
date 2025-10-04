@@ -1,7 +1,19 @@
-[manager]
+[mgr]
 #linemode = "size"
 linemode = "size_and_mtime"
 mouse_events = [] # disabled
+
+[open]
+rules = [
+  # Folder
+  { mime = "inode/directory", use = [ "edit" ] },
+  # Empty file
+  { mime = "inode/empty", use = [ "edit" ] },
+  # Text file
+  { mime = "text/*", use = [ "edit" ] },
+  # Fallback
+  { name = "*", use = [ "open" ] },
+]
 
 [[plugin.prepend_fetchers]]
 id   = "git"

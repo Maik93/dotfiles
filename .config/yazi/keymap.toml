@@ -1,4 +1,4 @@
-[manager]
+[mgr]
 prepend_keymap = [
 	{ on = [ "c", "m" ], run = "plugin chmod",     desc = "Chmod on selected files" },
 	{ on = [ "c", "d" ], run = "cd --interactive", desc = "Go to a directory interactively" },
