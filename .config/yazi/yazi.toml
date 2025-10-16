@@ -6,13 +6,23 @@ mouse_events = [] # disabled
 [open]
 rules = [
   # Folder
-  { mime = "inode/directory", use = [ "edit" ] },
+  { mime = "inode/directory", use = [ "open", "reveal", "code" ] },
   # Empty file
-  { mime = "inode/empty", use = [ "edit" ] },
+  { mime = "inode/empty", use = [ "edit", "reveal" ] },
   # Text file
-  { mime = "text/*", use = [ "edit" ] },
+  { mime = "text/*", use = [ "edit", "reveal" ] },
+  # Other text files
+  { mime = "application/octet-stream", use = [ "edit", "reveal" ] }, 
   # Fallback
-  { name = "*", use = [ "open" ] },
+  { name = "*", use = [ "open", "reveal" ] },
+]
+
+[opener]
+code = [ { run = 'code "$@"' } ]
+
+[plugin]
+prepend_previewers = [
+  { mime = "application/octet-stream", run = "code" },
 ]
 
 [[plugin.prepend_fetchers]]
