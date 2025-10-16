@@ -71,6 +71,11 @@ mkdir -p ~/.config/yazi
 ~/.local/bin/ya pkg add yazi-rs/plugins:chmod
 ~/.local/bin/ya pkg add yazi-rs/plugins:mime-ext
 
+# ====================================
+# Other programs
+# ====================================
+xargs -a program_list sudo apt install -y
+
 echo "=============="
 echo "==== DONE ===="
 echo "=============="

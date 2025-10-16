@@ -88,6 +88,11 @@ ya pkg add yazi-rs/plugins:git
 ya pkg add yazi-rs/plugins:chmod
 ya pkg add yazi-rs/plugins:mime-ext
 
+# ====================================
+# Other programs
+# ====================================
+xargs -a program_list sudo pacman -S --noconfirm
+
 echo "=============="
 echo "==== DONE ===="
 echo "=============="
