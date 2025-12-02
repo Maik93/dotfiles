@@ -23,6 +23,24 @@ white_bold="%{${fg_bold[white]}%}"
 gray="%F{239}"
 reset="%{$reset_color%}"
 
+# Bell for long-running commands (no extra output, just bell)
+LONG_CMD_THRESHOLD=20
+zmodload zsh/datetime
+
+preexec() {
+  CMD_START_TIME=$EPOCHSECONDS
+}
+
+precmd() {
+  if [[ -n $CMD_START_TIME ]]; then
+    local duration=$((EPOCHSECONDS - CMD_START_TIME))
+    if (( duration > LONG_CMD_THRESHOLD )); then
+      print -n '\a'
+    fi
+    unset CMD_START_TIME
+  fi
+}
+
 machine_name() {
     context=""
     if [[ $USERNAME != "$DEFAULT_USER" ]]; then
