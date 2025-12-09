@@ -134,7 +134,7 @@ sudo hardcode-tray --size 24 --theme Papirus
 # ====================================
 # Other programs
 # ====================================
-xargs -a program_list sudo pacman -S --noconfirm
+xargs -a ~/.config/yadm/program_list sudo pacman -S --noconfirm
 
 echo "=============="
 echo "==== DONE ===="

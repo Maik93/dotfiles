@@ -70,11 +70,12 @@ mkdir -p ~/.config/yazi
 ~/.local/bin/ya pkg add yazi-rs/plugins:git
 ~/.local/bin/ya pkg add yazi-rs/plugins:chmod
 ~/.local/bin/ya pkg add yazi-rs/plugins:mime-ext
+~/.local/bin/ya pkg add boydaihungst/pref-by-location
 
 # ====================================
 # Other programs
 # ====================================
-xargs -a program_list sudo apt install -y
+xargs -a ~/.config/yadm/program_list sudo apt install -y
 
 echo "=============="
 echo "==== DONE ===="

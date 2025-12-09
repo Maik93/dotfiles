@@ -91,7 +91,7 @@ ya pkg add yazi-rs/plugins:mime-ext
 # ====================================
 # Other programs
 # ====================================
-xargs -a program_list sudo pacman -S --noconfirm
+xargs -a ~/.config/yadm/program_list sudo pacman -S --noconfirm
 
 echo "=============="
 echo "==== DONE ===="
