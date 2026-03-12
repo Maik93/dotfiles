@@ -1,10 +1,10 @@
-#!/bin/sh
+#!/bin/zsh
 set -e
 # ====================================
 # Install packages
 # ====================================
 
-script_path=`( cd "$(dirname "$0")" && pwd -P )`
+script_path="$( cd "$(dirname "$0")" && pwd -P )"
 
 # Install Brew
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -16,18 +16,18 @@ brew install -q neovim
 # oh-my-zsh
 # ====================================
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-autosuggestions "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
 
-cd $script_path
-for theme in `ls *.zsh-theme`; do
-	ln -sr ~/.config/yadm/$theme ~/.oh-my-zsh/custom/themes/$theme
+cd "$script_path"
+for theme in $(ls *.zsh-theme); do
+	ln -s "$HOME/.config/yadm/$theme" "$HOME/.oh-my-zsh/custom/themes/$theme"
 done
-mkdir -p ~/.oh-my-zsh/custom/plugins/elapsed-time
-ln -sr ~/.config/yadm/elapsed-time.plugin.zsh ~/.oh-my-zsh/custom/plugins/elapsed-time/.
+mkdir -p "$HOME/.oh-my-zsh/custom/plugins/elapsed-time"
+ln -s "$HOME/.config/yadm/elapsed-time.plugin.zsh" "$HOME/.oh-my-zsh/custom/plugins/elapsed-time/."
 
-if [[ -f ~/.zshrc.pre-oh-my-zsh ]]; then
-	rm ~/.zshrc
-	mv ~/.zshrc.pre-oh-my-zsh ~/.zshrc
+if [[ -f "$HOME/.zshrc.pre-oh-my-zsh" ]]; then
+	rm "$HOME/.zshrc"
+	mv "$HOME/.zshrc.pre-oh-my-zsh" "$HOME/.zshrc"
 fi
 
 # ====================================
@@ -36,7 +36,7 @@ fi
 brew install -q yazi sevenzip jq fd ripgrep fzf zoxide resvg imagemagick-full
 # Removed optional dependencies:  ffmpeg-full poppler font-symbols-only-nerd-font
 
-mkdir -p ~/.config/yazi
+mkdir -p "$HOME/.config/yazi"
 
 # flavors (i.e. themes)
 ya pkg add dangooddd/kanagawa
