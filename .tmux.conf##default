@@ -1,3 +1,5 @@
+# vim: filetype=lua
+
 # increase scroll history
 set-option -g history-limit 10000
 
