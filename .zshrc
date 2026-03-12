@@ -11,7 +11,7 @@ export PATH="$HOME/.local/bin:$HOME/.cargo/bin:$PATH"
 export GOPATH=$HOME/.local/go
 export PATH="$PATH:$GOPATH/bin"
 
-if [[ $TERM = 'xterm-kitty' || $TERM = 'xterm-256color' || $TERM = 'screen-256color' ]]; then
+if [[ $TERM = 'xterm-kitty' || $TERM = 'xterm-256color' || $TERM = 'screen-256color' || $TERM = 'xterm-ghostty' ]]; then
     export EDITOR=nvim
     alias vim='nvim'
 else
@@ -293,4 +293,3 @@ killp () {
 mount-as-user() {
   sudo mount -o rw,nosuid,nodev,relatime,uid=$(id -u),gid=$(id -g),fmask=0022,dmask=0022 $1 $2
 }
-
