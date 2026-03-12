@@ -52,5 +52,9 @@ There are, however, still some further configuration needed for some of the appl
 
 ### Neovim setup
 
-Open `nvim` and run `:PackerCompile` (during the first run ONLY), then `PackerInstall`.
-For any plugin that you'll later update, run `PackerUpdate`.
+Lazy.nvim will auto-bootstrap on first run. Simply open `nvim` and it will automatically install all plugins from `~/.config/nvim/lua/plugins/`.
+
+Common commands:
+- `:Lazy` - Open the Lazy UI to manage plugins
+- `:Lazy update` - Update all plugins
+- `:Lazy sync` - Install, update, and clean plugins

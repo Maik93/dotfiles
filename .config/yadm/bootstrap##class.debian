@@ -25,8 +25,7 @@ git clone https://github.com/tmux-plugins/tmux-prefix-highlight.git ~/.config/tm
 # nvim
 sudo apt install -y neovim
 
-# packer.nvim
-git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim || true
+# lazy.nvim will auto-bootstrap on first run
 
 # ====================================
 # oh-my-zsh

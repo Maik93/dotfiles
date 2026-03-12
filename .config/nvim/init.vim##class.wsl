@@ -1,5 +1,4 @@
-lua require('plugins')
-"lua require('git-diffview')
+lua require('config.lazy')
 
 " Theme
 set background=dark

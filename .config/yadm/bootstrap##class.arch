@@ -32,8 +32,9 @@ else
 fi
 
 paru -S --needed --noconfirm \
-    nvim-packer-git \
     pacman-cleanup-hook bat btop
+
+# lazy.nvim will auto-bootstrap on first nvim run
 
 # ====================================
 # oh-my-zsh
