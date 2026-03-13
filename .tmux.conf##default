@@ -4,6 +4,7 @@
 set-option -g history-limit 10000
 
 # terminal colors
+set -g @tmux_power_theme 'coral' # or snow
 set-option -g default-terminal "screen-256color"
 
 # configure plugins
@@ -52,6 +53,8 @@ bind -n S-Down selectp -D
 bind -n C-t new-window -a -c "#{pane_current_path}"
 bind -n C-Down next
 bind -n C-Up prev
+bind -n M-S-Left prev
+bind -n M-S-Right next
 
 # kill button
 bind-key k \

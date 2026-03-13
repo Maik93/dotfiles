@@ -1,11 +1,13 @@
+# vim: filetype=lua
+
 # increase scroll history
 set-option -g history-limit 10000
 
 # terminal colors
-set-option -g default-terminal "screen-256color"
+set -g @tmux_power_theme 'snow' # or coral
+set-option -g default-terminal "xterm-ghostty"
 
 # configure plugins
-set -g @tmux_power_theme 'snow'
 set -g @tmux_power_time_format '%H:%M'
 #set -g @tmux_power_show_upload_speed true
 #set -g @tmux_power_show_download_speed true
@@ -15,6 +17,11 @@ set -g @tmux_power_prefix_highlight_pos 'R'
 run-shell "~/.config/tmux/tmux-power.tmux"
 run-shell "~/.config/tmux/tmux-net-speed/net-speed.tmux"
 run-shell "~/.config/tmux/tmux-prefix-highlight/prefix_highlight.tmux"
+
+# image previews for yazi
+set -g allow-passthrough on
+set -ga update-environment TERM
+set -ga update-environment TERM_PROGRAM
 
 # disable bells
 set-option -g visual-activity off
@@ -46,6 +53,8 @@ bind -n S-Down selectp -D
 bind -n C-t new-window -a -c "#{pane_current_path}"
 bind -n C-Down next
 bind -n C-Up prev
+bind -n M-S-Left prev
+bind -n M-S-Right next
 
 # kill button
 bind-key k \
