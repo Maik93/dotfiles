@@ -116,6 +116,52 @@ unsetopt share_history # disable history shared between open terminals
 
 ZSH_ELAPSED_TIME_EXCLUDE=(cd vim bat less man htop btop ranger yazi y tmux ssh)
 
+# Add escape sequences for command completion notifications
+function finish_notify() {
+  local title=$1
+  local msg=$2
+  local cmd_clear=$(echo "$msg" | sed 's/[^a-zA-Z0-9 ]//g') # Clean special chars
+
+  # The OSC 777 sequence for notification
+  local osc_seq="\033]777;notify;$title;$cmd_clear\007"
+
+  if [ -n "$TMUX" ]; then
+    # Wrap in tmux passthrough escape: \033Ptmux;\033 ... \033\\
+    # Note the doubled \033 inside for tmux to handle it correctly
+    printf "\033Ptmux;\033$osc_seq\033\\"
+  else
+    # Standard terminal passthrough
+    printf "$osc_seq"
+  fi
+}
+
+# Hook into Zsh precmd (executed before the prompt is redrawn)
+finish_precmd() {
+  # Capture exit code first
+  local exit_code=$?
+
+  # Get the last command from history
+  local last_cmd=$(history | tail -n1 | sed 's/^[ ]*[0-9]*[ ]*//')
+
+  # # Exclude the same commands as in ZSH_ELAPSED_TIME_EXCLUDE
+  # for exclude in "${ZSH_ELAPSED_TIME_EXCLUDE[@]}"; do
+  #   if [[ "$last_cmd" == "$exclude"* ]]; then
+  #     return
+  #   fi
+  # done
+
+  local title="Command "
+  [[ $exit_code -ne 0 ]] && title+="Failed ($exit_code)" || title+="Finished"
+
+  if [[ -n "$last_cmd" ]]; then
+    finish_notify "$title" "$last_cmd"
+  fi
+}
+
+# Initialize the hook
+autoload -Uz add-zsh-hook
+add-zsh-hook precmd finish_precmd
+
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
