@@ -30,7 +30,7 @@ echo "Backing up volume '${volume_name}' to '${output_file}'..."
 docker run --rm \
     -v "${volume_name}":/data:ro \
     -v "${output_dir}":/backup \
-    facebook/zstd \
-    sh -c "tar --use-compress-program=zstd -cf /backup/${output_file} -C /data ."
+    alpine \
+	sh -c "apk add --no-cache zstd && tar -cf - -C /data . | zstd -o /backup/${output_file}"
 
 echo "Done. Archive written to '${output_tar}'."

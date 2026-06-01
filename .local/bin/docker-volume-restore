@@ -37,6 +37,7 @@ echo "Restoring from '${input_file}'..."
 docker run --rm \
     -v "${new_volume_name}":/data \
     -v "${input_dir}":/backup \
-    facebook/zstd sh -c "$extract_cmd"
+    alpine \
+	sh -c "apk add --no-cache zstd && zstd -d /backup/${input_file} -c | tar -xf - -C /data"
 
 echo "Done. Volume '${new_volume_name}' is ready."
