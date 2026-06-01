@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+usage() {
+    echo "Usage: $(basename "$0") <input_tar_path> <new_volume_name>"
+    echo "       Supported formats: .tar.gz, .tgz, .tar.zst"
+    exit 1
+}
+
+if [ $# -lt 2 ]; then
+    usage
+fi
+
+input_tar=$(readlink -f "$1")
+input_dir=$(dirname "$input_tar")
+input_file=$(basename "$input_tar")
+new_volume_name=$2
+
+if [ ! -f "$input_tar" ]; then
+    echo "Error: file not found: $input_tar"
+    exit 1
+fi
+
+case "$input_file" in
+    *.tar.zst)      extract_cmd="tar --use-compress-program=unzstd -xf /backup/${input_file} -C /data" ;;
+    *.tar.gz|*.tgz) extract_cmd="tar -xzf /backup/${input_file} -C /data" ;;
+    *)
+        echo "Error: unsupported format '${input_file}'. Expected .tar.gz, .tgz, or .tar.zst"
+        exit 1
+        ;;
+esac
+
+echo "Creating volume '${new_volume_name}'..."
+docker volume create "$new_volume_name"
+
+echo "Restoring from '${input_file}'..."
+docker run --rm \
+    -v "${new_volume_name}":/data \
+    -v "${input_dir}":/backup \
+    facebook/zstd sh -c "$extract_cmd"
+
+echo "Done. Volume '${new_volume_name}' is ready."

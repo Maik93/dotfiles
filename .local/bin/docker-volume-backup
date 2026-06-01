@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+usage() {
+    echo "Usage: $(basename "$0") <volume_name> [<output_tar_zst_path>]"
+    exit 1
+}
+
+if [ $# -lt 1 ]; then
+    usage
+fi
+
+volume_name=$1
+
+if [ -z "${2:-}" ]; then
+    output_tar=$(pwd)/${volume_name}.tar.zst
+else
+    output_tar=$(readlink -f "$2")
+fi
+
+output_dir=$(dirname "$output_tar")
+output_file=$(basename "$output_tar")
+
+if ! docker volume inspect "$volume_name" > /dev/null 2>&1; then
+    echo "Error: volume '${volume_name}' does not exist"
+    exit 1
+fi
+
+echo "Backing up volume '${volume_name}' to '${output_file}'..."
+docker run --rm \
+    -v "${volume_name}":/data:ro \
+    -v "${output_dir}":/backup \
+    facebook/zstd \
+    sh -c "tar --use-compress-program=zstd -cf /backup/${output_file} -C /data ."
+
+echo "Done. Archive written to '${output_tar}'."
