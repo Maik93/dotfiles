@@ -53,23 +53,21 @@ sudo chsh -s /bin/zsh ${USER}
 sudo apt install -y \
 	ffmpeg 7zip jq poppler-utils fd-find ripgrep fzf zoxide imagemagick
 
-cd ~/.local
-wget https://github.com/sxyazi/yazi/releases/latest/download/yazi-x86_64-unknown-linux-musl.zip
-unzip yazi-x86_64-unknown-linux-musl.zip
-ln -sr ~/.local/yazi-x86_64-unknown-linux-musl/yazi ~/.local/bin/yazi
-ln -sr ~/.local/yazi-x86_64-unknown-linux-musl/ya ~/.local/bin/ya
-mkdir -p ~/.config/yazi
+curl -sS https://debian.griffo.io/EA0F721D231FDD3A0A17B9AC7808B4DD62C41256.asc | sudo gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/debian.griffo.io.gpg
+echo "deb https://debian.griffo.io/apt $(lsb_release -sc 2>/dev/null) main" | sudo tee /etc/apt/sources.list.d/debian.griffo.io.list
+sudo apt update
+sudo apt install yazi
 
 # flavors (i.e. themes)
-~/.local/bin/ya pkg add dangooddd/kanagawa
-~/.local/bin/ya pkg add Chromium-3-Oxide/everforest-medium
+ya pkg add dangooddd/kanagawa
+ya pkg add Chromium-3-Oxide/everforest-medium
 
 # plugins
-~/.local/bin/ya pkg add yazi-rs/plugins:full-border
-~/.local/bin/ya pkg add yazi-rs/plugins:git
-~/.local/bin/ya pkg add yazi-rs/plugins:chmod
-~/.local/bin/ya pkg add yazi-rs/plugins:mime-ext
-~/.local/bin/ya pkg add boydaihungst/pref-by-location
+ya pkg add yazi-rs/plugins:full-border
+ya pkg add yazi-rs/plugins:git
+ya pkg add yazi-rs/plugins:chmod
+ya pkg add yazi-rs/plugins:mime-ext
+ya pkg add boydaihungst/pref-by-location
 
 # ====================================
 # Other programs
