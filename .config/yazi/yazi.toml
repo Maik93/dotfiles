@@ -12,9 +12,9 @@ rules = [
   # Text file
   { mime = "text/*", use = [ "edit", "reveal" ] },
   # Other text files
-  { mime = "application/octet-stream", use = [ "edit", "reveal" ] }, 
+  { mime = "application/octet-stream", use = [ "edit", "reveal" ] },
   # Fallback
-  { name = "*", use = [ "open", "reveal" ] },
+  { mime = "*", use = [ "open", "reveal" ] },
 ]
 
 [opener]
@@ -26,13 +26,18 @@ prepend_previewers = [
 ]
 
 [[plugin.prepend_fetchers]]
-id   = "git"
-name = "*/"
-run  = "git"
+url   = "*/"
+run   = "git"
+group = "git"
 
 [[plugin.prepend_fetchers]]
-id   = "mime"
-if   = "!mime"
-name = "*"
-run  = "mime-ext"
-prio = "high"
+url   = "local://*"
+run   = "mime-ext.local"
+prio  = "high"
+group = "mime"
+
+[[plugin.prepend_fetchers]]
+url   = "remote://*"
+run   = "mime-ext.remote"
+prio  = "high"
+group = "mime"
