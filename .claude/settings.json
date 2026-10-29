@@ -1,0 +1,55 @@
+{
+  "permissions": {
+    "defaultMode": "auto"
+  },
+  "model": "sonnet",
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/notify.sh"
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "matcher": "permission_prompt|idle_prompt",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/notify.sh"
+          }
+        ]
+      }
+    ]
+  },
+  "enabledPlugins": {
+    "robo-bar@robo-bar": true
+  },
+  "extraKnownMarketplaces": {
+    "robo-bar": {
+      "source": {
+        "source": "github",
+        "repo": "Maik93/claude-code-robo-bar"
+      }
+    }
+  },
+  "modelSettings": {
+    "claude-sonnet-5": {
+      "effortLevel": "high"
+    },
+    "claude-opus-5-5": {
+      "effortLevel": "medium"
+    }
+  },
+  "advisorModel": "opus",
+  "awaySummaryEnabled": false,
+  "theme": "dark",
+  "preferredNotifChannel": "iterm2_with_bell",
+  "remoteControlAtStartup": false,
+  "inputNeededNotifEnabled": true,
+  "agentPushNotifEnabled": true
+}

@@ -1,0 +1,22 @@
+#!/bin/bash
+# Claude Code hook: notify only for VS Code extension sessions, and only when VS Code is not the frontmost app.
+input=$(cat)
+
+# Only the VS Code extension lacks built-in notifications (CLI uses the terminal, desktop app has its own)
+[[ "$CLAUDE_CODE_ENTRYPOINT" == "claude-vscode" ]] || exit 0
+
+#front=$(lsappinfo info -only bundleid "$(lsappinfo front)")
+#[[ "$front" == *com.microsoft.VSCode* ]] && exit 0
+
+get() { printf '%s' "$input" | plutil -extract "$1" raw -o - - 2>/dev/null; }
+event=$(get hook_event_name)
+project=$(basename "$(get cwd)")
+
+if [[ "$event" == "Stop" ]]; then
+  msg="Task finished"; sound="Blow"
+else
+  msg=$(get message); msg=${msg:-"Needs your input"}; sound="Submarine"
+fi
+
+terminal-notifier -title "Claude Code - $project" -message "$msg" \
+  -sound "$sound" -group "claude-$project" -activate com.microsoft.VSCode

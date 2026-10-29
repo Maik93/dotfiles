@@ -1,0 +1,4 @@
+#!/bin/sh
+# Desktop notifications are set up on macOS only (notify.sh##class.mac); elsewhere this hook does nothing.
+cat >/dev/null
+exit 0
