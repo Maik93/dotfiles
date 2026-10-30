@@ -1,0 +1,26 @@
+#!/bin/sh
+set -e
+# ====================================
+# Claude Code: plugins listed in the tracked ~/.claude/settings.json
+# Safe to run again: it installs what is missing and updates what is there.
+# ====================================
+
+if ! command -v claude >/dev/null 2>&1; then
+	echo "claude not found: install Claude Code first, then run this again"
+	exit 1
+fi
+
+# Pick the right notify hook for this machine (macOS notifier, no-op elsewhere)
+yadm alt
+
+# ====================================
+# robo-bar (github.com/Maik93/claude-code-robo-bar)
+# ====================================
+claude plugin marketplace add Maik93/claude-code-robo-bar || claude plugin marketplace update robo-bar
+claude plugin install robo-bar@robo-bar --scope user
+claude plugin update robo-bar@robo-bar
+
+echo "=============="
+echo "==== DONE ===="
+echo "=============="
+echo "Run /reload-plugins in open Claude Code sessions, or start a new one."
