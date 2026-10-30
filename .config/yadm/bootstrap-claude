@@ -5,10 +5,19 @@ set -e
 # Safe to run again: it installs what is missing and updates what is there.
 # ====================================
 
-if ! command -v claude >/dev/null 2>&1; then
-	echo "claude not found: install Claude Code first, then run this again"
+# Claude Code on PATH, else the copy the VS Code extension ships (the newest one, on a VS Code remote server or a
+# desktop). Every copy keeps plugins in the same ~/.claude, so either one installs for all of them.
+if command -v claude >/dev/null 2>&1; then
+	claude=claude
+else
+	claude=$(ls -d "$HOME"/.vscode-server/extensions/anthropic.claude-code-*/resources/native-binary/claude \
+		"$HOME"/.vscode/extensions/anthropic.claude-code-*/resources/native-binary/claude 2>/dev/null | sort -V | tail -n 1)
+fi
+if [ -z "$claude" ]; then
+	echo "claude not found: install Claude Code or its VS Code extension first, then run this again"
 	exit 1
 fi
+echo "Using $claude"
 
 # Pick the right notify hook for this machine (macOS notifier, no-op elsewhere)
 yadm alt
@@ -16,9 +25,9 @@ yadm alt
 # ====================================
 # robo-bar (github.com/Maik93/claude-code-robo-bar)
 # ====================================
-claude plugin marketplace add Maik93/claude-code-robo-bar || claude plugin marketplace update robo-bar
-claude plugin install robo-bar@robo-bar --scope user
-claude plugin update robo-bar@robo-bar
+"$claude" plugin marketplace add Maik93/claude-code-robo-bar || "$claude" plugin marketplace update robo-bar
+"$claude" plugin install robo-bar@robo-bar --scope user
+"$claude" plugin update robo-bar@robo-bar
 
 echo "=============="
 echo "==== DONE ===="
