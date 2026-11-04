@@ -249,7 +249,9 @@ get-ssh-host() {
   ' ~/.ssh/config.d/*
 }
 rm-empty-dirs() {
-	find $1 -type d -empty -delete
+	# Previously: find $1 -type d -empty -delete
+	# but busybox doesn't support `-delete` option
+	find $1 -depth -type d -empty -exec rmdir {} \;
 }
 # Yazi
 function y() {
